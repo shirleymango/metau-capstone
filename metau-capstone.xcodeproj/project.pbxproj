@@ -17,8 +17,6 @@
 		858CB550286FA73D005805D1 /* metau_capstoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB54F286FA73D005805D1 /* metau_capstoneTests.m */; };
 		858CB55A286FA73D005805D1 /* metau_capstoneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB559286FA73D005805D1 /* metau_capstoneUITests.m */; };
 		858CB55C286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */; };
-		858CB56A286FA9E1005805D1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB569286FA9E1005805D1 /* LoginViewController.m */; };
-		858CB56D286FA9F2005805D1 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB56C286FA9F2005805D1 /* SignUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,10 +54,6 @@
 		858CB555286FA73D005805D1 /* metau-capstoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "metau-capstoneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		858CB559286FA73D005805D1 /* metau_capstoneUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = metau_capstoneUITests.m; sourceTree = "<group>"; };
 		858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = metau_capstoneUITestsLaunchTests.m; sourceTree = "<group>"; };
-		858CB568286FA9E1005805D1 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		858CB569286FA9E1005805D1 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		858CB56B286FA9F2005805D1 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		858CB56C286FA9F2005805D1 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +111,6 @@
 				858CB539286FA73C005805D1 /* ViewController.h */,
 				858CB53A286FA73C005805D1 /* ViewController.m */,
 				858CB53C286FA73C005805D1 /* Main.storyboard */,
-				858CB568286FA9E1005805D1 /* LoginViewController.h */,
-				858CB569286FA9E1005805D1 /* LoginViewController.m */,
-				858CB56B286FA9F2005805D1 /* SignUpViewController.h */,
-				858CB56C286FA9F2005805D1 /* SignUpViewController.m */,
 				858CB53F286FA73D005805D1 /* Assets.xcassets */,
 				858CB541286FA73D005805D1 /* LaunchScreen.storyboard */,
 				858CB544286FA73D005805D1 /* Info.plist */,
@@ -278,10 +268,8 @@
 			files = (
 				858CB53B286FA73C005805D1 /* ViewController.m in Sources */,
 				858CB535286FA73C005805D1 /* AppDelegate.m in Sources */,
-				858CB56D286FA9F2005805D1 /* SignUpViewController.m in Sources */,
 				858CB546286FA73D005805D1 /* main.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
-				858CB56A286FA9E1005805D1 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
