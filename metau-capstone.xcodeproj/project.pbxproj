@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F86790F131E6D1D53AFFCA1 /* Pods_metau_capstone_metau_capstoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E46AD704B113431C11BBAA69 /* Pods_metau_capstone_metau_capstoneUITests.framework */; };
 		858CB535286FA73C005805D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB534286FA73C005805D1 /* AppDelegate.m */; };
 		858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB537286FA73C005805D1 /* SceneDelegate.m */; };
 		858CB53B286FA73C005805D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB53A286FA73C005805D1 /* ViewController.m */; };
@@ -17,6 +18,9 @@
 		858CB550286FA73D005805D1 /* metau_capstoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB54F286FA73D005805D1 /* metau_capstoneTests.m */; };
 		858CB55A286FA73D005805D1 /* metau_capstoneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB559286FA73D005805D1 /* metau_capstoneUITests.m */; };
 		858CB55C286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */; };
+		858CB5732876295A005805D1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5722876295A005805D1 /* LoginViewController.m */; };
+		B9C6EC3708E11D2CCC285BB2 /* Pods_metau_capstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55ECC3116FC815665EAED3E9 /* Pods_metau_capstoneTests.framework */; };
+		BB9A846F40F31B2312705BAE /* Pods_metau_capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5F3B6EC7BADC8974488D66 /* Pods_metau_capstone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21768F493DE63F692956ADF5 /* Pods-metau-capstone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone.release.xcconfig"; path = "Target Support Files/Pods-metau-capstone/Pods-metau-capstone.release.xcconfig"; sourceTree = "<group>"; };
+		243B31673E0070DBCEB10773 /* Pods-metau-capstoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstoneTests.debug.xcconfig"; path = "Target Support Files/Pods-metau-capstoneTests/Pods-metau-capstoneTests.debug.xcconfig"; sourceTree = "<group>"; };
+		55ECC3116FC815665EAED3E9 /* Pods_metau_capstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_metau_capstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		640A2B8FEFF6510CC50ED769 /* Pods-metau-capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone.debug.xcconfig"; path = "Target Support Files/Pods-metau-capstone/Pods-metau-capstone.debug.xcconfig"; sourceTree = "<group>"; };
+		6C5F3B6EC7BADC8974488D66 /* Pods_metau_capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_metau_capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		719596D47D5CE237532F3045 /* Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig"; path = "Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		858CB530286FA73C005805D1 /* metau-capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "metau-capstone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		858CB533286FA73C005805D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		858CB534286FA73C005805D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +64,11 @@
 		858CB555286FA73D005805D1 /* metau-capstoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "metau-capstoneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		858CB559286FA73D005805D1 /* metau_capstoneUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = metau_capstoneUITests.m; sourceTree = "<group>"; };
 		858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = metau_capstoneUITestsLaunchTests.m; sourceTree = "<group>"; };
+		858CB5712876295A005805D1 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		858CB5722876295A005805D1 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		AE4BB1276E879114DA1EEBA7 /* Pods-metau-capstone-metau-capstoneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone-metau-capstoneUITests.release.xcconfig"; path = "Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E17EBB49E060DF0FF8D2A4BA /* Pods-metau-capstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstoneTests.release.xcconfig"; path = "Target Support Files/Pods-metau-capstoneTests/Pods-metau-capstoneTests.release.xcconfig"; sourceTree = "<group>"; };
+		E46AD704B113431C11BBAA69 /* Pods_metau_capstone_metau_capstoneUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_metau_capstone_metau_capstoneUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB9A846F40F31B2312705BAE /* Pods_metau_capstone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C6EC3708E11D2CCC285BB2 /* Pods_metau_capstoneTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F86790F131E6D1D53AFFCA1 /* Pods_metau_capstone_metau_capstoneUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +106,8 @@
 				858CB54E286FA73D005805D1 /* metau-capstoneTests */,
 				858CB558286FA73D005805D1 /* metau-capstoneUITests */,
 				858CB531286FA73C005805D1 /* Products */,
+				9B783613FF1717DF9FB32810 /* Pods */,
+				D55019519CCD679CC98B36A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +131,8 @@
 				858CB539286FA73C005805D1 /* ViewController.h */,
 				858CB53A286FA73C005805D1 /* ViewController.m */,
 				858CB53C286FA73C005805D1 /* Main.storyboard */,
+				858CB5712876295A005805D1 /* LoginViewController.h */,
+				858CB5722876295A005805D1 /* LoginViewController.m */,
 				858CB53F286FA73D005805D1 /* Assets.xcassets */,
 				858CB541286FA73D005805D1 /* LaunchScreen.storyboard */,
 				858CB544286FA73D005805D1 /* Info.plist */,
@@ -136,6 +158,29 @@
 			path = "metau-capstoneUITests";
 			sourceTree = "<group>";
 		};
+		9B783613FF1717DF9FB32810 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				640A2B8FEFF6510CC50ED769 /* Pods-metau-capstone.debug.xcconfig */,
+				21768F493DE63F692956ADF5 /* Pods-metau-capstone.release.xcconfig */,
+				719596D47D5CE237532F3045 /* Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig */,
+				AE4BB1276E879114DA1EEBA7 /* Pods-metau-capstone-metau-capstoneUITests.release.xcconfig */,
+				243B31673E0070DBCEB10773 /* Pods-metau-capstoneTests.debug.xcconfig */,
+				E17EBB49E060DF0FF8D2A4BA /* Pods-metau-capstoneTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D55019519CCD679CC98B36A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C5F3B6EC7BADC8974488D66 /* Pods_metau_capstone.framework */,
+				E46AD704B113431C11BBAA69 /* Pods_metau_capstone_metau_capstoneUITests.framework */,
+				55ECC3116FC815665EAED3E9 /* Pods_metau_capstoneTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,9 +188,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 858CB55F286FA73D005805D1 /* Build configuration list for PBXNativeTarget "metau-capstone" */;
 			buildPhases = (
+				B83681C4DC86BBA316D04F19 /* [CP] Check Pods Manifest.lock */,
 				858CB52C286FA73C005805D1 /* Sources */,
 				858CB52D286FA73C005805D1 /* Frameworks */,
 				858CB52E286FA73C005805D1 /* Resources */,
+				7CD6E98FF27D80FC42F855DF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -160,6 +207,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 858CB562286FA73D005805D1 /* Build configuration list for PBXNativeTarget "metau-capstoneTests" */;
 			buildPhases = (
+				E5D2B2496F381B113937284A /* [CP] Check Pods Manifest.lock */,
 				858CB547286FA73D005805D1 /* Sources */,
 				858CB548286FA73D005805D1 /* Frameworks */,
 				858CB549286FA73D005805D1 /* Resources */,
@@ -178,9 +226,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 858CB565286FA73D005805D1 /* Build configuration list for PBXNativeTarget "metau-capstoneUITests" */;
 			buildPhases = (
+				259D45F1478D633CDCEFC0A8 /* [CP] Check Pods Manifest.lock */,
 				858CB551286FA73D005805D1 /* Sources */,
 				858CB552286FA73D005805D1 /* Frameworks */,
 				858CB553286FA73D005805D1 /* Resources */,
+				BF1C0084BD7550B37513643A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,6 +311,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		259D45F1478D633CDCEFC0A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-metau-capstone-metau-capstoneUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CD6E98FF27D80FC42F855DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-metau-capstone/Pods-metau-capstone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-metau-capstone/Pods-metau-capstone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-metau-capstone/Pods-metau-capstone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B83681C4DC86BBA316D04F19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-metau-capstone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF1C0084BD7550B37513643A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5D2B2496F381B113937284A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-metau-capstoneTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		858CB52C286FA73C005805D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -270,6 +423,7 @@
 				858CB535286FA73C005805D1 /* AppDelegate.m in Sources */,
 				858CB546286FA73D005805D1 /* main.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
+				858CB5732876295A005805D1 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +591,7 @@
 		};
 		858CB560286FA73D005805D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 640A2B8FEFF6510CC50ED769 /* Pods-metau-capstone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,6 +618,7 @@
 		};
 		858CB561286FA73D005805D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21768F493DE63F692956ADF5 /* Pods-metau-capstone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -489,6 +645,7 @@
 		};
 		858CB563286FA73D005805D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 243B31673E0070DBCEB10773 /* Pods-metau-capstoneTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -506,6 +663,7 @@
 		};
 		858CB564286FA73D005805D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E17EBB49E060DF0FF8D2A4BA /* Pods-metau-capstoneTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -523,6 +681,7 @@
 		};
 		858CB566286FA73D005805D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 719596D47D5CE237532F3045 /* Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -538,6 +697,7 @@
 		};
 		858CB567286FA73D005805D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE4BB1276E879114DA1EEBA7 /* Pods-metau-capstone-metau-capstoneUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

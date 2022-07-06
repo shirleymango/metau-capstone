@@ -1,0 +1,6 @@
+framework module Pods_metau_capstoneTests {
+  umbrella header "Pods-metau-capstoneTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
