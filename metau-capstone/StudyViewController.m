@@ -6,6 +6,7 @@
 //
 
 #import "StudyViewController.h"
+#import "Parse/Parse.h"
 
 @interface StudyViewController ()
 
@@ -16,6 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+- (IBAction)didTapLogout:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+    }];
+    [self performSegueWithIdentifier:@"studyLogout" sender:nil];
 }
 
 /*
