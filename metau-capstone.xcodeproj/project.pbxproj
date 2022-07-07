@@ -20,6 +20,8 @@
 		858CB55C286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */; };
 		858CB5732876295A005805D1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5722876295A005805D1 /* LoginViewController.m */; };
 		858CB5762876346C005805D1 /* StudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5752876346C005805D1 /* StudyViewController.m */; };
+		85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8928765C8100155F8A /* CreateViewController.m */; };
+		85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8C28765C9000155F8A /* ScheduleViewController.m */; };
 		B9C6EC3708E11D2CCC285BB2 /* Pods_metau_capstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55ECC3116FC815665EAED3E9 /* Pods_metau_capstoneTests.framework */; };
 		BB9A846F40F31B2312705BAE /* Pods_metau_capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5F3B6EC7BADC8974488D66 /* Pods_metau_capstone.framework */; };
 /* End PBXBuildFile section */
@@ -69,6 +71,10 @@
 		858CB5722876295A005805D1 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		858CB5742876346C005805D1 /* StudyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyViewController.h; sourceTree = "<group>"; };
 		858CB5752876346C005805D1 /* StudyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyViewController.m; sourceTree = "<group>"; };
+		85CC1A8828765C8100155F8A /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
+		85CC1A8928765C8100155F8A /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		85CC1A8B28765C9000155F8A /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		85CC1A8C28765C9000155F8A /* ScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		AE4BB1276E879114DA1EEBA7 /* Pods-metau-capstone-metau-capstoneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone-metau-capstoneUITests.release.xcconfig"; path = "Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E17EBB49E060DF0FF8D2A4BA /* Pods-metau-capstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstoneTests.release.xcconfig"; path = "Target Support Files/Pods-metau-capstoneTests/Pods-metau-capstoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		E46AD704B113431C11BBAA69 /* Pods_metau_capstone_metau_capstoneUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_metau_capstone_metau_capstoneUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +140,10 @@
 				858CB539286FA73C005805D1 /* ViewController.h */,
 				858CB53A286FA73C005805D1 /* ViewController.m */,
 				858CB53C286FA73C005805D1 /* Main.storyboard */,
+				85CC1A8828765C8100155F8A /* CreateViewController.h */,
+				85CC1A8928765C8100155F8A /* CreateViewController.m */,
+				85CC1A8B28765C9000155F8A /* ScheduleViewController.h */,
+				85CC1A8C28765C9000155F8A /* ScheduleViewController.m */,
 				858CB5742876346C005805D1 /* StudyViewController.h */,
 				858CB5752876346C005805D1 /* StudyViewController.m */,
 				858CB5712876295A005805D1 /* LoginViewController.h */,
@@ -427,9 +437,11 @@
 				858CB53B286FA73C005805D1 /* ViewController.m in Sources */,
 				858CB535286FA73C005805D1 /* AppDelegate.m in Sources */,
 				858CB5762876346C005805D1 /* StudyViewController.m in Sources */,
+				85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */,
 				858CB546286FA73D005805D1 /* main.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
 				858CB5732876295A005805D1 /* LoginViewController.m in Sources */,
+				85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
