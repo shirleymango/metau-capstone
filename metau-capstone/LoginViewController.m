@@ -18,7 +18,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = YES;
-    NSLog(@"hi");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -29,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"hi!!");
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.hidesBottomBarWhenPushed = YES;
 }
@@ -40,16 +38,16 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            NSLog(@"Error: %@", error.localizedDescription);
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:okAction];
+            
+            [self presentViewController:alert animated:YES completion:^{}];
         } else {
-            if (PFUser.user) {
-                NSLog(@"user is yes");
-            }
-            else {
-                NSLog(@"user is no");
-            }
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-
         }
     }];
 }
@@ -66,6 +64,12 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:okAction];
+            
+            [self presentViewController:alert animated:YES completion:^{}];
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
