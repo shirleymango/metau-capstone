@@ -41,6 +41,12 @@
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
         } else {
+            if (PFUser.user) {
+                NSLog(@"user is yes");
+            }
+            else {
+                NSLog(@"user is no");
+            }
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
 
