@@ -37,19 +37,29 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
+    if ([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]) {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Empty text field." message:@"Please make sure you fill out both the username and password fields." preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alert addAction:okAction];
+        
+        [self presentViewController:alert animated:YES completion:^{}];
+    }
+    
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            if ([error.localizedDescription isEqual:@"Invalid username/password."]) {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid username/password." message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                }];
+                [alert addAction:okAction];
+                
+                [self presentViewController:alert animated:YES completion:^{}];
+            }
         } else {
-            if (PFUser.user) {
-                NSLog(@"user is yes");
-            }
-            else {
-                NSLog(@"user is no");
-            }
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-
         }
     }];
 }
