@@ -80,7 +80,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="q9g-JH-v6u">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="8cx-c4-Axy" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" modalPresentationStyle="fullScreen" id="8cx-c4-Axy" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Bid-OA-av7"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gIA-NI-LLi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
