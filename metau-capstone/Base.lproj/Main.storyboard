@@ -11,9 +11,9 @@
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="floof" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8D-vG-t3b">
@@ -118,17 +118,29 @@
         <!--Study-->
         <scene sceneID="Im3-je-H1t">
             <objects>
-                <viewController id="DGo-Cf-WYZ" customClass="StudyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="studyViewID" id="DGo-Cf-WYZ" customClass="StudyViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qTT-6Z-YlY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LK-H9-XUm">
+                                <rect key="frame" x="160" y="304" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
                         <color key="backgroundColor" red="0.64815621903391663" green="0.76871567964553833" blue="0.72997653922629535" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Study" id="WFc-79-tbi"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="studyLogout" id="Etq-cY-lnG"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Study" id="WFc-79-tbi">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="rectangle.portrait.and.arrow.right" catalog="system" id="Cyh-TX-iXZ">
+                            <connections>
+                                <action selector="didTapLogout:" destination="DGo-Cf-WYZ" id="hS2-ju-rYc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v2R-Q1-hUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
