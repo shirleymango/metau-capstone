@@ -122,22 +122,13 @@
                     <view key="view" contentMode="scaleToFill" id="qTT-6Z-YlY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LK-H9-XUm">
-                                <rect key="frame" x="160" y="304" width="30" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
                         <color key="backgroundColor" red="0.64815621903391663" green="0.76871567964553833" blue="0.72997653922629535" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Study" id="WFc-79-tbi">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="rectangle.portrait.and.arrow.right" catalog="system" id="Cyh-TX-iXZ">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" image="rectangle.portrait.and.arrow.right" catalog="system" id="YrG-SE-nDL">
                             <connections>
-                                <action selector="didTapLogout:" destination="DGo-Cf-WYZ" id="hS2-ju-rYc"/>
+                                <action selector="didTapLogout:" destination="DGo-Cf-WYZ" id="BXX-5u-Ps6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -183,14 +174,22 @@
         <!--Create-->
         <scene sceneID="tpy-Xl-LYo">
             <objects>
-                <viewController id="CyV-c1-3Q2" sceneMemberID="viewController">
+                <viewController id="CyV-c1-3Q2" customClass="CreateViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="azv-8G-oxV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="kc0-Om-lCW"/>
                         <color key="backgroundColor" red="0.74397719183798972" green="0.72323152269632274" blue="0.86078917980194092" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Create" id="Esr-L2-Gto"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Create" id="Esr-L2-Gto">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="rectangle.portrait.and.arrow.right" catalog="system" id="q0a-tB-pkT">
+                            <connections>
+                                <action selector="didTapLogout:" destination="CyV-c1-3Q2" id="cfp-tS-uvG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWE-BA-sYF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,14 +198,20 @@
         <!--Schedule-->
         <scene sceneID="DHg-vu-UuD">
             <objects>
-                <viewController id="cUO-Hs-cP2" sceneMemberID="viewController">
+                <viewController id="cUO-Hs-cP2" customClass="ScheduleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9TQ-zA-9RO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="KN0-5C-YJf"/>
                         <color key="backgroundColor" red="0.67132152314796445" green="0.83426602015526541" blue="0.86078917980194092" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Schedule" id="71V-YN-awj"/>
+                    <navigationItem key="navigationItem" title="Schedule" id="71V-YN-awj">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="rectangle.portrait.and.arrow.right" catalog="system" id="dUN-J2-bXq">
+                            <connections>
+                                <action selector="didTapLogout:" destination="cUO-Hs-cP2" id="N52-pG-sro"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRn-kW-tEu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
