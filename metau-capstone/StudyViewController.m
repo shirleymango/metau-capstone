@@ -56,7 +56,7 @@
     [label setFrame:CGRectMake(0, 0, 300, 180)];
     [self.front addSublayer:label];
     
-//    [self.view.layer addSublayer:self.front];
+    [self.view.layer addSublayer:self.front];
     
     // create rotation animation
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
@@ -75,12 +75,16 @@
         self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         self.back.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
         self.isFlipped = YES;
+        self.back.zPosition = 10;
+        self.front.zPosition = 0;
         NSLog(@"to back");
     }
     else {
         self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
         self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         self.isFlipped = NO;
+        self.front.zPosition = 10;
+        self.back.zPosition = 0;
         NSLog(@"to front");
     }
 //    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
