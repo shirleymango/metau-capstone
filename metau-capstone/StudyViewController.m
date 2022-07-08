@@ -52,12 +52,14 @@
 //    [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
     
     if (!self.isFlipped) {
-        self.layer.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+        self.layer.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         self.isFlipped = YES;
+        NSLog(@"to back");
     }
     else {
-        self.layer.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+        self.layer.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
         self.isFlipped = NO;
+        NSLog(@"to front");
     }
 //    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
 }
