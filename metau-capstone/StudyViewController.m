@@ -18,19 +18,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // create the flashcard
     self.layer = [[CALayer alloc] init];
     self.layer.frame = CGRectMake(0, 0, 300, 180);
-    self.layer.backgroundColor = [[UIColor blackColor] CGColor];
+    self.layer.backgroundColor = [[UIColor whiteColor] CGColor];
     self.layer.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    
+    // add text label to the flashcard
+    CATextLayer *label = [[CATextLayer alloc] init];
+    [label setFont:@"Helvetica-Bold"];
+    [label setFontSize:20];
+    [label setString:@"Hello"];
+    [label setAlignmentMode:kCAAlignmentCenter];
+    [label setForegroundColor:[[UIColor blackColor] CGColor]];
+    [label setFrame:CGRectMake(0, 0, 300, 180)];
+    [self.layer addSublayer:label];
+    
     [self.view.layer addSublayer:self.layer];
     
+    // create rotation animation
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
     self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
-    self.rotateAnim.duration = 1;
+    self.rotateAnim.duration = 0.8;
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
+    // call rotation animation on flashcard
     [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
 //    self.layer.transform = CATransform3DMakeRotation(M_PI, 0, 1, 0);
 //    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
