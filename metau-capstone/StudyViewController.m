@@ -40,7 +40,6 @@
     [self.view.layer addSublayer:self.back];
     
     // FRONT SIDE
-    // create the flashcard
     self.front = [[CALayer alloc] init];
     self.front.frame = CGRectMake(0, 0, 300, 180);
     self.front.backgroundColor = [[UIColor whiteColor] CGColor];
@@ -68,9 +67,6 @@
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
-    // call rotation animation on flashcard
-//    [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
-    
     if (!self.isFlipped) {
         self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         self.back.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
@@ -87,7 +83,6 @@
         self.back.zPosition = 0;
         NSLog(@"to front");
     }
-//    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
 }
 
 /*
