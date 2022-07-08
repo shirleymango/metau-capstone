@@ -12,6 +12,8 @@
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *layer;
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
+@property (nonatomic) CATransform3D horizontalFlip;
+@property (nonatomic) BOOL isFlipped;
 @end
 
 @implementation StudyViewController
@@ -41,12 +43,22 @@
     self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
     self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
     self.rotateAnim.duration = 0.8;
+    
+    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     // call rotation animation on flashcard
-    [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
-//    self.layer.transform = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+//    [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
+    
+    if (!self.isFlipped) {
+        self.layer.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+        self.isFlipped = YES;
+    }
+    else {
+        self.layer.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+        self.isFlipped = NO;
+    }
 //    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
 }
 
