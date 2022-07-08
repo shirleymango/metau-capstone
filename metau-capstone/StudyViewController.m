@@ -24,15 +24,16 @@
     self.layer.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     [self.view.layer addSublayer:self.layer];
     
-    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
-    self.rotateAnim.toValue = [NSNumber numberWithFloat:(360 * M_PI / 180.0f)];
-    self.rotateAnim.duration = 2.5;
+    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
+    self.rotateAnim.duration = 1;
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     [self.layer addAnimation:self.rotateAnim forKey:@"rotationAnimation"];
 //    self.layer.transform = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+//    [self.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 1, 0)];
 }
 
 /*
