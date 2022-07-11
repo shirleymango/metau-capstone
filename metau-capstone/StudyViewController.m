@@ -18,6 +18,7 @@
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
 @property (nonatomic, strong) NSArray *arrayOfCards;
+@property (nonatomic, assign) NSInteger counter;
 
 @end
 
@@ -33,7 +34,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
         if (cards != nil) {
             self.arrayOfCards = cards;
-            Flashcard *card = cards[0];
+            self.counter = 0;
+            Flashcard *card = cards[self.counter];
             [self loadFlashcard:card];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -87,6 +89,11 @@
     [self.view.layer addSublayer:self.front];
 }
 
+- (IBAction)didTapRight:(UIButton *)sender {
+    self.counter++;
+    [self loadFlashcard:self.arrayOfCards[self.counter]];
+}
+
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     if (!self.isFlipped) {
         self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
@@ -105,6 +112,7 @@
         NSLog(@"to front");
     }
 }
+
 
 /*
 #pragma mark - Navigation

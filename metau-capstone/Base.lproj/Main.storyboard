@@ -127,6 +127,9 @@
                                 <rect key="frame" x="288" y="532" width="48" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="return.right" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="didTapRight:" destination="DGo-Cf-WYZ" eventType="touchUpInside" id="zrf-At-bFi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ss0-QC-Ui1">
                                 <rect key="frame" x="79" y="532" width="48" height="31"/>
