@@ -116,7 +116,7 @@
     // Retrieve the object by id
     [query getObjectInBackgroundWithId:card.objectId
                                  block:^(PFObject *card, NSError *error) {
-        card[@"levelNum"] = @(0);
+        card[@"levelNum"] = @(1);
         [card saveInBackground];
     }];
     
