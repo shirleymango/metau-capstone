@@ -35,7 +35,7 @@
         if (cards != nil) {
             self.arrayOfCards = cards;
             self.counter = 0;
-            [self loadFlashcard:0];
+            [self loadFlashcard];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -50,7 +50,7 @@
     self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
 }
 
-- (void) loadFlashcard : (NSInteger *) index {
+- (void) loadFlashcard {
     if (self.counter < self.arrayOfCards.count) {
         Flashcard *card = self.arrayOfCards[self.counter];
         //BACK SIDE
@@ -96,12 +96,12 @@
 
 - (IBAction)didTapRight:(UIButton *)sender {
     self.counter++;
-    [self loadFlashcard:self.counter];
+    [self loadFlashcard];
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
     self.counter++;
-    [self loadFlashcard:self.counter];
+    [self loadFlashcard];
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
