@@ -9,8 +9,11 @@
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "Flashcard.h"
 
 @interface CreateViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *frontTextField;
+@property (weak, nonatomic) IBOutlet UITextField *backTextField;
 
 @end
 
@@ -19,6 +22,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)didTapSubmit:(UIButton *)sender {
+    NSLog(@"%@", self.frontTextField.text);
+    
+    [Flashcard createCard: self.frontTextField.text withBack: self.backTextField.text withCompletion:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"success in creating card ^-^!");
+            self.frontTextField.text = @"";
+            self.backTextField.text = @"";
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Sucess ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{}];
+        }
+        else {
+            NSLog(@"nooo cry %@", error.localizedDescription);
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{}];
+        }
+    }];
 }
 
 - (IBAction)didTapLogout:(id)sender {
