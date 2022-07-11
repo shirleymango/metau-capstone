@@ -30,6 +30,7 @@
     // Construct Query
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     [query whereKey:@"userID" equalTo:user.objectId];
+    [query whereKey:@"levelNum" equalTo:@(1)];
     
     // Fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
