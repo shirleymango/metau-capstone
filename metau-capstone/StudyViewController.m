@@ -94,6 +94,11 @@
     [self loadFlashcard:self.arrayOfCards[self.counter]];
 }
 
+- (IBAction)didTapLeft:(UIButton *)sender {
+    self.counter++;
+    [self loadFlashcard:self.arrayOfCards[self.counter]];
+}
+
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     if (!self.isFlipped) {
         self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);

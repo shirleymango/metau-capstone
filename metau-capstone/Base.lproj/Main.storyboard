@@ -139,6 +139,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="return.left" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="didTapLeft:" destination="DGo-Cf-WYZ" eventType="touchUpInside" id="Flr-9L-ddW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
