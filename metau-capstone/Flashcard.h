@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *frontText;
 @property (nonatomic, strong) NSString *backText;
 @property (nonatomic, strong) NSNumber *levelNum;
+@property (nonatomic, strong) NSString *userID;
+
 + (void) createCard: ( NSString * _Nullable)frontText withBack: (NSString * _Nullable)backText withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end

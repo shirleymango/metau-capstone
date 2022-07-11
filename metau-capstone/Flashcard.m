@@ -12,7 +12,7 @@
 @dynamic frontText;
 @dynamic backText;
 @dynamic levelNum;
-
+@dynamic userID;
 
 + (nonnull NSString *)parseClassName {
     return @"Flashcard";
@@ -23,6 +23,8 @@
     Flashcard *newCard = [Flashcard new];
     newCard.frontText = frontText;
     newCard.backText = backText;
+    newCard.levelNum = @(0);
+    newCard.userID = [PFUser currentUser].objectId;
 
     [newCard saveInBackgroundWithBlock: completion];
 }
