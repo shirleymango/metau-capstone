@@ -9,53 +9,72 @@
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "Flashcard.h"
+
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
 @property (nonatomic, strong) CALayer *back;
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
+@property (nonatomic, strong) NSArray *arrayOfCards;
+
 @end
 
 @implementation StudyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //BACK SIDE
-    self.back = [[CALayer alloc] init];
-    self.back.frame = CGRectMake(0, 0, 300, 180);
-    self.back.backgroundColor = [[UIColor blackColor] CGColor];
-    self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     
-    // add text label to the flashcard
-    CATextLayer *backLabel = [[CATextLayer alloc] init];
-    [backLabel setFont:@"Helvetica-Bold"];
-    [backLabel setFontSize:20];
-    [backLabel setString:@"Back"];
-    [backLabel setAlignmentMode:kCAAlignmentCenter];
-    [backLabel setForegroundColor:[[UIColor whiteColor] CGColor]];
-    [backLabel setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.back addSublayer:backLabel];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.view.layer addSublayer:self.back];
+    // Construct Query
+    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     
-    // FRONT SIDE
-    self.front = [[CALayer alloc] init];
-    self.front.frame = CGRectMake(0, 0, 300, 180);
-    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-    self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    
-    // add text label to the flashcard
-    CATextLayer *label = [[CATextLayer alloc] init];
-    [label setFont:@"Helvetica-Bold"];
-    [label setFontSize:20];
-    [label setString:@"Front"];
-    [label setAlignmentMode:kCAAlignmentCenter];
-    [label setForegroundColor:[[UIColor blackColor] CGColor]];
-    [label setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.front addSublayer:label];
-    
-    [self.view.layer addSublayer:self.front];
+    // Fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
+        if (cards != nil) {
+            self.arrayOfCards = cards;
+            Flashcard *card = cards[4];
+            NSLog(@"%@", card.frontText);
+            
+            //BACK SIDE
+            self.back = [[CALayer alloc] init];
+            self.back.frame = CGRectMake(0, 0, 300, 180);
+            self.back.backgroundColor = [[UIColor blackColor] CGColor];
+            self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+            
+            // add text label to the flashcard
+            CATextLayer *backLabel = [[CATextLayer alloc] init];
+            [backLabel setFont:@"Helvetica-Bold"];
+            [backLabel setFontSize:20];
+            [backLabel setString:card.backText];
+            [backLabel setAlignmentMode:kCAAlignmentCenter];
+            [backLabel setForegroundColor:[[UIColor whiteColor] CGColor]];
+            [backLabel setFrame:CGRectMake(0, 0, 300, 180)];
+            [self.back addSublayer:backLabel];
+            self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+            [self.view.layer addSublayer:self.back];
+            
+            // FRONT SIDE
+            self.front = [[CALayer alloc] init];
+            self.front.frame = CGRectMake(0, 0, 300, 180);
+            self.front.backgroundColor = [[UIColor whiteColor] CGColor];
+            self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+            
+            // add text label to the flashcard
+            CATextLayer *label = [[CATextLayer alloc] init];
+            [label setFont:@"Helvetica-Bold"];
+            [label setFontSize:20];
+            [label setString:card.frontText];
+            [label setAlignmentMode:kCAAlignmentCenter];
+            [label setForegroundColor:[[UIColor blackColor] CGColor]];
+            [label setFrame:CGRectMake(0, 0, 300, 180)];
+            [self.front addSublayer:label];
+            
+            [self.view.layer addSublayer:self.front];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
     
     // create rotation animation
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
