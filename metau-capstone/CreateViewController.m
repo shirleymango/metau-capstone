@@ -32,6 +32,11 @@
             NSLog(@"success in creating card ^-^!");
             self.frontTextField.text = @"";
             self.backTextField.text = @"";
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Sucess ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{}];
         }
         else {
             NSLog(@"nooo cry %@", error.localizedDescription);
@@ -39,6 +44,7 @@
             UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
             [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{}];
         }
     }];
 }
