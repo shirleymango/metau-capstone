@@ -26,9 +26,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    PFUser *user = [PFUser currentUser];
     // Construct Query
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
+    [query whereKey:@"userID" equalTo:user.objectId];
     
     // Fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
