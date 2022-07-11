@@ -9,7 +9,6 @@
 #import "Parse/Parse.h"
 
 @interface LoginViewController ()
-
 @end
 
 @implementation LoginViewController
@@ -28,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.hidesBottomBarWhenPushed = YES;
 }
