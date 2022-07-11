@@ -123,15 +123,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQn-4x-lhI">
-                                <rect key="frame" x="288" y="517" width="48" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQn-4x-lhI">
+                                <rect key="frame" x="288" y="532" width="48" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="return.right" catalog="system" title=""/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ss0-QC-Ui1">
-                                <rect key="frame" x="79" y="517" width="48" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ss0-QC-Ui1">
+                                <rect key="frame" x="79" y="532" width="48" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="9Ec-Nm-IGL"/>
+                                    <constraint firstAttribute="width" constant="48" id="VRq-Lg-ZEq"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="return.left" catalog="system" title=""/>
                             </button>
@@ -139,6 +141,14 @@
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
                         <color key="backgroundColor" red="0.64815621903391663" green="0.76871567964553833" blue="0.72997653922629535" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="nQn-4x-lhI" firstAttribute="centerY" secondItem="ss0-QC-Ui1" secondAttribute="centerY" id="1ET-ui-ok1"/>
+                            <constraint firstItem="nQn-4x-lhI" firstAttribute="width" secondItem="ss0-QC-Ui1" secondAttribute="width" id="2QY-wl-k3r"/>
+                            <constraint firstItem="nQn-4x-lhI" firstAttribute="height" secondItem="ss0-QC-Ui1" secondAttribute="height" id="Mla-5W-Ug2"/>
+                            <constraint firstItem="xIU-OP-FRg" firstAttribute="trailing" secondItem="nQn-4x-lhI" secondAttribute="trailing" constant="78" id="QXm-S8-dzu"/>
+                            <constraint firstItem="ss0-QC-Ui1" firstAttribute="leading" secondItem="xIU-OP-FRg" secondAttribute="leading" constant="79" id="qJM-as-m4o"/>
+                            <constraint firstItem="xIU-OP-FRg" firstAttribute="bottom" secondItem="ss0-QC-Ui1" secondAttribute="bottom" constant="250" id="y8z-Hg-hDG"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="dKy-eo-ZdY" appends="YES" id="82f-ze-JCR"/>
                         </connections>
