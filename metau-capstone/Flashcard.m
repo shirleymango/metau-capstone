@@ -23,7 +23,7 @@
     Flashcard *newCard = [Flashcard new];
     newCard.frontText = frontText;
     newCard.backText = backText;
-    newCard.levelNum = @(0);
+    newCard.levelNum = @(1);
     newCard.userID = [PFUser currentUser].objectId;
 
     [newCard saveInBackgroundWithBlock: completion];
