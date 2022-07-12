@@ -9,6 +9,7 @@
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "Schedule.h"
 
 @interface ScheduleViewController ()
 
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
 }
 
 - (IBAction)didTapLogout:(id)sender {
