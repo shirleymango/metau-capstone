@@ -28,9 +28,9 @@
     [super viewDidLoad];
     PFUser *user = [PFUser currentUser];
     // Construct Query
-    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
-    [query whereKey:@"userID" equalTo:user.objectId];
-    [query whereKey:@"levelNum" equalTo:@(1)];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 2) OR (levelNum = 4))", user.objectId];
+    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
     
     // Fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
