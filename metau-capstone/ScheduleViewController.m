@@ -20,15 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    for (int i = 4; i <= 64; i+=8) {
+    for (int i = 12; i <= 64; i+=16) {
         // Retrieve the day
-        if (i != 4 && i % 2 == 0) {
-            // if i is even and not 4, add 1
-            i++;
-        }
-        else if (i % 2 == 1) {
-            i--;
-        }
+//        if (i != 4 && i % 2 == 0) {
+//            // if i is even and not 4, add 1
+//            i++;
+//        }
+//        else if (i % 2 == 1) {
+//            i--;
+//        }
         PFQuery *query = [PFQuery queryWithClassName:@"Schedule"];
         NSNumber *currentDay = [NSNumber numberWithInt:i];
         [query whereKey:@"dayNum" equalTo:currentDay];
@@ -36,7 +36,7 @@
             if (objects != nil) {
                 Schedule *day = objects[0];
                 NSLog(@"%@", day.dayNum);
-                [day addObject:@(4) forKey:@"arrayOfLevels"];
+                [day addObject:@(5) forKey:@"arrayOfLevels"];
                 [day saveInBackground];
             }
         }];
