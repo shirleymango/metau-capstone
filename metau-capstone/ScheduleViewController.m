@@ -23,16 +23,21 @@
     NSUInteger count = sizeof(objects) / sizeof(id);
     NSArray *array = [NSArray arrayWithObjects:objects
                                          count:count];
-    for (int i = 1; i <= 64; i++) {
-        NSNumber *dayNum = [NSNumber numberWithInt:i];
-        [Schedule createDay:array withNum:dayNum withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"done!");
-            }
-            else {
-                NSLog(@"ruh roh");
+    for (int i = 1; i <= 64; i+=2) {
+        // Retrieve the day
+        PFQuery *query = [PFQuery queryWithClassName:@"Schedule"];
+        NSNumber *currentDay = [NSNumber numberWithInt:i];
+        [query whereKey:@"dayNum" equalTo:currentDay];
+        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (objects != nil) {
+                Schedule *day = objects[0];
+                NSLog(@"%@", day.dayNum);
+                [day addObject:@(2) forKey:@"arrayOfLevels"];
+                [day saveInBackground];
             }
         }];
+        
+        // add to the array
     }
 }
 
