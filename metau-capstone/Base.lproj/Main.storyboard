@@ -144,16 +144,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CONGRATULATIONS 🥳🕺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jem-Pd-avX">
-                                <rect key="frame" x="99" y="176" width="216" height="21"/>
+                                <rect key="frame" x="99" y="195" width="216" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="you finished studying today's cards, come back tomorrow for your new stack" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VZ-CU-C5X">
-                                <rect key="frame" x="50" y="176" width="315" height="105"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -182,7 +175,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="congratsLabel" destination="jem-Pd-avX" id="Vz9-KT-dwk"/>
-                        <outlet property="directionsLabel" destination="5VZ-CU-C5X" id="Qym-0g-dYq"/>
                         <outlet property="leftButton" destination="ss0-QC-Ui1" id="aSk-LD-sRz"/>
                         <outlet property="rightButton" destination="nQn-4x-lhI" id="0G0-ua-qda"/>
                     </connections>

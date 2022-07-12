@@ -21,7 +21,6 @@
 @property (nonatomic, assign) NSInteger counter;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
-@property (weak, nonatomic) IBOutlet UILabel *directionsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 
 
@@ -61,7 +60,6 @@
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
         self.rightButton.hidden = NO;
-        self.directionsLabel.hidden = YES;
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
@@ -106,7 +104,6 @@
     else {
         self.leftButton.hidden = YES;
         self.rightButton.hidden = YES;
-        self.directionsLabel.hidden = NO;
         self.congratsLabel.hidden = NO;
         NSLog(@"reached end of stack");
         
