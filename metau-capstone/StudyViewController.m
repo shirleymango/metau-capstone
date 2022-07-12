@@ -19,6 +19,8 @@
 @property (nonatomic) BOOL isFlipped;
 @property (nonatomic, strong) NSArray *arrayOfCards;
 @property (nonatomic, assign) NSInteger counter;
+@property (weak, nonatomic) IBOutlet UIButton *leftButton;
+@property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @end
 
@@ -54,6 +56,9 @@
 
 - (void) loadFlashcard {
     if (self.counter < self.arrayOfCards.count) {
+        self.leftButton.hidden = NO;
+        self.rightButton.hidden = NO;
+        
         Flashcard *card = self.arrayOfCards[self.counter];
         //BACK SIDE
         self.back = [[CALayer alloc] init];
@@ -92,6 +97,9 @@
         [self.view.layer addSublayer:self.front];
     }
     else {
+        self.leftButton.hidden = YES;
+        self.rightButton.hidden = YES;
+        
         NSLog(@"reached end of stack");
     }
 }

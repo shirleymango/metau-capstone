@@ -166,6 +166,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="leftButton" destination="ss0-QC-Ui1" id="aSk-LD-sRz"/>
+                        <outlet property="rightButton" destination="nQn-4x-lhI" id="0G0-ua-qda"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v2R-Q1-hUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="dKy-eo-ZdY">
