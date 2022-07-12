@@ -20,22 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    for (int i = 56; i <= 64; i+=35) {
-        // Retrieve the day
-        if (i == 56) {
-            PFQuery *query = [PFQuery queryWithClassName:@"Schedule"];
-            NSNumber *currentDay = [NSNumber numberWithInt:i];
-            [query whereKey:@"dayNum" equalTo:currentDay];
-            [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                if (objects != nil) {
-                    Schedule *day = objects[0];
-                    NSLog(@"%@", day.dayNum);
-                    [day addObject:@(7) forKey:@"arrayOfLevels"];
-                    [day saveInBackground];
-                }
-            }];
-        }
-    }
 }
 
 - (IBAction)didTapLogout:(id)sender {
