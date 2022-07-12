@@ -20,9 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    for (int i = 24; i <= 64; i+=35) {
+    for (int i = 56; i <= 64; i+=35) {
         // Retrieve the day
-        if (i == 24 || i == 59) {
+        if (i == 56) {
             PFQuery *query = [PFQuery queryWithClassName:@"Schedule"];
             NSNumber *currentDay = [NSNumber numberWithInt:i];
             [query whereKey:@"dayNum" equalTo:currentDay];
@@ -30,7 +30,7 @@
                 if (objects != nil) {
                     Schedule *day = objects[0];
                     NSLog(@"%@", day.dayNum);
-                    [day addObject:@(6) forKey:@"arrayOfLevels"];
+                    [day addObject:@(7) forKey:@"arrayOfLevels"];
                     [day saveInBackground];
                 }
             }];
