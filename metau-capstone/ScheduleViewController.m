@@ -19,11 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    id objects[] = { @1 };
-    NSUInteger count = sizeof(objects) / sizeof(id);
-    NSArray *array = [NSArray arrayWithObjects:objects
-                                         count:count];
-    for (int i = 1; i <= 64; i+=2) {
+
+    for (int i = 2; i <= 64; i+=4) {
         // Retrieve the day
         PFQuery *query = [PFQuery queryWithClassName:@"Schedule"];
         NSNumber *currentDay = [NSNumber numberWithInt:i];
@@ -32,7 +29,7 @@
             if (objects != nil) {
                 Schedule *day = objects[0];
                 NSLog(@"%@", day.dayNum);
-                [day addObject:@(2) forKey:@"arrayOfLevels"];
+                [day addObject:@(3) forKey:@"arrayOfLevels"];
                 [day saveInBackground];
             }
         }];
