@@ -9,6 +9,7 @@
 #import "Parse/Parse.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "Schedule.h"
 
 @interface ScheduleViewController ()
 
@@ -18,7 +19,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    id objects[] = { @1 };
+    NSUInteger count = sizeof(objects) / sizeof(id);
+    NSArray *array = [NSArray arrayWithObjects:objects
+                                         count:count];
+    for (int i = 1; i <= 64; i++) {
+        NSNumber *dayNum = [NSNumber numberWithInt:i];
+        [Schedule createDay:array withNum:dayNum withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"done!");
+            }
+            else {
+                NSLog(@"ruh roh");
+            }
+        }];
+    }
 }
 
 - (IBAction)didTapLogout:(id)sender {

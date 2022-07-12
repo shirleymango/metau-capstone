@@ -6,6 +6,7 @@
 //
 
 #import "Schedule.h"
+#import "PFObject+Subclass.h"
 
 @implementation Schedule
 @dynamic arrayOfLevels;
@@ -16,7 +17,11 @@
 }
 
 + (void) createDay: ( NSArray * _Nullable )arrayOfLevels withNum: ( NSNumber * _Nullable )dayNum withCompletion: (PFBooleanResultBlock  _Nullable)completion {
-
+    Schedule *newSched = [Schedule new];
+    newSched.arrayOfLevels = arrayOfLevels;
+    newSched.dayNum = dayNum;
+    
+    [newSched saveInBackgroundWithBlock:completion];
 }
 
 @end
