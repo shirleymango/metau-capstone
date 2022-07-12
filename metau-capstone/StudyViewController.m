@@ -21,6 +21,9 @@
 @property (nonatomic, assign) NSInteger counter;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
+@property (weak, nonatomic) IBOutlet UILabel *directionsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
+
 
 @end
 
@@ -31,7 +34,7 @@
     PFUser *user = [PFUser currentUser];
     // Construct Query
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 2) OR (levelNum = 4))", user.objectId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 5))", user.objectId];
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
     
     // Fetch data asynchronously
@@ -58,6 +61,8 @@
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
         self.rightButton.hidden = NO;
+        self.directionsLabel.hidden = YES;
+        self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
         //BACK SIDE
@@ -99,6 +104,8 @@
     else {
         self.leftButton.hidden = YES;
         self.rightButton.hidden = YES;
+        self.directionsLabel.hidden = NO;
+        self.congratsLabel.hidden = NO;
         
         NSLog(@"reached end of stack");
     }

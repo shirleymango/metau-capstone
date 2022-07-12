@@ -181,6 +181,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="congratsLabel" destination="jem-Pd-avX" id="Vz9-KT-dwk"/>
+                        <outlet property="directionsLabel" destination="5VZ-CU-C5X" id="Qym-0g-dYq"/>
                         <outlet property="leftButton" destination="ss0-QC-Ui1" id="aSk-LD-sRz"/>
                         <outlet property="rightButton" destination="nQn-4x-lhI" id="0G0-ua-qda"/>
                     </connections>
