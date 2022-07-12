@@ -143,6 +143,13 @@
                                     <action selector="didTapLeft:" destination="DGo-Cf-WYZ" eventType="touchUpInside" id="Flr-9L-ddW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CONGRATULATIONS 🥳🕺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jem-Pd-avX">
+                                <rect key="frame" x="99" y="195" width="216" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
                         <color key="backgroundColor" red="0.64815621903391663" green="0.76871567964553833" blue="0.72997653922629535" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -166,6 +173,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="congratsLabel" destination="jem-Pd-avX" id="Vz9-KT-dwk"/>
+                        <outlet property="leftButton" destination="ss0-QC-Ui1" id="aSk-LD-sRz"/>
+                        <outlet property="rightButton" destination="nQn-4x-lhI" id="0G0-ua-qda"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v2R-Q1-hUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="dKy-eo-ZdY">
@@ -174,7 +186,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1283" y="2580"/>
+            <point key="canvasLocation" x="1282.608695652174" y="2579.4642857142858"/>
         </scene>
         <!--Create-->
         <scene sceneID="Afc-Z7-qdw">
