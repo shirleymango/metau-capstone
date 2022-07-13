@@ -10,6 +10,7 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "Flashcard.h"
+#import "Schedule.h"
 
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
@@ -41,6 +42,26 @@
         if (userObject) {
             self.dayNum = userObject[@"userDay"];
             NSLog(@"day: %@", self.dayNum);
+            // Query for today's level numbers
+            PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
+            [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
+            
+            [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+              if (!error) {
+                for (Schedule *object in objects) {
+                    NSArray *arrayOfLevels = object.arrayOfLevels;
+                    // Construct string containing the level numbers
+                    for (NSNumber *num in arrayOfLevels) {
+                        NSLog(@"%@", num);
+                    }
+                }
+              } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+              }
+            }];
+
+            
             // Construct Query for Flashcards
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
             PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
