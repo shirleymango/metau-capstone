@@ -96,12 +96,8 @@
                 [queryForDay getObjectInBackgroundWithId:user.objectId
                                              block:^(PFObject *userObject, NSError *error) {
                     if (userObject) {
-                        // Increment day counter for the user
-                        [userObject incrementKey:@"userDay"];
-                        
                         self.dayNum = userObject[@"userDay"];
                         [userObject saveInBackground];
-                        
                         NSLog(@"day: %@", self.dayNum);
                         // Query for today's level numbers
                         PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
@@ -112,6 +108,7 @@
                             for (Schedule *object in objects) {
                                 NSArray *arrayOfLevels = object.arrayOfLevels;
                                 NSString *constraintForCards = @"(userID = %@) AND ";
+//                                NSString *constraintForCards = [NSString stringWithFormat:@"(userID = %@) AND ", user.objectId];
                                 // Construct string containing the level numbers
                                 for (int i = 0; i < arrayOfLevels.count; i++) {
                                     if (i == 0) {
@@ -124,6 +121,7 @@
                                 }
 
                                 // Construct Query for Flashcards
+                                NSLog(@"%@", constraintForCards);
                                 NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
                                 PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                                 
@@ -187,7 +185,6 @@
         NSLog(@"reached end of stack");
         [self endScreen];
         
-        // Update lastFinished date
         NSLocale* currentLocale = [NSLocale currentLocale];
         NSDate *currentDate = [NSDate date];
         [currentDate descriptionWithLocale:currentLocale];
@@ -201,8 +198,12 @@
         [query getObjectInBackgroundWithId:user.objectId
                                      block:^(PFObject *userObject, NSError *error) {
             if (userObject) {
+                // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
                 [userObject saveInBackground];
+                
+                // Increment day counter for the user
+                [userObject incrementKey:@"userDay"];
             }
             else {
                 NSLog(@"no user");
