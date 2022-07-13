@@ -86,7 +86,6 @@
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
             if ([todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                NSLog(@"yay!");
                 // show the end screen
                 [self endScreen];
             }
@@ -108,7 +107,6 @@
                             for (Schedule *object in objects) {
                                 NSArray *arrayOfLevels = object.arrayOfLevels;
                                 NSString *constraintForCards = @"(userID = %@) AND ";
-//                                NSString *constraintForCards = [NSString stringWithFormat:@"(userID = %@) AND ", user.objectId];
                                 // Construct string containing the level numbers
                                 for (int i = 0; i < arrayOfLevels.count; i++) {
                                     if (i == 0) {
@@ -121,7 +119,6 @@
                                 }
 
                                 // Construct Query for Flashcards
-                                NSLog(@"%@", constraintForCards);
                                 NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
                                 PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                                 
