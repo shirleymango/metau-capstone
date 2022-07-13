@@ -100,6 +100,8 @@
                         [userObject incrementKey:@"userDay"];
                         
                         self.dayNum = userObject[@"userDay"];
+                        [userObject saveInBackground];
+                        
                         NSLog(@"day: %@", self.dayNum);
                         // Query for today's level numbers
                         PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
