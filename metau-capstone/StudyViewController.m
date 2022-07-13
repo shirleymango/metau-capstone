@@ -53,7 +53,7 @@
     [self.frontText setFontSize:20];
     
     // Construct Query
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 3))", user.objectId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
     
     // Fetch data asynchronously
@@ -77,6 +77,14 @@
 }
 
 - (void) loadFlashcard {
+    if (self.isFlipped) {
+        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+        self.isFlipped = NO;
+        self.front.zPosition = 10;
+        self.back.zPosition = 0;
+        NSLog(@"to front");
+    }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
         self.rightButton.hidden = NO;
