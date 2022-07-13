@@ -50,6 +50,10 @@
         if (userObject) {
             if ([todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 NSLog(@"yay!");
+                // show the end screen
+            }
+            else {
+                // Increment day counter for the user
             }
         }
         else {
@@ -179,16 +183,7 @@
         self.congratsLabel.hidden = NO;
         NSLog(@"reached end of stack");
         
-        //BACK SIDE
-        // add text label to the flashcard
-        [self.backText setString:@"Come back tomorrow for your new stack :-)"];
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        [self.view.layer addSublayer:self.back];
-        
-        // FRONT SIDE
-        // add text label to the flashcard
-        [self.frontText setString:@"You finished studying today's cards!"];
-        [self.view.layer addSublayer:self.front];
+        [self endScreen];
         
         // Update lastFinished date
         NSLocale* currentLocale = [NSLocale currentLocale];
@@ -212,6 +207,19 @@
             }
         }];
     }
+}
+
+- (void) endScreen {
+    // BACK SIDE
+    // add text label to the flashcard
+    [self.backText setString:@"Come back tomorrow for your new stack :-)"];
+    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    [self.view.layer addSublayer:self.back];
+    
+    // FRONT SIDE
+    // add text label to the flashcard
+    [self.frontText setString:@"You finished studying today's cards!"];
+    [self.view.layer addSublayer:self.front];
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
