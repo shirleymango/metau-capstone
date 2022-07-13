@@ -14,6 +14,8 @@
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
 @property (nonatomic, strong) CALayer *back;
+@property (nonatomic, strong) CATextLayer *frontText;
+@property (nonatomic, strong) CATextLayer *backText;
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
@@ -31,9 +33,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *user = [PFUser currentUser];
-    // Construct Query
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 5))", user.objectId];
+    // Instantiate flashcard sides
+    // BACK SIDE
+    self.back = [[CALayer alloc] init];
+    self.back.frame = CGRectMake(0, 0, 300, 180);
+    self.back.backgroundColor = [[UIColor blackColor] CGColor];
+    self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    self.backText = [[CATextLayer alloc] init];
+    [self.backText setFont:@"Helvetica-Bold"];
+    [self.backText setFontSize:20];
+    [self.backText setAlignmentMode:kCAAlignmentCenter];
+    self.backText.wrapped = YES;
+    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
+    [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
+    // FRONT SIDE
+    self.front = [[CALayer alloc] init];
+    self.front.frame = CGRectMake(0, 0, 300, 180);
+    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
+    self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    self.frontText = [[CATextLayer alloc] init];
+    [self.frontText setFont:@"Helvetica-Bold"];
+    [self.frontText setFontSize:20];
+    [self.frontText setAlignmentMode:kCAAlignmentCenter];
+    self.frontText.wrapped = YES;
+    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
+    [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
+    
+    // Construct Query
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
     
     // Fetch data asynchronously
@@ -57,48 +85,31 @@
 }
 
 - (void) loadFlashcard {
+    if (self.isFlipped) {
+        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+        self.isFlipped = NO;
+        self.front.zPosition = 10;
+        self.back.zPosition = 0;
+        NSLog(@"to front");
+    }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
         self.rightButton.hidden = NO;
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
-        //BACK SIDE
-        self.back = [[CALayer alloc] init];
-        self.back.frame = CGRectMake(0, 0, 300, 180);
-        self.back.backgroundColor = [[UIColor blackColor] CGColor];
-        self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-        
+        // BACK SIDE
         // add text label to the flashcard
-        CATextLayer *backLabel = [[CATextLayer alloc] init];
-        [backLabel setFont:@"Helvetica-Bold"];
-        [backLabel setFontSize:20];
-        [backLabel setString:card.backText];
-        [backLabel setAlignmentMode:kCAAlignmentCenter];
-        backLabel.wrapped = YES;
-        [backLabel setForegroundColor:[[UIColor whiteColor] CGColor]];
-        [backLabel setFrame:CGRectMake(0, 0, 300, 180)];
-        [self.back addSublayer:backLabel];
+        [self.backText setString:card.backText];
+        [self.back addSublayer:self.backText];
         self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         [self.view.layer addSublayer:self.back];
         
         // FRONT SIDE
-        self.front = [[CALayer alloc] init];
-        self.front.frame = CGRectMake(0, 0, 300, 180);
-        self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-        self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-        
         // add text label to the flashcard
-        CATextLayer *label = [[CATextLayer alloc] init];
-        [label setFont:@"Helvetica-Bold"];
-        [label setFontSize:20];
-        [label setString:card.frontText];
-        [label setAlignmentMode:kCAAlignmentCenter];
-        label.wrapped = YES;
-        [label setForegroundColor:[[UIColor blackColor] CGColor]];
-        [label setFrame:CGRectMake(0, 0, 300, 180)];
-        [self.front addSublayer:label];
-        
+        [self.frontText setString:card.frontText];
+        [self.front addSublayer:self.frontText];
         [self.view.layer addSublayer:self.front];
     }
     else {
@@ -108,41 +119,14 @@
         NSLog(@"reached end of stack");
         
         //BACK SIDE
-        self.back = [[CALayer alloc] init];
-        self.back.frame = CGRectMake(0, 0, 300, 180);
-        self.back.backgroundColor = [[UIColor blackColor] CGColor];
-        self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-        
         // add text label to the flashcard
-        CATextLayer *backLabel = [[CATextLayer alloc] init];
-        [backLabel setFont:@"Helvetica-Bold"];
-        [backLabel setFontSize:20];
-        [backLabel setString:@"Come back tomorrow for your new stack :-)"];
-        [backLabel setAlignmentMode:kCAAlignmentCenter];
-        backLabel.wrapped = YES;
-        [backLabel setForegroundColor:[[UIColor whiteColor] CGColor]];
-        [backLabel setFrame:CGRectMake(0, 0, 300, 180)];
-        [self.back addSublayer:backLabel];
+        [self.backText setString:@"Come back tomorrow for your new stack :-)"];
         self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         [self.view.layer addSublayer:self.back];
         
         // FRONT SIDE
-        self.front = [[CALayer alloc] init];
-        self.front.frame = CGRectMake(0, 0, 300, 180);
-        self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-        self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-        
         // add text label to the flashcard
-        CATextLayer *label = [[CATextLayer alloc] init];
-        [label setFont:@"Helvetica-Bold"];
-        [label setFontSize:20];
-        [label setString:@"You finished studying today's cards!"];
-        [label setAlignmentMode:kCAAlignmentCenter];
-        label.wrapped = YES;
-        [label setForegroundColor:[[UIColor blackColor] CGColor]];
-        [label setFrame:CGRectMake(0, 0, 300, 180)];
-        [self.front addSublayer:label];
-        
+        [self.frontText setString:@"You finished studying today's cards!"];
         [self.view.layer addSublayer:self.front];
     }
 }
