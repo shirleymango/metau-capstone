@@ -57,12 +57,13 @@
                             constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
                         }
                         else {
-                            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];                        }
+                            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
+                            
+                        }
                     }
                     NSLog(@"%@", constraintForCards);
-                    NSString *test = @"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))";
                     // Construct Query for Flashcards
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:test, user.objectId];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
                     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                     
                     // Fetch data asynchronously
@@ -86,7 +87,6 @@
             NSLog(@"no user");
         }
     }];
-    NSLog(@"outside - day: %@", self.dayNum);
     
     // Instantiate flashcard sides
     // BACK SIDE
