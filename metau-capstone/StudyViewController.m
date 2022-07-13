@@ -43,6 +43,10 @@
     self.backText = [[CATextLayer alloc] init];
     [self.backText setFont:@"Helvetica-Bold"];
     [self.backText setFontSize:20];
+    [self.backText setAlignmentMode:kCAAlignmentCenter];
+    self.backText.wrapped = YES;
+    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
+    [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
     // FRONT SIDE
     self.front = [[CALayer alloc] init];
     self.front.frame = CGRectMake(0, 0, 300, 180);
@@ -51,6 +55,10 @@
     self.frontText = [[CATextLayer alloc] init];
     [self.frontText setFont:@"Helvetica-Bold"];
     [self.frontText setFontSize:20];
+    [self.frontText setAlignmentMode:kCAAlignmentCenter];
+    self.frontText.wrapped = YES;
+    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
+    [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
     
     // Construct Query
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
@@ -94,10 +102,6 @@
         // BACK SIDE
         // add text label to the flashcard
         [self.backText setString:card.backText];
-        [self.backText setAlignmentMode:kCAAlignmentCenter];
-        self.backText.wrapped = YES;
-        [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
-        [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
         [self.back addSublayer:self.backText];
         self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         [self.view.layer addSublayer:self.back];
@@ -105,12 +109,7 @@
         // FRONT SIDE
         // add text label to the flashcard
         [self.frontText setString:card.frontText];
-        [self.frontText setAlignmentMode:kCAAlignmentCenter];
-        self.frontText.wrapped = YES;
-        [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
-        [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
         [self.front addSublayer:self.frontText];
-        
         [self.view.layer addSublayer:self.front];
     }
     else {
