@@ -91,13 +91,14 @@
                 [self endScreen];
             }
             else {
-                // TODO: Increment day counter for the user
-                
                 // Query for today's number for the current user
                 PFQuery *queryForDay = [PFUser query];
                 [queryForDay getObjectInBackgroundWithId:user.objectId
                                              block:^(PFObject *userObject, NSError *error) {
                     if (userObject) {
+                        // Increment day counter for the user
+                        [userObject incrementKey:@"userDay"];
+                        
                         self.dayNum = userObject[@"userDay"];
                         NSLog(@"day: %@", self.dayNum);
                         // Query for today's level numbers
