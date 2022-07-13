@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
-
+@property (nonatomic) NSNumber *dayNum;
 
 @end
 
@@ -33,6 +33,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *user = [PFUser currentUser];
+    
+    // Get the day number
+    PFQuery *queryForDay = [PFUser query];
+    [queryForDay getObjectInBackgroundWithId:user.objectId
+                                 block:^(PFObject *userObject, NSError *error) {
+        if (userObject) {
+            self.dayNum = userObject[@"userDay"];
+            NSLog(@"day: %@", self.dayNum);
+            // Construct Query for Flashcards
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
+            PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
+            
+            // Fetch data asynchronously
+            [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
+                if (cards != nil) {
+                    self.arrayOfCards = cards;
+                    self.counter = 0;
+                    [self loadFlashcard];
+                } else {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+        }
+        else {
+            NSLog(@"no user");
+        }
+    }];
+    NSLog(@"outside - day: %@", self.dayNum);
     
     // Instantiate flashcard sides
     // BACK SIDE
@@ -59,21 +87,6 @@
     self.frontText.wrapped = YES;
     [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
     [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
-    
-    // Construct Query
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@) AND ((levelNum = 1) OR (levelNum = 2))", user.objectId];
-    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
-    
-    // Fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
-        if (cards != nil) {
-            self.arrayOfCards = cards;
-            self.counter = 0;
-            [self loadFlashcard];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
     
     // create rotation animation
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
