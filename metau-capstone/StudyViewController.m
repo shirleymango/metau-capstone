@@ -128,6 +128,28 @@
         // add text label to the flashcard
         [self.frontText setString:@"You finished studying today's cards!"];
         [self.view.layer addSublayer:self.front];
+        
+        // Update lastFinished date
+        NSLocale* currentLocale = [NSLocale currentLocale];
+        NSDate *currentDate = [NSDate date];
+        [currentDate descriptionWithLocale:currentLocale];
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateString = [dateFormatter stringFromDate:currentDate];
+        
+        PFUser *user = [PFUser currentUser];
+        PFQuery *query = [PFUser query];
+        // Retrieve the object by id
+        [query getObjectInBackgroundWithId:user.objectId
+                                     block:^(PFObject *userObject, NSError *error) {
+            if (userObject) {
+                userObject[@"prevFinishedDate"] = dateString;
+                [userObject saveInBackground];
+            }
+            else {
+                NSLog(@"no user");
+            }
+        }];
     }
 }
 
