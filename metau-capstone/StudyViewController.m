@@ -35,6 +35,28 @@
     [super viewDidLoad];
     PFUser *user = [PFUser currentUser];
     
+    // Check if it is a new day
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    NSDate *currentDate = [NSDate date];
+    [currentDate descriptionWithLocale:currentLocale];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *todayDate = [dateFormatter stringFromDate:currentDate];
+    
+    // Query for prevFinishedDate
+    PFQuery *queryForPrevDate = [PFUser query];
+    [queryForPrevDate getObjectInBackgroundWithId:user.objectId
+                                 block:^(PFObject *userObject, NSError *error) {
+        if (userObject) {
+            if ([todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
+                NSLog(@"yay!");
+            }
+        }
+        else {
+            NSLog(@"no user");
+        }
+    }];
+    
     // Query for today's number for the current user
     PFQuery *queryForDay = [PFUser query];
     [queryForDay getObjectInBackgroundWithId:user.objectId
@@ -61,12 +83,12 @@
                             
                         }
                     }
-                    NSLog(@"%@", constraintForCards);
+
                     // Construct Query for Flashcards
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
                     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                     
-                    // Fetch data asynchronously
+                    // Fetch data for cards asynchronously
                     [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
                         if (cards != nil) {
                             self.arrayOfCards = cards;
