@@ -66,58 +66,49 @@
                 [self endScreen];
             }
             else {
-                // Query for today's number for the current user
-                PFQuery *queryForDay = [PFUser query];
-                [queryForDay getObjectInBackgroundWithId:user.objectId
-                                             block:^(PFObject *userObject, NSError *error) {
-                    if (userObject) {
-                        self.dayNum = userObject[@"userDay"];
-                        [userObject saveInBackground];
-                        NSLog(@"day: %@", self.dayNum);
-                        // Query for today's level numbers
-                        PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
-                        [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
-                        
-                        [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                          if (!error) {
-                            for (Schedule *object in objects) {
-                                NSArray *arrayOfLevels = object.arrayOfLevels;
-                                NSString *constraintForCards = @"(userID = %@) AND ";
-                                // Construct string containing the level numbers
-                                for (int i = 0; i < arrayOfLevels.count; i++) {
-                                    if (i == 0) {
-                                        constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
-                                    }
-                                    else {
-                                        constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
-                                        
-                                    }
-                                }
-
-                                // Construct Query for Flashcards
-                                NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
-                                PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
-                                
-                                // Fetch data for cards asynchronously
-                                [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
-                                    if (cards != nil) {
-                                        self.arrayOfCards = cards;
-                                        self.counter = 0;
-                                        [self loadFlashcard];
-                                    } else {
-                                        NSLog(@"%@", error.localizedDescription);
-                                    }
-                                }];
+                // Fetch today's number for the current user
+                self.dayNum = userObject[@"userDay"];
+                [userObject saveInBackground];
+                NSLog(@"day: %@", self.dayNum);
+                // Query for today's level numbers
+                PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
+                [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
+                
+                [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                  if (!error) {
+                    for (Schedule *object in objects) {
+                        NSArray *arrayOfLevels = object.arrayOfLevels;
+                        NSString *constraintForCards = @"(userID = %@) AND ";
+                        // Construct string containing the level numbers
+                        for (int i = 0; i < arrayOfLevels.count; i++) {
+                            if (i == 0) {
+                                constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
                             }
-                          } else {
-                            // Log details of the failure
-                            NSLog(@"Error: %@ %@", error, [error userInfo]);
-                          }
+                            else {
+                                constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
+                                
+                            }
+                        }
+
+                        // Construct Query for Flashcards
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
+                        PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
+                        
+                        // Fetch data for cards asynchronously
+                        [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
+                            if (cards != nil) {
+                                self.arrayOfCards = cards;
+                                self.counter = 0;
+                                [self loadFlashcard];
+                            } else {
+                                NSLog(@"%@", error.localizedDescription);
+                            }
                         }];
                     }
-                    else {
-                        NSLog(@"no user");
-                    }
+                  } else {
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                  }
                 }];
             }
         }
