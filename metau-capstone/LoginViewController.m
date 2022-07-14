@@ -54,7 +54,7 @@
 
 - (IBAction)registerUser:(id)sender {
     // initialize a user object
-    PFUser *newUser = [PFUser user];
+    PFUser *const newUser = [PFUser user];
     
     // set user properties
     newUser.username = self.usernameField.text;

@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    PFUser *user = [PFUser currentUser];
+    PFUser *const user = [PFUser currentUser];
     
     // Instantiate flashcard sides
     // BACK SIDE
@@ -189,7 +189,7 @@
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSString *dateString = [dateFormatter stringFromDate:currentDate];
         
-        PFUser *user = [PFUser currentUser];
+        PFUser *const user = [PFUser currentUser];
         PFQuery *query = [PFUser query];
         // Retrieve the object by id
         [query getObjectInBackgroundWithId:user.objectId
