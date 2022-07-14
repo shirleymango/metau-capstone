@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "Flashcard.h"
 #import "Schedule.h"
+#import "Utilities.h"
 
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
@@ -286,13 +287,9 @@
 }
 */
 - (IBAction)didTapLogout:(id)sender {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-    }];
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    sceneDelegate.window.rootViewController = loginViewController;
+    Utilities* utility = [[Utilities alloc] init];
+    [utility logout: sceneDelegate];
 }
 
 @end
