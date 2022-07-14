@@ -38,32 +38,7 @@
     
     // Instantiate flashcard sides
     // BACK SIDE
-    self.back = [[CALayer alloc] init];
-    self.back.frame = CGRectMake(0, 0, 300, 180);
-    self.back.backgroundColor = [[UIColor blackColor] CGColor];
-    self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    self.backText = [[CATextLayer alloc] init];
-    [self.backText setFont:@"Helvetica-Bold"];
-    [self.backText setFontSize:20];
-    [self.backText setAlignmentMode:kCAAlignmentCenter];
-    self.backText.wrapped = YES;
-    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
-    [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.back addSublayer:self.backText];
-    
-    // FRONT SIDE
-    self.front = [[CALayer alloc] init];
-    self.front.frame = CGRectMake(0, 0, 300, 180);
-    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-    self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    self.frontText = [[CATextLayer alloc] init];
-    [self.frontText setFont:@"Helvetica-Bold"];
-    [self.frontText setFontSize:20];
-    [self.frontText setAlignmentMode:kCAAlignmentCenter];
-    self.frontText.wrapped = YES;
-    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
-    [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.front addSublayer:self.frontText];
+    [self instantiateCards];
     
     // create rotation animation
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
@@ -151,6 +126,36 @@
         }
     }];
     
+}
+
+- (void) instantiateCards {
+    // BACK SIDE
+    self.back = [[CALayer alloc] init];
+    self.back.frame = CGRectMake(0, 0, 300, 180);
+    self.back.backgroundColor = [[UIColor blackColor] CGColor];
+    self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    self.backText = [[CATextLayer alloc] init];
+    [self.backText setFont:@"Helvetica-Bold"];
+    [self.backText setFontSize:20];
+    [self.backText setAlignmentMode:kCAAlignmentCenter];
+    self.backText.wrapped = YES;
+    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
+    [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
+    [self.back addSublayer:self.backText];
+    
+    // FRONT SIDE
+    self.front = [[CALayer alloc] init];
+    self.front.frame = CGRectMake(0, 0, 300, 180);
+    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
+    self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    self.frontText = [[CATextLayer alloc] init];
+    [self.frontText setFont:@"Helvetica-Bold"];
+    [self.frontText setFontSize:20];
+    [self.frontText setAlignmentMode:kCAAlignmentCenter];
+    self.frontText.wrapped = YES;
+    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
+    [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
+    [self.front addSublayer:self.frontText];
 }
 
 - (void) loadFlashcard {
