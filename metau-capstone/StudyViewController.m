@@ -244,15 +244,8 @@
 
 - (IBAction)didTapLeft:(UIButton *)sender {
     // Update level
-    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     Flashcard *card = self.arrayOfCards[self.counter];
-    // Retrieve the object by id
-    [query getObjectInBackgroundWithId:card.objectId
-                                 block:^(PFObject *card, NSError *error) {
-        card[@"levelNum"] = @(1);
-        [card saveInBackground];
-    }];
-    
+    [self resetCard:card];
     self.counter++;
     [self loadFlashcard];
 }
@@ -276,7 +269,14 @@
     }
 }
 
-
+- (void) resetCard: (Flashcard *) card {
+    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
+    [query getObjectInBackgroundWithId:card.objectId
+                                 block:^(PFObject *card, NSError *error) {
+        card[@"levelNum"] = @(1);
+        [card saveInBackground];
+    }];
+}
 /*
 #pragma mark - Navigation
 
