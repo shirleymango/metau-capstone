@@ -12,6 +12,7 @@
 #import "Schedule.h"
 #import "Utilities.h"
 #import "ScheduleCell.h"
+#import "Schedule.h"
 
 @interface ScheduleViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *scheduleCollection;
@@ -50,6 +51,28 @@
     cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row+1];
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     cell.layer.borderWidth = 1;
+    
+    //Query for the day's levels
+    PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
+    [queryForLevels whereKey:@"dayNum" equalTo:@(indexPath.row+1)];
+    [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            for (Schedule *object in objects) {
+                NSArray *arrayOfLevels = object.arrayOfLevels;
+                NSString *levelsText = @"";
+                for (int i = 0; i < arrayOfLevels.count; i++) {
+                    if (i == 0) {
+                        levelsText = [levelsText stringByAppendingFormat:@"Level %@", arrayOfLevels[i]];
+                    }
+                    else {
+                        levelsText = [levelsText stringByAppendingFormat:@"\rLevel %@", arrayOfLevels[i]];
+                    }
+                }
+                NSLog(@"%@", levelsText);
+                cell.levelsLabel.text = levelsText;
+            }
+        }
+    }];
     return cell;
 }
 

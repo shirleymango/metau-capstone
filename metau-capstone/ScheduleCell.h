@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ScheduleCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *dayNum;
-@property (weak, nonatomic) IBOutlet UIView *levelsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *levelsLabel;
 
 
 @end
