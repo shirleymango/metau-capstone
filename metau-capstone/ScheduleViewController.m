@@ -24,17 +24,10 @@
     [super viewDidLoad];
     self.scheduleCollection.dataSource = self;
     self.scheduleCollection.delegate = self;
+//    UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 100)];
+//    fromLabel.text = @"hi";
+//    [self.scheduleCollection addSubview:fromLabel];
 }
-
-//- (void)viewDidLayoutSubviews {
-//   [super viewDidLayoutSubviews];
-//
-//    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//    self.flowLayout.minimumLineSpacing = 0;
-//    self.flowLayout.minimumInteritemSpacing = 0;
-//    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
-//}
-
 
 - (IBAction)didTapLogout:(id)sender {
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
