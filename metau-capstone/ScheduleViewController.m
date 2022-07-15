@@ -13,8 +13,9 @@
 #import "Utilities.h"
 #import "ScheduleCell.h"
 
-@interface ScheduleViewController () <UICollectionViewDataSource>
+@interface ScheduleViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *scheduleCollection;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
 @end
 
@@ -23,8 +24,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.scheduleCollection.dataSource = self;
-
+    self.scheduleCollection.delegate = self;
 }
+
+- (void)viewDidLayoutSubviews {
+   [super viewDidLayoutSubviews];
+
+    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.flowLayout.minimumLineSpacing = 0;
+    self.flowLayout.minimumInteritemSpacing = 0;
+    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
+}
+
 
 - (IBAction)didTapLogout:(id)sender {
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
@@ -44,12 +55,20 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ScheduleCell *cell = [self.scheduleCollection dequeueReusableCellWithReuseIdentifier:@"ScheduleCollectionCell" forIndexPath:indexPath];
-    cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+    cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row+1];
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return 64;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    int totalwidth = self.scheduleCollection.bounds.size.width;
+    int numberOfCellsPerRow = 4;
+    
+    int dimensions = (CGFloat)(totalwidth / (numberOfCellsPerRow + 1));
+    return CGSizeMake(dimensions, dimensions);
 }
 
 @end
