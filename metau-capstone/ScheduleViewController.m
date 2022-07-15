@@ -16,7 +16,6 @@
 
 @interface ScheduleViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *scheduleCollection;
-
 @end
 
 @implementation ScheduleViewController
@@ -25,9 +24,6 @@
     [super viewDidLoad];
     self.scheduleCollection.dataSource = self;
     self.scheduleCollection.delegate = self;
-//    UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 100)];
-//    fromLabel.text = @"hi";
-//    [self.scheduleCollection addSubview:fromLabel];
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -52,6 +48,23 @@
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     cell.layer.borderWidth = 1;
     
+    // Query for user's day
+    PFQuery *queryForDay = [PFUser query];
+    PFUser *const user = [PFUser currentUser];
+    [queryForDay getObjectInBackgroundWithId:user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (!error) {
+            // Highlight current day
+            if ([object[@"userDay"] isEqualToNumber:@(indexPath.row+1)]) {
+                cell.dayNum.backgroundColor = [UIColor yellowColor];
+                NSLog(@"%@", object[@"userDay"]);
+                NSLog(@"%@", @(indexPath.row+1));
+            }
+            else {
+                cell.dayNum.backgroundColor = [UIColor clearColor];
+            }
+        }
+    }];
+    
     //Query for the day's levels
     PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
     [queryForLevels whereKey:@"dayNum" equalTo:@(indexPath.row+1)];
@@ -68,7 +81,6 @@
                         levelsText = [levelsText stringByAppendingFormat:@"\rLevel %@", arrayOfLevels[i]];
                     }
                 }
-                NSLog(@"%@", levelsText);
                 cell.levelsLabel.text = levelsText;
             }
         }
