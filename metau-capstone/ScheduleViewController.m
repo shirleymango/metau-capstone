@@ -70,7 +70,7 @@
     int numberOfCellsPerRow = 4;
     
     int dimensions = (CGFloat)(totalwidth / (numberOfCellsPerRow + 1));
-    return CGSizeMake(dimensions, dimensions);
+    return CGSizeMake(dimensions, dimensions*1.2);
 }
 
 @end
