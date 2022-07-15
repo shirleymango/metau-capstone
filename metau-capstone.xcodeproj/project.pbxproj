@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F86790F131E6D1D53AFFCA1 /* Pods_metau_capstone_metau_capstoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E46AD704B113431C11BBAA69 /* Pods_metau_capstone_metau_capstoneUITests.framework */; };
 		850905AF288088D300AD9B8F /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 850905AE288088D300AD9B8F /* Utilities.m */; };
+		850905B52881D47B00AD9B8F /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 850905B42881D47B00AD9B8F /* ScheduleCell.m */; };
 		858CB535286FA73C005805D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB534286FA73C005805D1 /* AppDelegate.m */; };
 		858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB537286FA73C005805D1 /* SceneDelegate.m */; };
 		858CB53B286FA73C005805D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB53A286FA73C005805D1 /* ViewController.m */; };
@@ -55,6 +56,8 @@
 		719596D47D5CE237532F3045 /* Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig"; path = "Target Support Files/Pods-metau-capstone-metau-capstoneUITests/Pods-metau-capstone-metau-capstoneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		850905AD288088D300AD9B8F /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		850905AE288088D300AD9B8F /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		850905B32881D47B00AD9B8F /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
+		850905B42881D47B00AD9B8F /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
 		858CB530286FA73C005805D1 /* metau-capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "metau-capstone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		858CB533286FA73C005805D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		858CB534286FA73C005805D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				858CB539286FA73C005805D1 /* ViewController.h */,
 				858CB53A286FA73C005805D1 /* ViewController.m */,
 				858CB53C286FA73C005805D1 /* Main.storyboard */,
+				850905B32881D47B00AD9B8F /* ScheduleCell.h */,
+				850905B42881D47B00AD9B8F /* ScheduleCell.m */,
 				85CC1A8828765C8100155F8A /* CreateViewController.h */,
 				85CC1A8928765C8100155F8A /* CreateViewController.m */,
 				85CC1A8B28765C9000155F8A /* ScheduleViewController.h */,
@@ -451,6 +456,7 @@
 			files = (
 				85CC1A96287E14F300155F8A /* Schedule.m in Sources */,
 				858CB53B286FA73C005805D1 /* ViewController.m in Sources */,
+				850905B52881D47B00AD9B8F /* ScheduleCell.m in Sources */,
 				858CB535286FA73C005805D1 /* AppDelegate.m in Sources */,
 				858CB5762876346C005805D1 /* StudyViewController.m in Sources */,
 				85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */,

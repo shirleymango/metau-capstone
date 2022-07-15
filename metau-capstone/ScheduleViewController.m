@@ -11,8 +11,10 @@
 #import "LoginViewController.h"
 #import "Schedule.h"
 #import "Utilities.h"
+#import "ScheduleCell.h"
 
-@interface ScheduleViewController ()
+@interface ScheduleViewController () <UICollectionViewDataSource>
+@property (weak, nonatomic) IBOutlet UICollectionView *scheduleCollection;
 
 @end
 
@@ -20,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.scheduleCollection.dataSource = self;
 
 }
 
@@ -38,5 +41,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ScheduleCell *cell = [self.scheduleCollection dequeueReusableCellWithReuseIdentifier:@"ScheduleCollectionCell" forIndexPath:indexPath];
+    cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 10;
+}
 
 @end
