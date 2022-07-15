@@ -13,9 +13,8 @@
 #import "Utilities.h"
 #import "ScheduleCell.h"
 
-@interface ScheduleViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface ScheduleViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *scheduleCollection;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
 @end
 
