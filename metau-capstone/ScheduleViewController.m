@@ -27,14 +27,14 @@
     self.scheduleCollection.delegate = self;
 }
 
-- (void)viewDidLayoutSubviews {
-   [super viewDidLayoutSubviews];
-
-    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.flowLayout.minimumLineSpacing = 0;
-    self.flowLayout.minimumInteritemSpacing = 0;
-    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
-}
+//- (void)viewDidLayoutSubviews {
+//   [super viewDidLayoutSubviews];
+//
+//    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    self.flowLayout.minimumLineSpacing = 0;
+//    self.flowLayout.minimumInteritemSpacing = 0;
+//    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
+//}
 
 
 - (IBAction)didTapLogout:(id)sender {
@@ -70,7 +70,22 @@
     int numberOfCellsPerRow = 4;
     
     int dimensions = (CGFloat)(totalwidth / (numberOfCellsPerRow + 1));
-    return CGSizeMake(dimensions, dimensions*1.2);
+    return CGSizeMake(dimensions*1.2, dimensions*1.5);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 2.0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 15.0;
+}
+
+// Layout: Set Edges
+- (UIEdgeInsets)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+   // return UIEdgeInsetsMake(0,8,0,8);  // top, left, bottom, right
+    return UIEdgeInsetsMake(0,0,0,0);  // top, left, bottom, right
 }
 
 @end
