@@ -56,6 +56,8 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ScheduleCell *cell = [self.scheduleCollection dequeueReusableCellWithReuseIdentifier:@"ScheduleCollectionCell" forIndexPath:indexPath];
     cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row+1];
+    cell.layer.borderColor = [UIColor blueColor].CGColor;
+    cell.layer.borderWidth = 1;
     return cell;
 }
 
