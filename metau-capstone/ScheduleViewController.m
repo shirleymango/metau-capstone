@@ -43,6 +43,7 @@
 */
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSNumber *cellNum = @(indexPath.row+1);
     ScheduleCell *cell = [self.scheduleCollection dequeueReusableCellWithReuseIdentifier:@"ScheduleCollectionCell" forIndexPath:indexPath];
     cell.dayNum.text = [NSString stringWithFormat:@"%ld", indexPath.row+1];
     cell.layer.borderColor = [UIColor blackColor].CGColor;
@@ -54,12 +55,9 @@
     [queryForDay getObjectInBackgroundWithId:user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if (!error) {
             // Highlight current day
-            if ([object[@"userDay"] isEqualToNumber:@(indexPath.row+1)]) {
+            if ([object[@"userDay"] isEqualToNumber:cellNum]) {
                 cell.dayNum.backgroundColor = [UIColor yellowColor];
-                NSLog(@"%@", object[@"userDay"]);
-                NSLog(@"%@", @(indexPath.row+1));
-            }
-            else {
+            } else {
                 cell.dayNum.backgroundColor = [UIColor clearColor];
             }
         }
@@ -67,7 +65,7 @@
     
     //Query for the day's levels
     PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
-    [queryForLevels whereKey:@"dayNum" equalTo:@(indexPath.row+1)];
+    [queryForLevels whereKey:@"dayNum" equalTo:cellNum];
     [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (!error) {
             for (Schedule *object in objects) {
@@ -76,8 +74,7 @@
                 for (int i = 0; i < arrayOfLevels.count; i++) {
                     if (i == 0) {
                         levelsText = [levelsText stringByAppendingFormat:@"Level %@", arrayOfLevels[i]];
-                    }
-                    else {
+                    } else {
                         levelsText = [levelsText stringByAppendingFormat:@"\rLevel %@", arrayOfLevels[i]];
                     }
                 }
