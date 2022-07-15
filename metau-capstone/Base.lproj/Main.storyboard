@@ -296,9 +296,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="chG-T4-nRf">
-                                <rect key="frame" x="0.0" y="103" width="414" height="656"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="chG-T4-nRf">
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uiv-bv-spY">
                                     <size key="itemSize" width="128" height="128"/>
@@ -332,6 +331,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KN0-5C-YJf"/>
                         <color key="backgroundColor" red="0.67132152314796445" green="0.83426602015526541" blue="0.86078917980194092" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="chG-T4-nRf" firstAttribute="leading" secondItem="KN0-5C-YJf" secondAttribute="leading" id="3Fh-0g-dJL"/>
+                            <constraint firstItem="chG-T4-nRf" firstAttribute="trailing" secondItem="KN0-5C-YJf" secondAttribute="trailing" id="BIN-EE-0nC"/>
+                            <constraint firstItem="KN0-5C-YJf" firstAttribute="bottom" secondItem="chG-T4-nRf" secondAttribute="bottom" id="nKu-2I-khS"/>
+                            <constraint firstItem="chG-T4-nRf" firstAttribute="top" secondItem="KN0-5C-YJf" secondAttribute="top" id="wzC-Ju-51b"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Schedule" id="71V-YN-awj">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="rectangle.portrait.and.arrow.right" catalog="system" id="dUN-J2-bXq">
