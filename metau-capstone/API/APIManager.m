@@ -7,6 +7,12 @@
 
 #import "APIManager.h"
 
+static NSString * const baseURLString = @"https://sheets.googleapis.com";
+
+@interface APIManager()
+
+@end
+
 @implementation APIManager
 + (instancetype)shared {
     static APIManager *sharedManager = nil;
@@ -16,4 +22,15 @@
     });
     return sharedManager;
 }
+
+- (instancetype)init {
+    self.baseURL = [NSURL URLWithString:baseURLString];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    self.APIkey = [dict objectForKey: @"sheets_api_key"];
+    
+    return self;
+}
+
 @end

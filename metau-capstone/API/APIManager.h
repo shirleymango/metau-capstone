@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface APIManager : AFHTTPSessionManager
 + (instancetype)shared;
+@property (nonatomic, strong) NSString *APIkey;
+@property (nonatomic, strong) NSURL *baseURL;
+
 @end
 
 NS_ASSUME_NONNULL_END
