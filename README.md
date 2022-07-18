@@ -169,5 +169,8 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 | backText | String | content for back of flashcard |
 
 #### Schedule
-
+| Property | Type   | Description        |
+| -------- | ------ |:------------------ |
+| dayNum | Number | day number in Leitner Schedule |
+| arrayOfLevels | Array | array of levels to be reviewed on the day |
 
