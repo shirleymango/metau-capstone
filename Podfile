@@ -9,6 +9,7 @@ target 'metau-capstone' do
 pod 'Parse'
 pod 'GoogleAPIClientForREST/Sheets', '~> 1.2.1'
 pod 'GoogleSignIn'
+pod 'AFNetworking'
 
   target 'metau-capstoneTests' do
     inherit! :search_paths

@@ -22,6 +22,7 @@
 		858CB55C286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB55B286FA73D005805D1 /* metau_capstoneUITestsLaunchTests.m */; };
 		858CB5732876295A005805D1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5722876295A005805D1 /* LoginViewController.m */; };
 		858CB5762876346C005805D1 /* StudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5752876346C005805D1 /* StudyViewController.m */; };
+		8593CA5E2886126D0034E40A /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA5D2886126D0034E40A /* APIManager.m */; };
 		85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8928765C8100155F8A /* CreateViewController.m */; };
 		85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8C28765C9000155F8A /* ScheduleViewController.m */; };
 		85CC1A90287CA3C700155F8A /* Flashcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8F287CA3C700155F8A /* Flashcard.m */; };
@@ -79,6 +80,8 @@
 		858CB5722876295A005805D1 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		858CB5742876346C005805D1 /* StudyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyViewController.h; sourceTree = "<group>"; };
 		858CB5752876346C005805D1 /* StudyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyViewController.m; sourceTree = "<group>"; };
+		8593CA5C2886126D0034E40A /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		8593CA5D2886126D0034E40A /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		85CC1A8828765C8100155F8A /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		85CC1A8928765C8100155F8A /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
 		85CC1A8B28765C9000155F8A /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 		8593CA522885D15A0034E40A /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8593CA5C2886126D0034E40A /* APIManager.h */,
+				8593CA5D2886126D0034E40A /* APIManager.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				858CB546286FA73D005805D1 /* main.m in Sources */,
 				850905AF288088D300AD9B8F /* Utilities.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
+				8593CA5E2886126D0034E40A /* APIManager.m in Sources */,
 				858CB5732876295A005805D1 /* LoginViewController.m in Sources */,
 				85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */,
 				85CC1A90287CA3C700155F8A /* Flashcard.m in Sources */,

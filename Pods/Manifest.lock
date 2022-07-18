@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - AppAuth (1.5.0):
     - AppAuth/Core (= 1.5.0)
     - AppAuth/ExternalUserAgent (= 1.5.0)
@@ -29,12 +44,14 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
 
 DEPENDENCIES:
+  - AFNetworking
   - GoogleAPIClientForREST/Sheets (~> 1.2.1)
   - GoogleSignIn
   - Parse
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - AppAuth
     - Bolts
     - GoogleAPIClientForREST
@@ -44,6 +61,7 @@ SPEC REPOS:
     - Parse
 
 SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
@@ -52,6 +70,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
 
-PODFILE CHECKSUM: 6007aff006ea8ef5420586b71694f6af4bcb9e27
+PODFILE CHECKSUM: 703208f93323c508d5465121cca57f4c8a45c67b
 
 COCOAPODS: 1.11.3
