@@ -154,7 +154,9 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 | -------- | ------ |:------------------ |
 | username | String | username for login |
 | password | String | password for login |
-| userID   | Number | unique for user    |
+| objectID   | String | unique for user    |
+| userDay   | Number | the day number of the Leitner Schedule that the user is on    |
+| prevFinishedDate   | Date | date of when the user last finished studying a daily stack of cards    |
 
 #### Flashcard
 
@@ -163,5 +165,7 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 | userID | Number | records which user the card is associated with |
 | levelNum | Number | level number (1-7) |
 | cardID   | Number | unique for card    |
+
+#### Schedule
 
 
