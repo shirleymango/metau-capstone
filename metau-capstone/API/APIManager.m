@@ -29,12 +29,13 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     self.APIkey = [dict objectForKey: @"sheets_api_key"];
+    NSLog(@"API: %@", self.APIkey);
     
     return self;
 }
 
 - (void) getSheetsData: (void(^)(NSError *error))completion {
-    NSDictionary *parameters = @{@"spreadsheetId": @"18hOQplD--E3VUtULuuzWqkW9oT5MPeLlgl3JjrAKH5E", @"range": @"Sheet1!A1:B1"};
+    NSDictionary *parameters = @{@"key": self.APIkey,@"spreadsheetId": @"18hOQplD--E3VUtULuuzWqkW9oT5MPeLlgl3JjrAKH5E", @"range": @"Sheet1!A1:B1"};
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
