@@ -33,4 +33,18 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     return self;
 }
 
+- (void) getSheetsData: (void(^)(NSError *error))completion {
+    NSDictionary *parameters = @{@"spreadsheetId": @"18hOQplD--E3VUtULuuzWqkW9oT5MPeLlgl3JjrAKH5E", @"range": @"Sheet1!A1:B1"};
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:@"v4/spreadsheets.json" parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
+        // Success
+        completion(nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(error);
+    }];
+    
+}
+
 @end
