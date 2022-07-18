@@ -10,9 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface APIManager : AFHTTPSessionManager
+
 + (instancetype)shared;
+
 @property (nonatomic, strong) NSString *APIkey;
+
 @property (nonatomic, strong) NSURL *baseURL;
+
+- (void) getSheetsData: (void(^)(NSError *error))completion;
 
 @end
 

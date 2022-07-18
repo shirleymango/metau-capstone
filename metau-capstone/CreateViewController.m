@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "Flashcard.h"
 #import "Utilities.h"
+#import "API/APIManager.h"
 
 @interface CreateViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
@@ -23,6 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[APIManager shared] getSheetsData:^(NSError *error) {
+        if (!error) {
+            NSLog(@"get request");
+        } else {
+            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
+        }
+    }];
 }
 
 - (IBAction)didTapSubmit:(UIButton *)sender {
