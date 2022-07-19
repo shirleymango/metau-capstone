@@ -48,7 +48,7 @@
     
     self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
     
-    // Check if it is a new day
+    // Get today's date
     NSLocale* currentLocale = [NSLocale currentLocale];
     NSDate *currentDate = [NSDate date];
     [currentDate descriptionWithLocale:currentLocale];
@@ -61,6 +61,21 @@
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
+            // Check if first time user
+            if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
+                [self endScreen];
+            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                // PHASE I: Displaying new cards
+                userObject[@"phaseNum"] = @(2);
+                
+            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
+                // PHASE II: Middle of studying cards
+                
+                // PHASE III: Finished studying cards
+            } else {
+                // PHASE IV: Waiting for new cards
+            }
+            
             if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // show the end screen
                 [self endScreen];
