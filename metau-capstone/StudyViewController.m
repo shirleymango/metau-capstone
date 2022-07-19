@@ -188,16 +188,26 @@
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
-        // BACK SIDE
-        // add text label to the flashcard
-        [self.backText setString:card.backText];
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        [self.view.layer addSublayer:self.back];
         
-        // FRONT SIDE
-        // add text label to the flashcard
-        [self.frontText setString:card.frontText];
-        [self.view.layer addSublayer:self.front];
+        // PHASE II: Middle of studying cards
+        // Only display cards that have not been reviewed yet
+        if (!card.toBeReviewed) {
+            self.counter++;
+            [self loadFlashcard];
+        } else {
+            // BACK SIDE
+            // add text label to the flashcard
+            [self.backText setString:card.backText];
+            self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+            [self.view.layer addSublayer:self.back];
+            
+            // FRONT SIDE
+            // add text label to the flashcard
+            [self.frontText setString:card.frontText];
+            [self.view.layer addSublayer:self.front];
+            
+            // Update card
+        }
     } else {
         NSLog(@"reached end of stack");
         [self endScreen];
