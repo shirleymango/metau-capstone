@@ -61,7 +61,7 @@
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
-            if ([todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
+            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // show the end screen
                 [self endScreen];
             }
