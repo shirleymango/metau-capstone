@@ -61,11 +61,10 @@
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
-            if ([todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
+            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // show the end screen
                 [self endScreen];
-            }
-            else {
+            } else {
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 [userObject saveInBackground];
@@ -83,10 +82,8 @@
                         for (int i = 0; i < arrayOfLevels.count; i++) {
                             if (i == 0) {
                                 constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
-                            }
-                            else {
+                            } else {
                                 constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
-                                
                             }
                         }
 
@@ -111,8 +108,7 @@
                   }
                 }];
             }
-        }
-        else {
+        } else {
             NSLog(@"no user");
         }
     }];
@@ -174,8 +170,7 @@
         // add text label to the flashcard
         [self.frontText setString:card.frontText];
         [self.view.layer addSublayer:self.front];
-    }
-    else {
+    } else {
         NSLog(@"reached end of stack");
         [self endScreen];
         
@@ -254,8 +249,7 @@
         self.back.zPosition = 10;
         self.front.zPosition = 0;
         NSLog(@"to back");
-    }
-    else {
+    } else {
         self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
         self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         self.isFlipped = NO;
