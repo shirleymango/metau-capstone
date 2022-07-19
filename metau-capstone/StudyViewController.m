@@ -67,19 +67,7 @@
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
                 // PHASE I: Displaying new cards
                 userObject[@"phaseNum"] = @(2);
-                
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
-                // PHASE II: Middle of studying cards
-                
-                // PHASE III: Finished studying cards
-            } else {
-                // PHASE IV: Waiting for new cards
-            }
-            
-            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // show the end screen
-                [self endScreen];
-            } else {
+                // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 [userObject saveInBackground];
@@ -110,6 +98,7 @@
                         [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
+                                userObject[@"studyStack"] = cards;
                                 self.counter = 0;
                                 [self loadFlashcard];
                             } else {
@@ -122,6 +111,20 @@
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                   }
                 }];
+                
+            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
+                // PHASE II: Middle of studying cards
+                
+                // PHASE III: Finished studying cards
+            } else {
+                // PHASE IV: Waiting for new cards
+            }
+            
+            
+            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
+                // show the end screen
+                [self endScreen];
+            } else {
             }
         } else {
             NSLog(@"no user");
