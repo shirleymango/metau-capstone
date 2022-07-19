@@ -67,6 +67,9 @@
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
                 // PHASE I: Displaying new cards
                 userObject[@"phaseNum"] = @(2);
+                // Increment day counter for the user
+                [userObject incrementKey:@"userDay"];
+                
                 // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
@@ -208,9 +211,6 @@
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
                 [userObject saveInBackground];
-                
-                // Increment day counter for the user
-                [userObject incrementKey:@"userDay"];
             }
             else {
                 NSLog(@"no user");
