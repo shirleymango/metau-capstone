@@ -128,13 +128,7 @@
                 // PHASE III: Finished studying cards
             } else {
                 // PHASE IV: Waiting for new cards
-            }
-            
-            
-            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // show the end screen
                 [self endScreen];
-            } else {
             }
         } else {
             NSLog(@"no user");
