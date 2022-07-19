@@ -64,12 +64,12 @@
             // Check if first time user
             if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
                 [self endScreen];
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // PHASE I: Displaying new cards
-                userObject[@"phaseNum"] = @(2);
-                // Increment day counter for the user
-                [userObject incrementKey:@"userDay"];
-                
+                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                    // Increment day counter for the user
+                    [userObject incrementKey:@"userDay"];
+                }
                 // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
@@ -103,6 +103,14 @@
                                 self.arrayOfCards = cards;
                                 NSLog(@"phase 1");
                                 self.counter = 0;
+                                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                                    // Set toBeReviewed to be true for all card
+                                    for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                                        cardToBeReviewed.toBeReviewed = YES;
+                                        [cardToBeReviewed saveInBackground];
+                                    }
+                                    userObject[@"phaseNum"] = @(2);
+                                }
                                 [self loadFlashcard];
                             } else {
                                 NSLog(@"%@", error.localizedDescription);

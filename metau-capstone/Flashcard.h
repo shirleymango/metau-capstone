@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *backText;
 @property (nonatomic, strong) NSNumber *levelNum;
 @property (nonatomic, strong) NSString *userID;
+@property (nonatomic) BOOL toBeReviewed;
 
 + (void) createCard: ( NSString * _Nullable)frontText withBack: (NSString * _Nullable)backText withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
