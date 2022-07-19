@@ -205,8 +205,6 @@
             // add text label to the flashcard
             [self.frontText setString:card.frontText];
             [self.view.layer addSublayer:self.front];
-            
-            // Update card
         }
     } else {
         NSLog(@"reached end of stack");
@@ -262,6 +260,10 @@
                                  block:^(PFObject *card, NSError *error) {
         [card incrementKey:@"levelNum"];
         [card saveInBackground];
+        
+        // Update card as no longer needing to be reviewed
+        card[@"toBeReviewed"] = @NO;
+        [card saveInBackground];
     }];
     
     self.counter++;
@@ -272,6 +274,9 @@
     // Reset level
     Flashcard *card = self.arrayOfCards[self.counter];
     [self resetCard:card];
+    // Update card as no longer needing to be reviewed
+    card[@"toBeReviewed"] = @NO;
+    [card saveInBackground];
     self.counter++;
     [self loadFlashcard];
 }
