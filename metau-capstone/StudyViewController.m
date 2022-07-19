@@ -101,7 +101,9 @@
                         [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                userObject[@"studyStack"] = cards;
+                                [userObject addObjectsFromArray:cards forKey:@"studyStack"];
+                                [userObject saveInBackground];
+                                NSLog(@"phase 1");
                                 self.counter = 0;
                                 [self loadFlashcard];
                             } else {
