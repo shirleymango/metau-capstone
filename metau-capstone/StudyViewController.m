@@ -21,7 +21,7 @@
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
-@property (nonatomic, strong) NSArray *arrayOfCards;
+@property (nonatomic, strong) NSArray<Flashcard *> *arrayOfCards;
 @property (nonatomic, assign) NSInteger counter;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
@@ -98,11 +98,9 @@
                         PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                         
                         // Fetch data for cards asynchronously
-                        [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
+                        [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                [userObject addObjectsFromArray:cards forKey:@"studyStack"];
-                                [userObject saveInBackground];
                                 NSLog(@"phase 1");
                                 self.counter = 0;
                                 [self loadFlashcard];
@@ -119,7 +117,6 @@
                 
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
                 // PHASE II: Middle of studying cards
-                
                 // PHASE III: Finished studying cards
             } else {
                 // PHASE IV: Waiting for new cards
@@ -254,7 +251,7 @@
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
-    // Update level
+    // Reset level
     Flashcard *card = self.arrayOfCards[self.counter];
     [self resetCard:card];
     self.counter++;
