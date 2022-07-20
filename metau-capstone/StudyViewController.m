@@ -123,11 +123,9 @@
                   }
                 }];
                 
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
-                // PHASE II: Middle of studying cards
-                // PHASE III: Finished studying cards
             } else {
                 // PHASE IV: Waiting for new cards
+                userObject[@"phaseNum"] = @(4);
                 [self endScreen];
             }
         } else {
@@ -201,6 +199,7 @@
             [self.view.layer addSublayer:self.front];
         }
     } else {
+        // PHASE III: Finished studying cards
         NSLog(@"reached end of stack");
         [self endScreen];
         
