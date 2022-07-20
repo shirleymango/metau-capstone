@@ -36,7 +36,7 @@
     [super viewDidLoad];
     PFUser *const user = [PFUser currentUser];
 
-    [self instantiateCardBothSides];
+    [self createCardBothSides];
     [self createFlipAnimation];
     
     NSString *todayDate = [self todayDate];
@@ -112,30 +112,27 @@
     
 }
 
-- (void) instantiateCardBothSides {
+- (void) createCardBothSides {
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
-    [self instantiateCardOneSide:self.back withText:self.backText];
-    self.back.backgroundColor = [[UIColor blackColor] CGColor];
-    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
-
+    [self createCardOneSide:self.back withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
     // FRONT SIDE
     self.front = [[CALayer alloc] init];
     self.frontText = [[CATextLayer alloc] init];
-    [self instantiateCardOneSide:self.front withText:self.frontText];
-    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
+    [self createCardOneSide:self.front withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
 }
 
-- (void) instantiateCardOneSide: (CALayer *)side withText: (CATextLayer *) text {
+- (void) createCardOneSide: (CALayer *)side withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
     side.frame = CGRectMake(0, 0, 300, 180);
     side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    side.backgroundColor = [bgColor CGColor];
     [text setFont:@"Helvetica-Bold"];
     [text setFontSize:20];
     [text setAlignmentMode:kCAAlignmentCenter];
     text.wrapped = YES;
     [text setFrame:CGRectMake(0, 0, 300, 180)];
+    [text setForegroundColor:[textColor CGColor]];
     [side addSublayer:text];
 }
 
