@@ -186,8 +186,7 @@
         Flashcard *card = self.arrayOfCards[self.counter];
         // Only display cards that have not been reviewed yet
         if (!card.toBeReviewed) {
-            self.counter++;
-            [self loadFlashcard];
+            [self loadNextCard];
         } else {
             // BACK SIDE
             [self.backText setString:card.backText];
@@ -195,7 +194,6 @@
             [self.view.layer addSublayer:self.back];
             
             // FRONT SIDE
-            // add text label to the flashcard
             [self.frontText setString:card.frontText];
             [self.view.layer addSublayer:self.front];
         }
@@ -247,29 +245,23 @@
 
 - (IBAction)didTapRight:(UIButton *)sender {
     Flashcard *card = self.arrayOfCards[self.counter];
-    
     // Update level
     [card incrementKey:@"levelNum"];
     [card saveInBackground];
-    
     // Update card as no longer needing to be reviewed
     card[@"toBeReviewed"] = @NO;
     [card saveInBackground];
-    
-    // Load next card
-    self.counter++;
-    [self loadFlashcard];
+    [self loadNextCard];
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
-    // Reset level
     Flashcard *card = self.arrayOfCards[self.counter];
+    // Reset level
     [self resetCard:card];
     // Update card as no longer needing to be reviewed
     card[@"toBeReviewed"] = @NO;
     [card saveInBackground];
-    self.counter++;
-    [self loadFlashcard];
+    [self loadNextCard];
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
@@ -298,6 +290,12 @@
         [card saveInBackground];
     }];
 }
+
+- (void) loadNextCard {
+    self.counter++;
+    [self loadFlashcard];
+}
+
 /*
 #pragma mark - Navigation
 
