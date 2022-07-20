@@ -35,28 +35,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *const user = [PFUser currentUser];
+
+    [self createCardBothSides];
+    [self createFlipAnimation];
     
-    // Instantiate flashcard sides
-    // BACK SIDE
-    [self instantiateCards];
+    NSString *todayDate = [self todayDate];
     
-    // create rotation animation
-    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
-    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
-    self.rotateAnim.duration = 0.8;
-    
-    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-    
-    // Get today's date
-    NSLocale* currentLocale = [NSLocale currentLocale];
-    NSDate *currentDate = [NSDate date];
-    [currentDate descriptionWithLocale:currentLocale];
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *todayDate = [dateFormatter stringFromDate:currentDate];
-    
-    // Query for prevFinishedDate
     PFQuery *queryForPrevDate = [PFUser query];
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
@@ -65,16 +49,15 @@
             if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
                 [self endScreen];
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // PHASE I: Displaying new cards
-                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                // Check user has started reviewing for the day
+                if ([userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
+                    [userObject saveInBackground];
                 }
-                // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
-                [userObject saveInBackground];
-                NSLog(@"day: %@", self.dayNum);
+                
                 // Query for today's level numbers
                 PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
                 [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
@@ -83,15 +66,7 @@
                   if (!error) {
                     for (Schedule *object in objects) {
                         NSArray *arrayOfLevels = object.arrayOfLevels;
-                        NSString *constraintForCards = @"(userID = %@) AND ";
-                        // Construct string containing the level numbers
-                        for (int i = 0; i < arrayOfLevels.count; i++) {
-                            if (i == 0) {
-                                constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
-                            } else {
-                                constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
-                            }
-                        }
+                        NSString *constraintForCards = [self stringWithLevels:arrayOfLevels];
 
                         // Construct Query for Flashcards
                         NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
@@ -101,20 +76,17 @@
                         [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                NSLog(@"phase 1");
                                 self.counter  = 0;
-                                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                                if ([userObject[@"didStartReview"] isEqual:@NO]) {
                                     // Set toBeReviewed to be true for all card
                                     for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
                                         cardToBeReviewed.toBeReviewed = YES;
                                         [cardToBeReviewed saveInBackground];
                                     }
-                                    userObject[@"phaseNum"] = @2;
-                                    [userObject saveInBackground];
-                                    
-                                    userObject[@"startedReview"] = @YES;
+                                    userObject[@"didStartReview"] = @YES;
                                     [userObject saveInBackground];
                                 }
+                                // Display flashcards
                                 [self loadFlashcard];
                             } else {
                                 NSLog(@"%@", error.localizedDescription);
@@ -128,8 +100,8 @@
                 }];
                 
             } else {
-                // PHASE IV: Waiting for new cards
-                userObject[@"phaseNum"] = @(4);
+                // Waiting for new cards
+                userObject[@"didStartReview"] = @NO;
                 [userObject saveInBackground];
                 [self endScreen];
             }
@@ -140,44 +112,62 @@
     
 }
 
-- (void) instantiateCards {
+- (void) createCardBothSides {
     // BACK SIDE
     self.back = [[CALayer alloc] init];
-    self.back.frame = CGRectMake(0, 0, 300, 180);
-    self.back.backgroundColor = [[UIColor blackColor] CGColor];
-    self.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     self.backText = [[CATextLayer alloc] init];
-    [self.backText setFont:@"Helvetica-Bold"];
-    [self.backText setFontSize:20];
-    [self.backText setAlignmentMode:kCAAlignmentCenter];
-    self.backText.wrapped = YES;
-    [self.backText setForegroundColor:[[UIColor whiteColor] CGColor]];
-    [self.backText setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.back addSublayer:self.backText];
-    
+    [self createCardOneSide:self.back withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
     // FRONT SIDE
     self.front = [[CALayer alloc] init];
-    self.front.frame = CGRectMake(0, 0, 300, 180);
-    self.front.backgroundColor = [[UIColor whiteColor] CGColor];
-    self.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     self.frontText = [[CATextLayer alloc] init];
-    [self.frontText setFont:@"Helvetica-Bold"];
-    [self.frontText setFontSize:20];
-    [self.frontText setAlignmentMode:kCAAlignmentCenter];
-    self.frontText.wrapped = YES;
-    [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
-    [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
-    [self.front addSublayer:self.frontText];
+    [self createCardOneSide:self.front withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+}
+
+- (void) createCardOneSide: (CALayer *)side withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
+    side.frame = CGRectMake(0, 0, 300, 180);
+    side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    side.backgroundColor = [bgColor CGColor];
+    [text setFont:@"Helvetica-Bold"];
+    [text setFontSize:20];
+    [text setAlignmentMode:kCAAlignmentCenter];
+    text.wrapped = YES;
+    [text setFrame:CGRectMake(0, 0, 300, 180)];
+    [text setForegroundColor:[textColor CGColor]];
+    [side addSublayer:text];
+}
+
+- (void) createFlipAnimation {
+    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
+    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
+    self.rotateAnim.duration = 0.8;
+    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+}
+
+- (NSString *) todayDate {
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    NSDate *currentDate = [NSDate date];
+    [currentDate descriptionWithLocale:currentLocale];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter stringFromDate:currentDate];
+}
+
+- (NSString *) stringWithLevels: (NSArray *) arrayOfLevels{
+    NSString *constraintForCards = @"(userID = %@) AND ";
+    for (int i = 0; i < arrayOfLevels.count; i++) {
+        if (i == 0) {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
+        } else {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
+        }
+    }
+    return constraintForCards;
 }
 
 - (void) loadFlashcard {
     if (self.isFlipped) {
-        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        self.isFlipped = NO;
-        self.front.zPosition = 10;
-        self.back.zPosition = 0;
-        NSLog(@"to front");
+        [self flipAction:self.back to:self.front];
     }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
@@ -185,36 +175,24 @@
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
-        
-        // PHASE II: Middle of studying cards
         // Only display cards that have not been reviewed yet
         if (!card.toBeReviewed) {
-            self.counter++;
-            [self loadFlashcard];
+            [self loadNextCard];
         } else {
             // BACK SIDE
-            // add text label to the flashcard
             [self.backText setString:card.backText];
             self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
             [self.view.layer addSublayer:self.back];
-            
             // FRONT SIDE
-            // add text label to the flashcard
             [self.frontText setString:card.frontText];
             [self.view.layer addSublayer:self.front];
         }
     } else {
-        // PHASE III: Finished studying cards
+        // End of stack
         NSLog(@"reached end of stack");
         [self endScreen];
         
-        NSLocale* currentLocale = [NSLocale currentLocale];
-        NSDate *currentDate = [NSDate date];
-        [currentDate descriptionWithLocale:currentLocale];
-        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *dateString = [dateFormatter stringFromDate:currentDate];
-        
+        NSString *dateString = [self todayDate];
         PFUser *const user = [PFUser currentUser];
         PFQuery *query = [PFUser query];
         // Retrieve the object by id
@@ -223,9 +201,6 @@
             if (userObject) {
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
-                [userObject saveInBackground];
-             
-                userObject[@"phaseNum"] = @(3);
                 [userObject saveInBackground];
             }
             else {
@@ -253,51 +228,40 @@
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
-    // Update level
-    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     Flashcard *card = self.arrayOfCards[self.counter];
-    // Retrieve the object by id
-    [query getObjectInBackgroundWithId:card.objectId
-                                 block:^(PFObject *card, NSError *error) {
-        [card incrementKey:@"levelNum"];
-        [card saveInBackground];
-        
-        // Update card as no longer needing to be reviewed
-        card[@"toBeReviewed"] = @NO;
-        [card saveInBackground];
-    }];
-    
-    self.counter++;
-    [self loadFlashcard];
+    // Update level
+    [card incrementKey:@"levelNum"];
+    [card saveInBackground];
+    // Update card as no longer needing to be reviewed
+    card[@"toBeReviewed"] = @NO;
+    [card saveInBackground];
+    [self loadNextCard];
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
-    // Reset level
     Flashcard *card = self.arrayOfCards[self.counter];
+    // Reset level
     [self resetCard:card];
     // Update card as no longer needing to be reviewed
     card[@"toBeReviewed"] = @NO;
     [card saveInBackground];
-    self.counter++;
-    [self loadFlashcard];
+    [self loadNextCard];
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     if (!self.isFlipped) {
-        self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        self.back.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-        self.isFlipped = YES;
-        self.back.zPosition = 10;
-        self.front.zPosition = 0;
-        NSLog(@"to back");
+        [self flipAction:self.front to:self.back];
     } else {
-        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        self.isFlipped = NO;
-        self.front.zPosition = 10;
-        self.back.zPosition = 0;
-        NSLog(@"to front");
+        [self flipAction:self.back to:self.front];
     }
+}
+
+- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
+    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+    secondSide.zPosition = 10;
+    firstSide.zPosition = 0;
+    self.isFlipped = !self.isFlipped;
 }
 
 - (void) resetCard: (Flashcard *) card {
@@ -308,6 +272,12 @@
         [card saveInBackground];
     }];
 }
+
+- (void) loadNextCard {
+    self.counter++;
+    [self loadFlashcard];
+}
+
 /*
 #pragma mark - Navigation
 
