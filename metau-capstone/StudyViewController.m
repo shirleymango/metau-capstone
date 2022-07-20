@@ -102,14 +102,18 @@
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
                                 NSLog(@"phase 1");
-                                self.counter = 0;
+                                self.counter  = 0;
                                 if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
                                     // Set toBeReviewed to be true for all card
                                     for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
                                         cardToBeReviewed.toBeReviewed = YES;
                                         [cardToBeReviewed saveInBackground];
                                     }
-                                    userObject[@"phaseNum"] = @(2);
+                                    userObject[@"phaseNum"] = @2;
+                                    [userObject saveInBackground];
+                                    
+                                    userObject[@"startedReview"] = @YES;
+                                    [userObject saveInBackground];
                                 }
                                 [self loadFlashcard];
                             } else {
@@ -126,6 +130,7 @@
             } else {
                 // PHASE IV: Waiting for new cards
                 userObject[@"phaseNum"] = @(4);
+                [userObject saveInBackground];
                 [self endScreen];
             }
         } else {
@@ -201,7 +206,6 @@
     } else {
         // PHASE III: Finished studying cards
         NSLog(@"reached end of stack");
-        userObject[@"phaseNum"] = @(3);
         [self endScreen];
         
         NSLocale* currentLocale = [NSLocale currentLocale];
@@ -219,6 +223,9 @@
             if (userObject) {
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
+                [userObject saveInBackground];
+             
+                userObject[@"phaseNum"] = @(3);
                 [userObject saveInBackground];
             }
             else {
