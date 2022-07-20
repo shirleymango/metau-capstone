@@ -49,14 +49,12 @@
             if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
                 [self endScreen];
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // Check if new day
+                // Check user has started reviewing for the day
                 if ([userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
                     [userObject saveInBackground];
                 }
-                // FETCH TODAY'S CARDS
-                
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 
@@ -88,6 +86,7 @@
                                     userObject[@"didStartReview"] = @YES;
                                     [userObject saveInBackground];
                                 }
+                                // Display flashcards
                                 [self loadFlashcard];
                             } else {
                                 NSLog(@"%@", error.localizedDescription);
@@ -260,20 +259,19 @@
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     if (!self.isFlipped) {
-        self.front.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        self.back.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+        [self flipAction:self.front to:self.back];
         self.isFlipped = YES;
-        self.back.zPosition = 10;
-        self.front.zPosition = 0;
-        NSLog(@"to back");
     } else {
-        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+        [self flipAction:self.back to:self.front];
         self.isFlipped = NO;
-        self.front.zPosition = 10;
-        self.back.zPosition = 0;
-        NSLog(@"to front");
     }
+}
+
+- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
+    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+    secondSide.zPosition = 10;
+    firstSide.zPosition = 0;
 }
 
 - (void) resetCard: (Flashcard *) card {
