@@ -41,6 +41,8 @@
     
     NSString *todayDate = [self todayDate];
     
+    NSLog(@"%@", user[@"prevFinishedDate"]);
+    
     // Query for prevFinishedDate
     PFQuery *queryForPrevDate = [PFUser query];
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
@@ -50,16 +52,17 @@
             if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
                 [self endScreen];
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // PHASE I: Displaying new cards
-                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                // Check if new day
+                if (!userObject[@"startedReview"]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
+                    [userObject saveInBackground];
                 }
                 // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
-                [userObject saveInBackground];
                 NSLog(@"day: %@", self.dayNum);
+                
                 // Query for today's level numbers
                 PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
                 [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
@@ -88,14 +91,12 @@
                                 self.arrayOfCards = cards;
                                 NSLog(@"phase 1");
                                 self.counter  = 0;
-                                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                                if (!userObject[@"startedReview"]) {
                                     // Set toBeReviewed to be true for all card
                                     for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
                                         cardToBeReviewed.toBeReviewed = YES;
                                         [cardToBeReviewed saveInBackground];
                                     }
-                                    userObject[@"phaseNum"] = @2;
-                                    [userObject saveInBackground];
                                     
                                     userObject[@"startedReview"] = @YES;
                                     [userObject saveInBackground];
@@ -114,7 +115,8 @@
                 
             } else {
                 // PHASE IV: Waiting for new cards
-                userObject[@"phaseNum"] = @(4);
+                NSLog(@"%@", userObject[@"prevFinishedDate"]);
+                userObject[@"startedReview"] = @NO;
                 [userObject saveInBackground];
                 [self endScreen];
             }
@@ -157,7 +159,6 @@
     self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
     self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
     self.rotateAnim.duration = 0.8;
-    
     self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
 }
 
@@ -169,6 +170,10 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     return [dateFormatter stringFromDate:currentDate];
 }
+
+//- (BOOL) isFirstTimeUser {
+//    return [userObject[@"prevFinishedDate"] isEqual:[NSNull null]];
+//}
 
 - (void) loadFlashcard {
     if (self.isFlipped) {
@@ -185,8 +190,6 @@
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
-        
-        // PHASE II: Middle of studying cards
         // Only display cards that have not been reviewed yet
         if (!card.toBeReviewed) {
             self.counter++;
@@ -204,7 +207,7 @@
             [self.view.layer addSublayer:self.front];
         }
     } else {
-        // PHASE III: Finished studying cards
+        // End of stack
         NSLog(@"reached end of stack");
         [self endScreen];
         
@@ -223,9 +226,6 @@
             if (userObject) {
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
-                [userObject saveInBackground];
-             
-                userObject[@"phaseNum"] = @(3);
                 [userObject saveInBackground];
             }
             else {
