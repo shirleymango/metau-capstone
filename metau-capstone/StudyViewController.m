@@ -202,13 +202,7 @@
         NSLog(@"reached end of stack");
         [self endScreen];
         
-        NSLocale* currentLocale = [NSLocale currentLocale];
-        NSDate *currentDate = [NSDate date];
-        [currentDate descriptionWithLocale:currentLocale];
-        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *dateString = [dateFormatter stringFromDate:currentDate];
-        
+        NSString *dateString = [self todayDate];
         PFUser *const user = [PFUser currentUser];
         PFQuery *query = [PFUser query];
         // Retrieve the object by id
