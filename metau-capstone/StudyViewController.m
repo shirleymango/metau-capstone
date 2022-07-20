@@ -35,26 +35,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *const user = [PFUser currentUser];
+
+    [self instantiateCardBothSides];
+    [self createFlipAnimation];
     
-    // Instantiate flashcard sides
-    // BACK SIDE
-    [self instantiateCards];
-    
-    // create rotation animation
-    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
-    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
-    self.rotateAnim.duration = 0.8;
-    
-    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-    
-    // Get today's date
-    NSLocale* currentLocale = [NSLocale currentLocale];
-    NSDate *currentDate = [NSDate date];
-    [currentDate descriptionWithLocale:currentLocale];
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *todayDate = [dateFormatter stringFromDate:currentDate];
+    NSString *todayDate = [self todayDate];
     
     // Query for prevFinishedDate
     PFQuery *queryForPrevDate = [PFUser query];
@@ -140,7 +125,7 @@
     
 }
 
-- (void) instantiateCards {
+- (void) instantiateCardBothSides {
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.back.frame = CGRectMake(0, 0, 300, 180);
@@ -168,6 +153,24 @@
     [self.frontText setForegroundColor:[[UIColor blackColor] CGColor]];
     [self.frontText setFrame:CGRectMake(0, 0, 300, 180)];
     [self.front addSublayer:self.frontText];
+}
+
+- (void) createFlipAnimation {
+    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
+    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
+    self.rotateAnim.duration = 0.8;
+    
+    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+}
+
+- (NSString *) todayDate {
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    NSDate *currentDate = [NSDate date];
+    [currentDate descriptionWithLocale:currentLocale];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter stringFromDate:currentDate];
 }
 
 - (void) loadFlashcard {
