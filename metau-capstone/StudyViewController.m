@@ -167,12 +167,7 @@
 
 - (void) loadFlashcard {
     if (self.isFlipped) {
-        self.front.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        self.isFlipped = NO;
-        self.front.zPosition = 10;
-        self.back.zPosition = 0;
-        NSLog(@"to front");
+        [self flipAction:self.back to:self.front];
     }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
@@ -188,7 +183,6 @@
             [self.backText setString:card.backText];
             self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
             [self.view.layer addSublayer:self.back];
-            
             // FRONT SIDE
             [self.frontText setString:card.frontText];
             [self.view.layer addSublayer:self.front];
