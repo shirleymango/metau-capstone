@@ -41,9 +41,6 @@
     
     NSString *todayDate = [self todayDate];
     
-    NSLog(@"%@", user[@"prevFinishedDate"]);
-    
-    // Query for prevFinishedDate
     PFQuery *queryForPrevDate = [PFUser query];
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
@@ -53,12 +50,13 @@
                 [self endScreen];
             } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // Check if new day
-                if (!userObject[@"startedReview"]) {
+                if ([userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
                     [userObject saveInBackground];
                 }
-                // Fetch today's cards:
+                // FETCH TODAY'S CARDS
+                
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 NSLog(@"day: %@", self.dayNum);
@@ -91,14 +89,14 @@
                                 self.arrayOfCards = cards;
                                 NSLog(@"phase 1");
                                 self.counter  = 0;
-                                if (!userObject[@"startedReview"]) {
+                                if ([userObject[@"didStartReview"] isEqual:@NO]) {
                                     // Set toBeReviewed to be true for all card
                                     for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
                                         cardToBeReviewed.toBeReviewed = YES;
                                         [cardToBeReviewed saveInBackground];
                                     }
                                     
-                                    userObject[@"startedReview"] = @YES;
+                                    userObject[@"didStartReview"] = @YES;
                                     [userObject saveInBackground];
                                 }
                                 [self loadFlashcard];
@@ -116,7 +114,7 @@
             } else {
                 // PHASE IV: Waiting for new cards
                 NSLog(@"%@", userObject[@"prevFinishedDate"]);
-                userObject[@"startedReview"] = @NO;
+                userObject[@"didStartReview"] = @NO;
                 [userObject saveInBackground];
                 [self endScreen];
             }
