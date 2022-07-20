@@ -201,6 +201,7 @@
     } else {
         // PHASE III: Finished studying cards
         NSLog(@"reached end of stack");
+        userObject[@"phaseNum"] = @(3);
         [self endScreen];
         
         NSLocale* currentLocale = [NSLocale currentLocale];
