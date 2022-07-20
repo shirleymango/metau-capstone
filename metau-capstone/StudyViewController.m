@@ -260,10 +260,8 @@
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
     if (!self.isFlipped) {
         [self flipAction:self.front to:self.back];
-        self.isFlipped = YES;
     } else {
         [self flipAction:self.back to:self.front];
-        self.isFlipped = NO;
     }
 }
 
@@ -272,6 +270,7 @@
     secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
     secondSide.zPosition = 10;
     firstSide.zPosition = 0;
+    self.isFlipped = !self.isFlipped;
 }
 
 - (void) resetCard: (Flashcard *) card {
