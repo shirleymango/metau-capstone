@@ -21,7 +21,7 @@
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
-@property (nonatomic, strong) NSArray *arrayOfCards;
+@property (nonatomic, strong) NSArray<Flashcard *> *arrayOfCards;
 @property (nonatomic, assign) NSInteger counter;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
@@ -64,22 +64,13 @@
             // Check if first time user
             if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
                 [self endScreen];
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // PHASE I: Displaying new cards
-                userObject[@"phaseNum"] = @(2);
-                
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]] && [userObject[@"phaseNum"] isEqualToNumber:@(2)]) {
-                // PHASE II: Middle of studying cards
-                
-                // PHASE III: Finished studying cards
-            } else {
-                // PHASE IV: Waiting for new cards
-            }
-            
-            if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
-                // show the end screen
-                [self endScreen];
-            } else {
+                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                    // Increment day counter for the user
+                    [userObject incrementKey:@"userDay"];
+                }
+                // Fetch today's cards:
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 [userObject saveInBackground];
@@ -107,10 +98,23 @@
                         PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
                         
                         // Fetch data for cards asynchronously
-                        [query findObjectsInBackgroundWithBlock:^(NSArray *cards, NSError *error) {
+                        [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                self.counter = 0;
+                                NSLog(@"phase 1");
+                                self.counter  = 0;
+                                if ([userObject[@"phaseNum"] isEqualToNumber:@(4)]) {
+                                    // Set toBeReviewed to be true for all card
+                                    for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                                        cardToBeReviewed.toBeReviewed = YES;
+                                        [cardToBeReviewed saveInBackground];
+                                    }
+                                    userObject[@"phaseNum"] = @2;
+                                    [userObject saveInBackground];
+                                    
+                                    userObject[@"startedReview"] = @YES;
+                                    [userObject saveInBackground];
+                                }
                                 [self loadFlashcard];
                             } else {
                                 NSLog(@"%@", error.localizedDescription);
@@ -122,6 +126,12 @@
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                   }
                 }];
+                
+            } else {
+                // PHASE IV: Waiting for new cards
+                userObject[@"phaseNum"] = @(4);
+                [userObject saveInBackground];
+                [self endScreen];
             }
         } else {
             NSLog(@"no user");
@@ -175,17 +185,26 @@
         self.congratsLabel.hidden = YES;
         
         Flashcard *card = self.arrayOfCards[self.counter];
-        // BACK SIDE
-        // add text label to the flashcard
-        [self.backText setString:card.backText];
-        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-        [self.view.layer addSublayer:self.back];
         
-        // FRONT SIDE
-        // add text label to the flashcard
-        [self.frontText setString:card.frontText];
-        [self.view.layer addSublayer:self.front];
+        // PHASE II: Middle of studying cards
+        // Only display cards that have not been reviewed yet
+        if (!card.toBeReviewed) {
+            self.counter++;
+            [self loadFlashcard];
+        } else {
+            // BACK SIDE
+            // add text label to the flashcard
+            [self.backText setString:card.backText];
+            self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+            [self.view.layer addSublayer:self.back];
+            
+            // FRONT SIDE
+            // add text label to the flashcard
+            [self.frontText setString:card.frontText];
+            [self.view.layer addSublayer:self.front];
+        }
     } else {
+        // PHASE III: Finished studying cards
         NSLog(@"reached end of stack");
         [self endScreen];
         
@@ -205,9 +224,9 @@
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
                 [userObject saveInBackground];
-                
-                // Increment day counter for the user
-                [userObject incrementKey:@"userDay"];
+             
+                userObject[@"phaseNum"] = @(3);
+                [userObject saveInBackground];
             }
             else {
                 NSLog(@"no user");
@@ -242,6 +261,10 @@
                                  block:^(PFObject *card, NSError *error) {
         [card incrementKey:@"levelNum"];
         [card saveInBackground];
+        
+        // Update card as no longer needing to be reviewed
+        card[@"toBeReviewed"] = @NO;
+        [card saveInBackground];
     }];
     
     self.counter++;
@@ -249,9 +272,12 @@
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
-    // Update level
+    // Reset level
     Flashcard *card = self.arrayOfCards[self.counter];
     [self resetCard:card];
+    // Update card as no longer needing to be reviewed
+    card[@"toBeReviewed"] = @NO;
+    [card saveInBackground];
     self.counter++;
     [self loadFlashcard];
 }
