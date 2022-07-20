@@ -59,7 +59,6 @@
                 
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
-                NSLog(@"day: %@", self.dayNum);
                 
                 // Query for today's level numbers
                 PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
@@ -69,15 +68,7 @@
                   if (!error) {
                     for (Schedule *object in objects) {
                         NSArray *arrayOfLevels = object.arrayOfLevels;
-                        NSString *constraintForCards = @"(userID = %@) AND ";
-                        // Construct string containing the level numbers
-                        for (int i = 0; i < arrayOfLevels.count; i++) {
-                            if (i == 0) {
-                                constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
-                            } else {
-                                constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
-                            }
-                        }
+                        NSString *constraintForCards = [self stringWithLevels:arrayOfLevels];
 
                         // Construct Query for Flashcards
                         NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
@@ -87,7 +78,6 @@
                         [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                NSLog(@"phase 1");
                                 self.counter  = 0;
                                 if ([userObject[@"didStartReview"] isEqual:@NO]) {
                                     // Set toBeReviewed to be true for all card
@@ -95,7 +85,6 @@
                                         cardToBeReviewed.toBeReviewed = YES;
                                         [cardToBeReviewed saveInBackground];
                                     }
-                                    
                                     userObject[@"didStartReview"] = @YES;
                                     [userObject saveInBackground];
                                 }
@@ -112,8 +101,7 @@
                 }];
                 
             } else {
-                // PHASE IV: Waiting for new cards
-                NSLog(@"%@", userObject[@"prevFinishedDate"]);
+                // Waiting for new cards
                 userObject[@"didStartReview"] = @NO;
                 [userObject saveInBackground];
                 [self endScreen];
@@ -169,9 +157,17 @@
     return [dateFormatter stringFromDate:currentDate];
 }
 
-//- (BOOL) isFirstTimeUser {
-//    return [userObject[@"prevFinishedDate"] isEqual:[NSNull null]];
-//}
+- (NSString *) stringWithLevels: (NSArray *) arrayOfLevels{
+    NSString *constraintForCards = @"(userID = %@) AND ";
+    for (int i = 0; i < arrayOfLevels.count; i++) {
+        if (i == 0) {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
+        } else {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
+        }
+    }
+    return constraintForCards;
+}
 
 - (void) loadFlashcard {
     if (self.isFlipped) {
@@ -194,7 +190,6 @@
             [self loadFlashcard];
         } else {
             // BACK SIDE
-            // add text label to the flashcard
             [self.backText setString:card.backText];
             self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
             [self.view.layer addSublayer:self.back];
