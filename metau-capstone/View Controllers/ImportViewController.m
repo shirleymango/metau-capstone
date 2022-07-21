@@ -6,7 +6,7 @@
 //
 
 #import "ImportViewController.h"
-#import "API/APIManager.h"
+#import "APIManager.h"
 
 @interface ImportViewController ()
 

@@ -11,7 +11,7 @@
 #import "LoginViewController.h"
 #import "Flashcard.h"
 #import "Utilities.h"
-#import "API/APIManager.h"
+#import "APIManager.h"
 #import "ImportViewController.h"
 
 @interface CreateViewController ()
