@@ -12,6 +12,7 @@
 #import "Flashcard.h"
 #import "Utilities.h"
 #import "API/APIManager.h"
+#import "ImportViewController.h"
 
 @interface CreateViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
@@ -24,13 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[APIManager shared] getSheetsData:^(NSError *error) {
-        if (!error) {
-            NSLog(@"get request");
-        } else {
-            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
-        }
-    }];
+//    [[APIManager shared] getSheetsData:^(NSError *error) {
+//        if (!error) {
+//            NSLog(@"get request");
+//        } else {
+//            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
+//        }
+//    }];
 }
 
 - (IBAction)didTapSubmit:(UIButton *)sender {
@@ -57,6 +58,11 @@
         }
     }];
 }
+
+- (IBAction)didTapImport:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"importSegue" sender:nil];
+}
+
 
 - (IBAction)didTapLogout:(id)sender {
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;

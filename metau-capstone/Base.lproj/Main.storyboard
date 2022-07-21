@@ -277,6 +277,18 @@
                                 <action selector="didTapLogout:" destination="CyV-c1-3Q2" id="cfp-tS-uvG"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="BNE-zr-eW1">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="hJE-Em-Rbx">
+                                <rect key="frame" x="296" y="5" width="98" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system" title="Import"/>
+                                <connections>
+                                    <action selector="didTapImport:" destination="CyV-c1-3Q2" eventType="touchUpInside" id="76O-QU-Yuh"/>
+                                    <segue destination="I7N-Ld-0tS" kind="show" identifier="importSegue" id="bQy-lv-eCz"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -287,6 +299,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWE-BA-sYF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2421.739130434783" y="2580.1339285714284"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vfL-Fj-vzT">
+            <objects>
+                <viewController storyboardIdentifier="ImportViewController" id="Yvt-j1-OiV" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VRB-2z-McL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dz0-gd-cK9"/>
+                        <color key="backgroundColor" red="0.83362744619999996" green="0.84451001339999998" blue="0.86078917980000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="M8n-XD-DgY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wTL-F2-jFE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3381" y="3471"/>
+        </scene>
+        <!--Import-->
+        <scene sceneID="04k-ml-Fmr">
+            <objects>
+                <navigationController id="I7N-Ld-0tS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Create" image="square.and.pencil" catalog="system" id="f7e-ad-xOF"/>
+                    <navigationItem key="navigationItem" title="Import" id="FPN-UY-e9T"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7eq-ez-Vc6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Yvt-j1-OiV" kind="relationship" relationship="rootViewController" id="CU1-ue-IWx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RL6-Xz-h5B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2422" y="3471"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="DHg-vu-UuD">
@@ -368,6 +415,7 @@
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="return.left" catalog="system" width="128" height="101"/>
         <image name="return.right" catalog="system" width="128" height="101"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
