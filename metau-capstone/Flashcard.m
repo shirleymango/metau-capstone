@@ -31,7 +31,7 @@
     [newCard saveInBackgroundWithBlock: completion];
 }
 
-+ (void) cardsFromDictionary: (NSDictionary *)dictionary {
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary {
     NSArray * arrayOfFlashcardValues = [dictionary objectForKey:@"values"];
     for (NSArray * flashcardText in arrayOfFlashcardValues) {
         NSString * frontText = flashcardText[0];

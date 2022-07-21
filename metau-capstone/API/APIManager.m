@@ -43,7 +43,7 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
         completion(nil);
-        [Flashcard cardsFromDictionary:sheetDictionary];
+        [Flashcard createCardsFromDictionary:sheetDictionary];
         NSLog(@"yippie!");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(error);
