@@ -216,6 +216,7 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 * My plan:
     * Restructuring the architecture of the app
 * First attempt:
+    * Create a property of the Flashcard class called toBeReviewed, a boolean value stored in the Parse database
     * Store which phase the user is on, where the four phases are:
     * 1. Displaying new cards
     * 2. Middle of studying cards
