@@ -204,7 +204,33 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
             * Only approximately following level 2 is every other day, level 3 is every 4 days, etc. – there are some exceptions in the schedule
             * Thus, it is impossible to take the day number and compute which levels to show. It also would have been computationally heavy so the runtime would be long
         * Considering scalability - If someone wants to change the specific spaced repetition schedule in the future, it is easy to access in the Parse backend.
+* Skills learned from this technical problem:
+    * Parse in iOS development
+![](https://i.imgur.com/w4lVuk7.jpg)
 
-2) When user closes app before finishing a study set
 
-3) Dealing with first time user
+2) Addressing bug when the user closes app before finishing a study set
+* The problem: when the user closes the app and re-opens the app, the entire daily stack of cards will be displayed, even cards that the user has already reviewed
+* My plan:
+    * Restructuring the architecture of the app
+* First attempt:
+    * Store which phase the user is on, where the four phases are:
+    * 1) Displaying new cards
+    * 2) Middle of studying cards
+    * 3) Finished studying cards
+    * 4) Waiting for new cards
+    * I considered the different parts to keep track of with the following table:
+
+![](https://i.imgur.com/hgSPda3.png)
+
+* Second attempt:
+    * Refactored to make code more readable
+    * I realized while I new what the different phase numbers represented, it would not be easy to communicate to someone reading my code what the phases are. Instead of storing a phase number, I created a user property called didStartReview. The name is more descriptive and easier to understand. The following is the restructure of my code that addresses the issue of the user closing the app before finishing studying:
+![](https://i.imgur.com/XmpqW2C.jpg)
+
+
+* Skills learned from this technical problem:
+    * Refactoring
+    * Making clean code that is easy for others and my future self to understand
+4) Dealing with first time user
+5) Animation in iOS
