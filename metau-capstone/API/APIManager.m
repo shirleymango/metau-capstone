@@ -6,6 +6,7 @@
 //
 
 #import "APIManager.h"
+#import "Flashcard.h"
 
 static NSString * const baseURLString = @"https://sheets.googleapis.com";
 
@@ -38,12 +39,27 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     NSDictionary *parameters = @{@"key": self.APIkey};
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager GET:@"v4/spreadsheets.json" parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
+    NSString *endURLString = @"v4/spreadsheets/18hOQplD--E3VUtULuuzWqkW9oT5MPeLlgl3JjrAKH5E/values/Sheet1!A1:B2";
+    [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
         completion(nil);
+        NSLog(@"yippie!");
+        NSArray * arrayOfFlashcardValues = [sheetDictionary objectForKey:@"values"];
+        for (NSArray * flashcardText in arrayOfFlashcardValues) {
+            NSString * frontText = flashcardText[0];
+            NSString * backText = flashcardText[1];
+            [Flashcard createCard:frontText withBack:backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (!error) {
+                    NSLog(@"card created!");
+                }
+                else {
+                    NSLog(@"nooo cry %@", error.localizedDescription);
+                }
+            }];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(error);
+        NSLog(@":''(");
     }];
     
 }
