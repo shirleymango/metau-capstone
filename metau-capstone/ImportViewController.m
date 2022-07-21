@@ -6,6 +6,7 @@
 //
 
 #import "ImportViewController.h"
+#import "API/APIManager.h"
 
 @interface ImportViewController ()
 
@@ -19,12 +20,25 @@
 }
 
 - (IBAction)didTapSubmitImport:(UIButton *)sender {
-    NSString *inputString = self.URLTextField.text;
-    NSLog(@"%@", inputString);
-    NSArray *urlBreakdown = [inputString componentsSeparatedByString:@"/"];
-    NSLog(@"%@", urlBreakdown[5]);
     
     self.URLTextField.text = @"";
+    
+    [[APIManager shared] getSheetsData:^(NSError *error) {
+        if (!error) {
+            NSLog(@"get request");
+        } else {
+            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
+        }
+    }];
+}
+
+
+- (NSString *) pathParameters {
+    NSString *pathParametersString = @"";
+    NSString *inputString = self.URLTextField.text;
+    NSArray *urlBreakdown = [inputString componentsSeparatedByString:@"/"];
+    pathParametersString = [pathParametersString stringByAppendingString:urlBreakdown[5]];
+    return pathParametersString;
 }
 
 /*

@@ -25,13 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [[APIManager shared] getSheetsData:^(NSError *error) {
-//        if (!error) {
-//            NSLog(@"get request");
-//        } else {
-//            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
-//        }
-//    }];
+
 }
 
 - (IBAction)didTapSubmit:(UIButton *)sender {
