@@ -12,6 +12,7 @@ Shirley's Original App Design Project
 4. [Project Progress](#Project-Progress)
 5. [Schema](#Schema)
 6. [Technical/Ambiguous Problems](#TechnicalAmbiguous-Problems)
+7. [Visuals & Interactions](#Visuals--Interactions)
 
 ## Overview
 ### Description
@@ -243,6 +244,6 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
     * This was the first part of the app that went outside the realm of features built during CodePath instruction, so I also learned how to use online resources to navigate making something for the first time. I used videos, articles, and Stack Overflow, referenced Swift code in addition to Objective C guides.
 
 ## Visuals & Interactions
-Gesture: Tap gesture for flipping card
-External library for visual polish: Progress bar while studying flashcards
-Animation: Flashcard flipping back and forth
+* Gesture: Tap gesture for flipping card
+* External library for visual polish: Progress bar while studying flashcards
+* Animation: Flashcard flipping back and forth
