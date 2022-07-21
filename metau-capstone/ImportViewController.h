@@ -10,6 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImportViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *URLTextField;
+@property (weak, nonatomic) IBOutlet UITextField *rangeStartField;
+@property (weak, nonatomic) IBOutlet UITextField *rangeEndField;
 
 @end
 

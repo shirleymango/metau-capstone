@@ -18,6 +18,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)didTapSubmitImport:(UIButton *)sender {
+    NSString *inputString = self.URLTextField.text;
+    NSLog(@"%@", inputString);
+    NSArray *urlBreakdown = [inputString componentsSeparatedByString:@"/"];
+    NSLog(@"%@", urlBreakdown[5]);
+    
+    self.URLTextField.text = @"";
+}
+
 /*
 #pragma mark - Navigation
 

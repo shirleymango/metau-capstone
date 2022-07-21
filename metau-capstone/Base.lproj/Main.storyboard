@@ -300,10 +300,10 @@
             </objects>
             <point key="canvasLocation" x="2421.739130434783" y="2580.1339285714284"/>
         </scene>
-        <!--View Controller-->
+        <!--Import View Controller-->
         <scene sceneID="vfL-Fj-vzT">
             <objects>
-                <viewController storyboardIdentifier="ImportViewController" id="Yvt-j1-OiV" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImportViewController" id="Yvt-j1-OiV" customClass="ImportViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VRB-2z-McL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -354,13 +354,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ao-HA-di4">
-                                <rect key="frame" x="146" y="634" width="122" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kP6-HT-F7p">
+                                <rect key="frame" x="146" y="626" width="103" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Submit"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Submit"/>
                                 <connections>
-                                    <action selector="didTapSubmit:" destination="CyV-c1-3Q2" eventType="touchUpInside" id="xY7-TE-asO"/>
+                                    <action selector="didTapSubmitImport:" destination="Yvt-j1-OiV" eventType="touchUpInside" id="fw2-tm-pq3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -368,10 +368,15 @@
                         <color key="backgroundColor" red="0.83362744619999996" green="0.84451001339999998" blue="0.86078917980000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <navigationItem key="navigationItem" id="M8n-XD-DgY"/>
+                    <connections>
+                        <outlet property="URLTextField" destination="hOp-Ix-6Sh" id="uKs-n8-3H5"/>
+                        <outlet property="rangeEndField" destination="FMA-zF-GNg" id="naj-eo-Evj"/>
+                        <outlet property="rangeStartField" destination="dMf-y5-XRD" id="ofv-wk-Sce"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTL-F2-jFE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3379.7101449275365" y="3470.7589285714284"/>
+            <point key="canvasLocation" x="3266.666666666667" y="3470.7589285714284"/>
         </scene>
         <!--Import-->
         <scene sceneID="04k-ml-Fmr">
