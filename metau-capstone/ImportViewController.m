@@ -20,16 +20,15 @@
 }
 
 - (IBAction)didTapSubmitImport:(UIButton *)sender {
-    
-    self.URLTextField.text = @"";
-    
-    [[APIManager shared] getSheetsData:^(NSError *error) {
+    NSString *pathParameters = [self pathParameters];
+    [[APIManager shared] getSheetsData:pathParameters withCompletetion:^(NSError *error) {
         if (!error) {
             NSLog(@"get request");
         } else {
             NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
         }
     }];
+    [self clearFields];
 }
 
 
@@ -38,7 +37,23 @@
     NSString *inputString = self.URLTextField.text;
     NSArray *urlBreakdown = [inputString componentsSeparatedByString:@"/"];
     pathParametersString = [pathParametersString stringByAppendingString:urlBreakdown[5]];
+    NSString *rangeParameter = [self range];
+    pathParametersString = [pathParametersString stringByAppendingString:rangeParameter];
     return pathParametersString;
+}
+
+- (NSString *) range {
+    NSString *inputStart = self.rangeStartField.text;
+    NSString *inputEnd = self.rangeEndField.text;
+    NSString *rangeText = @"";
+    rangeText = [rangeText stringByAppendingFormat:@"/values/Sheet1!%@:%@", inputStart, inputEnd];
+    return rangeText;
+}
+
+- (void) clearFields {
+    self.URLTextField.text = @"";
+    self.rangeStartField.text = @"";
+    self.rangeEndField.text = @"";
 }
 
 /*
