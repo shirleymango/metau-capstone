@@ -25,6 +25,11 @@
         [[APIManager shared] getSheetsData:pathParameters withCompletetion:^(NSError *error) {
             if (!error) {
                 NSLog(@"get request");
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Success ^-^ !!" message:@"Your flashcards were created." preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                }];
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:^{}];
             } else {
                 NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
                 UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];

@@ -36,7 +36,7 @@
             NSLog(@"success in creating card ^-^!");
             self.frontTextField.text = @"";
             self.backTextField.text = @"";
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Sucess ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Success ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
             [alert addAction:okAction];
