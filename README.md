@@ -11,7 +11,7 @@ Shirley's Original App Design Project
 3. [Wireframes](#Wireframes)
 4. [Project Progress](#Project-Progress)
 5. [Schema](#Schema)
-6. [Technical/Ambiguous Problems](#Technical/Ambiguous-Problems)
+6. [Technical/Ambiguous Problems](#TechnicalAmbiguous-Problems)
 
 ## Overview
 ### Description
