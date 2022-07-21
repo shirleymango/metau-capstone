@@ -217,17 +217,17 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
     * Restructuring the architecture of the app
 * First attempt:
     * Store which phase the user is on, where the four phases are:
-    * 1) Displaying new cards
-    * 2) Middle of studying cards
-    * 3) Finished studying cards
-    * 4) Waiting for new cards
+    * 1. Displaying new cards
+    * 2. Middle of studying cards
+    * 3. Finished studying cards
+    * 4. Waiting for new cards
     * I considered the different parts to keep track of with the following table:
 
 ![](https://i.imgur.com/hgSPda3.png)
 
 * Second attempt:
     * Refactored to make code more readable
-    * I realized while I new what the different phase numbers represented, it would not be easy to communicate to someone reading my code what the phases are. Instead of storing a phase number, I created a user property called didStartReview. The name is more descriptive and easier to understand. The following is the restructure of my code that addresses the issue of the user closing the app before finishing studying:
+    * I realized while I knew what the different phase numbers represented, it would not be easy to communicate to someone reading my code what the phases are. Instead of storing a phase number, I created a user property called didStartReview. The name is more descriptive and easier to understand. The following is the restructure of my code that addresses the issue of the user closing the app before finishing studying:
 ![](https://i.imgur.com/XmpqW2C.jpg)
 
 
