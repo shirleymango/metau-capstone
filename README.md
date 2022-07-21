@@ -204,3 +204,7 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
             * Only approximately following level 2 is every other day, level 3 is every 4 days, etc. – there are some exceptions in the schedule
             * Thus, it is impossible to take the day number and compute which levels to show. It also would have been computationally heavy so the runtime would be long
         * Considering scalability - If someone wants to change the specific spaced repetition schedule in the future, it is easy to access in the Parse backend.
+
+2) When user closes app before finishing a study set
+
+3) Dealing with first time user
