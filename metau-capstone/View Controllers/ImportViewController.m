@@ -21,13 +21,20 @@
 
 - (IBAction)didTapSubmitImport:(UIButton *)sender {
     NSString *pathParameters = [self pathParameters];
-    [[APIManager shared] getSheetsData:pathParameters withCompletetion:^(NSError *error) {
-        if (!error) {
-            NSLog(@"get request");
-        } else {
-            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
-        }
-    }];
+    if (![pathParameters isEqualToString:@"invalid"]) {
+        [[APIManager shared] getSheetsData:pathParameters withCompletetion:^(NSError *error) {
+            if (!error) {
+                NSLog(@"get request");
+            } else {
+                NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                }];
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:^{}];
+            }
+        }];
+    }
     [self clearFields];
 }
 
@@ -36,9 +43,19 @@
     NSString *pathParametersString = @"";
     NSString *inputString = self.URLTextField.text;
     NSArray *urlBreakdown = [inputString componentsSeparatedByString:@"/"];
-    pathParametersString = [pathParametersString stringByAppendingString:urlBreakdown[5]];
-    NSString *rangeParameter = [self range];
-    pathParametersString = [pathParametersString stringByAppendingString:rangeParameter];
+    if ([urlBreakdown count] < 5) {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid URL" message:@"Please try again." preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{}];
+        pathParametersString = @"invalid";
+    }
+    else {
+        pathParametersString = [pathParametersString stringByAppendingString:urlBreakdown[5]];
+        NSString *rangeParameter = [self range];
+        pathParametersString = [pathParametersString stringByAppendingString:rangeParameter];
+    }
     return pathParametersString;
 }
 
