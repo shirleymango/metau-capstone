@@ -66,6 +66,7 @@ This app will allow users to create flashcards and study them every day with the
 * App incorporates keyboards for different languages
 * App uses Mandarin handwriting recognition API
 * Activity log for each card
+* Progress bar when studying flashcards
 
 Ideas from Katie and Zenan:
 * Manually changing levels
@@ -240,3 +241,8 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
     ![](https://i.imgur.com/8EbOyjL.jpg)
 
     * This was the first part of the app that went outside the realm of features built during CodePath instruction, so I also learned how to use online resources to navigate making something for the first time. I used videos, articles, and Stack Overflow, referenced Swift code in addition to Objective C guides.
+
+## Visuals & Interactions
+Gesture: Tap gesture for flipping card
+External library for visual polish: Progress bar while studying flashcards
+Animation: Flashcard flipping back and forth
