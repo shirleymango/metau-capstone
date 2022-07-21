@@ -233,4 +233,10 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
     * Refactoring
     * Making clean code that is easy for others and my future self to understand
 4) Dealing with first time user
-5) Animation in iOS
+5) Flip animation
+* Goal: user can flip card back and forth on tap gasture
+* Skills learned from this technical problem:
+    * Animation in iOS
+    ![](https://i.imgur.com/8EbOyjL.jpg)
+
+    * This was the first part of the app that went outside the realm of features built during CodePath instruction, so I also learned how to use online resources to navigate making something for the first time. I used videos, articles, and Stack Overflow, referenced Swift code in addition to Objective C guides.
