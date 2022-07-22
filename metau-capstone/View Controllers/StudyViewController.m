@@ -45,9 +45,10 @@
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
             self.prevFinishedDate = userObject[@"prevFinishedDate"];
+
             if ([self isFirstTimeUser] || [self isNewDay]) {
                 // Check user has started reviewing for the day
-                if ([userObject[@"didStartReview"] isEqual:@NO]) {
+                if (![self isFirstTimeUser] && [userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
                     [userObject saveInBackground];
@@ -74,18 +75,22 @@
                         [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                             if (cards != nil) {
                                 self.arrayOfCards = cards;
-                                self.counter  = 0;
-                                if ([userObject[@"didStartReview"] isEqual:@NO]) {
-                                    // Set toBeReviewed to be true for all card
-                                    for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
-                                        cardToBeReviewed.toBeReviewed = YES;
-                                        [cardToBeReviewed saveInBackground];
+                                self.counter = 0;
+                                if ([cards count] == 0) {
+                                    [self startScreen];
+                                } else {
+                                    if ([userObject[@"didStartReview"] isEqual:@NO]) {
+                                        // Set toBeReviewed to be true for all card
+                                        for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                                            cardToBeReviewed.toBeReviewed = YES;
+                                            [cardToBeReviewed saveInBackground];
+                                        }
+                                        userObject[@"didStartReview"] = @YES;
+                                        [userObject saveInBackground];
                                     }
-                                    userObject[@"didStartReview"] = @YES;
-                                    [userObject saveInBackground];
+                                    // Display flashcards
+                                    [self loadFlashcard];
                                 }
-                                // Display flashcards
-                                [self loadFlashcard];
                             } else {
                                 NSLog(@"%@", error.localizedDescription);
                             }
@@ -111,7 +116,7 @@
 }
 
 - (BOOL) isFirstTimeUser {
-    return [self.prevFinishedDate isEqual:[NSNull null]];
+    return self.prevFinishedDate == nil;
 }
 
 - (BOOL) isNewDay {
@@ -119,7 +124,6 @@
 }
 
 - (void) createCardBothSides {
-
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
@@ -209,12 +213,28 @@
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
                 [userObject saveInBackground];
-            }
-            else {
+            } else {
                 NSLog(@"no user");
             }
         }];
     }
+}
+
+- (void) startScreen {
+    self.leftButton.hidden = YES;
+    self.rightButton.hidden = YES;
+    self.congratsLabel.hidden = YES;
+    
+    // BACK SIDE
+    // add text label to the flashcard
+    [self.backText setString:@"Come back afterwards to study your cards :)"];
+    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    [self.view.layer addSublayer:self.back];
+    
+    // FRONT SIDE
+    // add text label to the flashcard
+    [self.frontText setString:@"You have no cards yet! \r Add cards by going to the Create tab."];
+    [self.view.layer addSublayer:self.front];
 }
 
 - (void) endScreen {

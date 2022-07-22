@@ -60,6 +60,7 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser[@"userDay"] = @(1);
+    newUser[@"didStartReview"] = @NO;
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
