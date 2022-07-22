@@ -225,7 +225,7 @@
 - (void) startScreen {
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
-    self.congratsLabel.hidden = NO;
+    self.congratsLabel.hidden = YES;
     
     // BACK SIDE
     // add text label to the flashcard
