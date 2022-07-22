@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
+@property (nonatomic) NSString *prevFinishedDate;
 
 @end
 
@@ -35,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *const user = [PFUser currentUser];
+<<<<<<< Updated upstream:metau-capstone/StudyViewController.m
     
     // Instantiate flashcard sides
     // BACK SIDE
@@ -57,14 +59,31 @@
     NSString *todayDate = [dateFormatter stringFromDate:currentDate];
     
     // Query for prevFinishedDate
+=======
+
+    [self createCardBothSides];
+    [self createFlipAnimation];
+        
+>>>>>>> Stashed changes:metau-capstone/View Controllers/StudyViewController.m
     PFQuery *queryForPrevDate = [PFUser query];
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
+<<<<<<< Updated upstream:metau-capstone/StudyViewController.m
             if (![userObject[@"prevFinishedDate"] isEqual:[NSNull null]] && [todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
                 // show the end screen
                 [self endScreen];
             } else {
+=======
+            self.prevFinishedDate = userObject[@"prevFinishedDate"];
+            if ([self isFirstTimeUser] || [self isNewDay]) {
+                // Check user has started reviewing for the day
+                if ([userObject[@"didStartReview"] isEqual:@NO]) {
+                    // Increment day counter for the user
+                    [userObject incrementKey:@"userDay"];
+                    [userObject saveInBackground];
+                }
+>>>>>>> Stashed changes:metau-capstone/View Controllers/StudyViewController.m
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 [userObject saveInBackground];
@@ -115,7 +134,19 @@
     
 }
 
+<<<<<<< Updated upstream:metau-capstone/StudyViewController.m
 - (void) instantiateCards {
+=======
+- (BOOL) isFirstTimeUser {
+    return [self.prevFinishedDate isEqual:[NSNull null]];
+}
+
+- (BOOL) isNewDay {
+    return ![[self todayDate] isEqualToString:self.prevFinishedDate];
+}
+
+- (void) createCardBothSides {
+>>>>>>> Stashed changes:metau-capstone/View Controllers/StudyViewController.m
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.back.frame = CGRectMake(0, 0, 300, 180);
