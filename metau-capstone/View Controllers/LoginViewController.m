@@ -59,7 +59,7 @@
     // set user properties
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
-    newUser[@"userDay"] = @(0);
+    newUser[@"userDay"] = @(1);
     newUser[@"didStartReview"] = @NO;
     
     // call sign up function on the object

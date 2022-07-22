@@ -47,7 +47,7 @@
             self.prevFinishedDate = userObject[@"prevFinishedDate"];
             if ([self isFirstTimeUser] || [self isNewDay]) {
                 // Check user has started reviewing for the day
-                if ([userObject[@"didStartReview"] isEqual:@NO]) {
+                if (![self isFirstTimeUser] && [userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
                     [userObject saveInBackground];
