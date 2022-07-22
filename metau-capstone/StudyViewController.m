@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
+@property (nonatomic) NSString *prevFinishedDate;
 
 @end
 
@@ -39,22 +40,19 @@
     [self createCardBothSides];
     [self createFlipAnimation];
     
-    NSString *todayDate = [self todayDate];
-    
     PFQuery *queryForPrevDate = [PFUser query];
     [queryForPrevDate getObjectInBackgroundWithId:user.objectId
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
-            // Check if first time user
-            if ([userObject[@"prevFinishedDate"] isEqual:[NSNull null]]) {
-                [self endScreen];
-            } else if (![todayDate isEqualToString:userObject[@"prevFinishedDate"]]) {
+            self.prevFinishedDate = userObject[@"prevFinishedDate"];
+            if ([self isFirstTimeUser] || [self isNewDay]) {
                 // Check user has started reviewing for the day
                 if ([userObject[@"didStartReview"] isEqual:@NO]) {
                     // Increment day counter for the user
                     [userObject incrementKey:@"userDay"];
                     [userObject saveInBackground];
                 }
+
                 // Fetch today's number for the current user
                 self.dayNum = userObject[@"userDay"];
                 
@@ -112,7 +110,16 @@
     
 }
 
+- (BOOL) isFirstTimeUser {
+    return [self.prevFinishedDate isEqual:[NSNull null]];
+}
+
+- (BOOL) isNewDay {
+    return ![[self todayDate] isEqualToString:self.prevFinishedDate];
+}
+
 - (void) createCardBothSides {
+
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
