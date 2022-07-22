@@ -76,7 +76,6 @@
                                 self.arrayOfCards = cards;
                                 self.counter = 0;
                                 if ([cards count] == 0) {
-                                    NSLog(@"gotta add cards baby!!!");
                                     [self startScreen];
                                 } else {
                                     if ([userObject[@"didStartReview"] isEqual:@NO]) {
@@ -124,7 +123,6 @@
 }
 
 - (void) createCardBothSides {
-
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
@@ -214,8 +212,7 @@
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
                 [userObject saveInBackground];
-            }
-            else {
+            } else {
                 NSLog(@"no user");
             }
         }];
