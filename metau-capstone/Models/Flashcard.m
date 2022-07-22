@@ -31,4 +31,20 @@
     [newCard saveInBackgroundWithBlock: completion];
 }
 
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary {
+    NSArray * arrayOfFlashcardValues = [dictionary objectForKey:@"values"];
+    for (NSArray * flashcardText in arrayOfFlashcardValues) {
+        NSString * frontText = flashcardText[0];
+        NSString * backText = flashcardText[1];
+        [Flashcard createCard:frontText withBack:backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!error) {
+                NSLog(@"card created!");
+            }
+            else {
+                NSLog(@"nooo cry %@", error.localizedDescription);
+            }
+        }];
+    }
+}
+
 @end

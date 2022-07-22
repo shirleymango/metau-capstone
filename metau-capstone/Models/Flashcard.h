@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL toBeReviewed;
 
 + (void) createCard: ( NSString * _Nullable)frontText withBack: (NSString * _Nullable)backText withCompletion: (PFBooleanResultBlock  _Nullable)completion;
-
++ (void) createCardsFromDictionary: (NSDictionary *) dictionary;
 @end
 
 NS_ASSUME_NONNULL_END

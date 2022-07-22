@@ -12,7 +12,6 @@
 		850905B52881D47B00AD9B8F /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 850905B42881D47B00AD9B8F /* ScheduleCell.m */; };
 		858CB535286FA73C005805D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB534286FA73C005805D1 /* AppDelegate.m */; };
 		858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB537286FA73C005805D1 /* SceneDelegate.m */; };
-		858CB53B286FA73C005805D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB53A286FA73C005805D1 /* ViewController.m */; };
 		858CB53E286FA73C005805D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858CB53C286FA73C005805D1 /* Main.storyboard */; };
 		858CB540286FA73D005805D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 858CB53F286FA73D005805D1 /* Assets.xcassets */; };
 		858CB543286FA73D005805D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858CB541286FA73D005805D1 /* LaunchScreen.storyboard */; };
@@ -23,6 +22,7 @@
 		858CB5732876295A005805D1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5722876295A005805D1 /* LoginViewController.m */; };
 		858CB5762876346C005805D1 /* StudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 858CB5752876346C005805D1 /* StudyViewController.m */; };
 		8593CA5E2886126D0034E40A /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA5D2886126D0034E40A /* APIManager.m */; };
+		8593CA612889EAE00034E40A /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA602889EAE00034E40A /* ImportViewController.m */; };
 		85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8928765C8100155F8A /* CreateViewController.m */; };
 		85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8C28765C9000155F8A /* ScheduleViewController.m */; };
 		85CC1A90287CA3C700155F8A /* Flashcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8F287CA3C700155F8A /* Flashcard.m */; };
@@ -64,8 +64,6 @@
 		858CB534286FA73C005805D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		858CB536286FA73C005805D1 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		858CB537286FA73C005805D1 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		858CB539286FA73C005805D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		858CB53A286FA73C005805D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		858CB53D286FA73C005805D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		858CB53F286FA73D005805D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		858CB542286FA73D005805D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,6 +80,8 @@
 		858CB5752876346C005805D1 /* StudyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyViewController.m; sourceTree = "<group>"; };
 		8593CA5C2886126D0034E40A /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		8593CA5D2886126D0034E40A /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		8593CA5F2889EAE00034E40A /* ImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportViewController.h; sourceTree = "<group>"; };
+		8593CA602889EAE00034E40A /* ImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImportViewController.m; sourceTree = "<group>"; };
 		85CC1A8828765C8100155F8A /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		85CC1A8928765C8100155F8A /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
 		85CC1A8B28765C9000155F8A /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
@@ -148,30 +148,13 @@
 		858CB532286FA73C005805D1 /* metau-capstone */ = {
 			isa = PBXGroup;
 			children = (
+				8593CA642889FABF0034E40A /* Delegates */,
 				8593CA522885D15A0034E40A /* API */,
-				858CB533286FA73C005805D1 /* AppDelegate.h */,
-				858CB534286FA73C005805D1 /* AppDelegate.m */,
-				858CB536286FA73C005805D1 /* SceneDelegate.h */,
-				858CB537286FA73C005805D1 /* SceneDelegate.m */,
-				858CB539286FA73C005805D1 /* ViewController.h */,
-				858CB53A286FA73C005805D1 /* ViewController.m */,
+				8593CA622889FA670034E40A /* Models */,
+				8593CA652889FB2E0034E40A /* Utilities */,
+				8593CA632889FA8C0034E40A /* View Controllers */,
+				8593CA662889FB520034E40A /* Views */,
 				858CB53C286FA73C005805D1 /* Main.storyboard */,
-				850905B32881D47B00AD9B8F /* ScheduleCell.h */,
-				850905B42881D47B00AD9B8F /* ScheduleCell.m */,
-				85CC1A8828765C8100155F8A /* CreateViewController.h */,
-				85CC1A8928765C8100155F8A /* CreateViewController.m */,
-				85CC1A8B28765C9000155F8A /* ScheduleViewController.h */,
-				85CC1A8C28765C9000155F8A /* ScheduleViewController.m */,
-				850905AD288088D300AD9B8F /* Utilities.h */,
-				850905AE288088D300AD9B8F /* Utilities.m */,
-				858CB5742876346C005805D1 /* StudyViewController.h */,
-				858CB5752876346C005805D1 /* StudyViewController.m */,
-				85CC1A94287E14F300155F8A /* Schedule.h */,
-				85CC1A95287E14F300155F8A /* Schedule.m */,
-				858CB5712876295A005805D1 /* LoginViewController.h */,
-				858CB5722876295A005805D1 /* LoginViewController.m */,
-				85CC1A8E287CA3C700155F8A /* Flashcard.h */,
-				85CC1A8F287CA3C700155F8A /* Flashcard.m */,
 				858CB53F286FA73D005805D1 /* Assets.xcassets */,
 				858CB541286FA73D005805D1 /* LaunchScreen.storyboard */,
 				858CB544286FA73D005805D1 /* Info.plist */,
@@ -204,6 +187,63 @@
 				8593CA5D2886126D0034E40A /* APIManager.m */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		8593CA622889FA670034E40A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85CC1A8E287CA3C700155F8A /* Flashcard.h */,
+				85CC1A8F287CA3C700155F8A /* Flashcard.m */,
+				85CC1A94287E14F300155F8A /* Schedule.h */,
+				85CC1A95287E14F300155F8A /* Schedule.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8593CA632889FA8C0034E40A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				85CC1A8828765C8100155F8A /* CreateViewController.h */,
+				85CC1A8928765C8100155F8A /* CreateViewController.m */,
+				8593CA5F2889EAE00034E40A /* ImportViewController.h */,
+				8593CA602889EAE00034E40A /* ImportViewController.m */,
+				85CC1A8B28765C9000155F8A /* ScheduleViewController.h */,
+				85CC1A8C28765C9000155F8A /* ScheduleViewController.m */,
+				858CB5742876346C005805D1 /* StudyViewController.h */,
+				858CB5752876346C005805D1 /* StudyViewController.m */,
+				858CB5712876295A005805D1 /* LoginViewController.h */,
+				858CB5722876295A005805D1 /* LoginViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		8593CA642889FABF0034E40A /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				858CB533286FA73C005805D1 /* AppDelegate.h */,
+				858CB534286FA73C005805D1 /* AppDelegate.m */,
+				858CB536286FA73C005805D1 /* SceneDelegate.h */,
+				858CB537286FA73C005805D1 /* SceneDelegate.m */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		8593CA652889FB2E0034E40A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				850905AD288088D300AD9B8F /* Utilities.h */,
+				850905AE288088D300AD9B8F /* Utilities.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8593CA662889FB520034E40A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				850905B32881D47B00AD9B8F /* ScheduleCell.h */,
+				850905B42881D47B00AD9B8F /* ScheduleCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9B783613FF1717DF9FB32810 /* Pods */ = {
@@ -468,12 +508,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				85CC1A96287E14F300155F8A /* Schedule.m in Sources */,
-				858CB53B286FA73C005805D1 /* ViewController.m in Sources */,
 				850905B52881D47B00AD9B8F /* ScheduleCell.m in Sources */,
 				858CB535286FA73C005805D1 /* AppDelegate.m in Sources */,
 				858CB5762876346C005805D1 /* StudyViewController.m in Sources */,
 				85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */,
 				858CB546286FA73D005805D1 /* main.m in Sources */,
+				8593CA612889EAE00034E40A /* ImportViewController.m in Sources */,
 				850905AF288088D300AD9B8F /* Utilities.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
 				8593CA5E2886126D0034E40A /* APIManager.m in Sources */,

@@ -11,7 +11,8 @@
 #import "LoginViewController.h"
 #import "Flashcard.h"
 #import "Utilities.h"
-#import "API/APIManager.h"
+#import "APIManager.h"
+#import "ImportViewController.h"
 
 @interface CreateViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
@@ -24,13 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[APIManager shared] getSheetsData:^(NSError *error) {
-        if (!error) {
-            NSLog(@"get request");
-        } else {
-            NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
-        }
-    }];
+
 }
 
 - (IBAction)didTapSubmit:(UIButton *)sender {
@@ -41,7 +36,7 @@
             NSLog(@"success in creating card ^-^!");
             self.frontTextField.text = @"";
             self.backTextField.text = @"";
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Sucess ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Success ^-^ !!" message:@"Your flashcard was created." preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
             [alert addAction:okAction];
@@ -57,6 +52,11 @@
         }
     }];
 }
+
+- (IBAction)didTapImport:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"importSegue" sender:nil];
+}
+
 
 - (IBAction)didTapLogout:(id)sender {
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;

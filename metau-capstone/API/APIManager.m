@@ -6,6 +6,7 @@
 //
 
 #import "APIManager.h"
+#import "Flashcard.h"
 
 static NSString * const baseURLString = @"https://sheets.googleapis.com";
 
@@ -34,16 +35,19 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     return self;
 }
 
-- (void) getSheetsData: (void(^)(NSError *error))completion {
+- (void) getSheetsData: (NSString *) pathParameters withCompletetion: (void(^)(NSError *error))completion {
     NSDictionary *parameters = @{@"key": self.APIkey};
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager GET:@"v4/spreadsheets.json" parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
+    NSString *endURLString = [@"v4/spreadsheets/" stringByAppendingString:pathParameters];
+    [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
         completion(nil);
+        [Flashcard createCardsFromDictionary:sheetDictionary];
+        NSLog(@"yippie!");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(error);
+        NSLog(@":''(");
     }];
     
 }
