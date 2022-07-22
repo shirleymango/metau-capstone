@@ -236,7 +236,8 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
     * Refactoring
     * Making clean code that is easy for others and my future self to understand
 3) Dealing with first time user
-4) Flip animation
+4) Custom Schedule View
+5) Flip animation
 * Goal: user can flip card back and forth on tap gasture
 * Skills learned from this technical problem:
     * Animation in iOS
