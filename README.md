@@ -11,6 +11,8 @@ Shirley's Original App Design Project
 3. [Wireframes](#Wireframes)
 4. [Project Progress](#Project-Progress)
 5. [Schema](#Schema)
+6. [Technical/Ambiguous Problems](#TechnicalAmbiguous-Problems)
+7. [Visuals & Interactions](#Visuals--Interactions)
 
 ## Overview
 ### Description
@@ -65,6 +67,7 @@ This app will allow users to create flashcards and study them every day with the
 * App incorporates keyboards for different languages
 * App uses Mandarin handwriting recognition API
 * Activity log for each card
+* Progress bar when studying flashcards
 
 Ideas from Katie and Zenan:
 * Manually changing levels
@@ -174,3 +177,75 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 | dayNum | Number | day number in Leitner Schedule |
 | arrayOfLevels | Array | array of levels to be reviewed on the day |
 
+## Technical/Ambiguous Problems
+
+1) Implementing spaced repetition algorithm with cards that switch daily
+* Showing new cards every day and only showing new cards when it is a new day
+    * My plan: 
+        * store the date when the user previously finished a study set in Parse backend
+        * Check today’s date against prevFinishedDate to determine whether or not to show new cards
+    * Other possible solutions:
+        * Constantly check what time it is and change view controller to show new cards when time hits midnight
+        * Or get the time when user opens the app and set a timer to go off at midnight, which is when view controller changes to show new cards
+    * Why I chose my solution:
+        * To account for when user skips a day
+            * Rather than actually show the new stack of cards every day, I check if the user is at a new day only when they open the app
+            * Ex. the user is on Day 3 of their studying and skip a week, when they open the app again they will see Day 4’s cards instead of Day 10’s cards
+        * When asking other people who use the space repetition app Anki, a pain point is that cards pile up when the user skips a day
+            * If a user misses a few days and returns to a deck of 100 cards to complete, it can be demotivating, so I am choosing to simply show one daily set of cards even when the user skips a few days
+* Displaying only cards that are the levels scheduled for each day
+    * My plan:
+        * Create a Parse class called Schedule
+        * For each day number, store an array of the corresponding levels numbers
+    * Other solutions:
+        * At each day, compute which levels need to be used
+            * Ex. take the day number, if divisible by 2, then level 2 cards must be shown
+        * Store the map between days and level numbers in the code as a local variable
+    * Why I chose my solution:
+        * For the spaced repetition schedule, I am following Leitner system and the repetition can’t be computed exactly
+            * Only approximately following level 2 is every other day, level 3 is every 4 days, etc. – there are some exceptions in the schedule
+            * Thus, it is impossible to take the day number and compute which levels to show. It also would have been computationally heavy so the runtime would be long
+        * Considering scalability - If someone wants to change the specific spaced repetition schedule in the future, it is easy to access in the Parse backend.
+* Skills learned from this technical problem:
+    * Parse in iOS development
+![](https://i.imgur.com/w4lVuk7.jpg)
+
+
+2) Addressing bug when the user closes app before finishing a study set
+* The problem: when the user closes the app and re-opens the app, the entire daily stack of cards will be displayed, even cards that the user has already reviewed
+* My plan:
+    * Restructuring the architecture of the app
+* First attempt:
+    * Create a property of the Flashcard class called toBeReviewed, a boolean value stored in the Parse database
+    * Store which phase the user is on, where the four phases are:
+    * 1. Displaying new cards
+    * 2. Middle of studying cards
+    * 3. Finished studying cards
+    * 4. Waiting for new cards
+    * I considered the different parts to keep track of with the following table:
+
+![](https://i.imgur.com/hgSPda3.png)
+
+* Second attempt:
+    * Refactored to make code more readable
+    * I realized while I knew what the different phase numbers represented, it would not be easy to communicate to someone reading my code what the phases are. Instead of storing a phase number, I created a user property called didStartReview. The name is more descriptive and easier to understand. The following is the restructure of my code that addresses the issue of the user closing the app before finishing studying:
+![](https://i.imgur.com/XmpqW2C.jpg)
+
+
+* Skills learned from this technical problem:
+    * Refactoring
+    * Making clean code that is easy for others and my future self to understand
+3) Dealing with first time user
+4) Custom Schedule View
+5) Flip animation
+* Goal: user can flip card back and forth on tap gasture
+* Skills learned from this technical problem:
+    * Animation in iOS
+    ![](https://i.imgur.com/8EbOyjL.jpg)
+
+    * This was the first part of the app that went outside the realm of features built during CodePath instruction, so I also learned how to use online resources to navigate making something for the first time. I used videos, articles, and Stack Overflow, referenced Swift code in addition to Objective C guides.
+
+## Visuals & Interactions
+- [x] Gesture: Tap gesture for flipping card
+- [ ] External library for visual polish: Progress bar while studying flashcards
+- [x] Animation: Flashcard flipping back and forth
