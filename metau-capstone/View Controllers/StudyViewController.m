@@ -45,6 +45,7 @@
                                  block:^(PFObject *userObject, NSError *error) {
         if (userObject) {
             self.prevFinishedDate = userObject[@"prevFinishedDate"];
+
             if ([self isFirstTimeUser] || [self isNewDay]) {
                 // Check user has started reviewing for the day
                 if (![self isFirstTimeUser] && [userObject[@"didStartReview"] isEqual:@NO]) {
@@ -115,7 +116,7 @@
 }
 
 - (BOOL) isFirstTimeUser {
-    return [self.prevFinishedDate isEqual:[NSNull null]];
+    return self.prevFinishedDate == nil;
 }
 
 - (BOOL) isNewDay {
