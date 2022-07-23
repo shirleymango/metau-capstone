@@ -168,11 +168,12 @@
     NSString *constraintForCards = @"(userID = %@) AND ";
     for (int i = 0; i < arrayOfLevels.count; i++) {
         if (i == 0) {
-            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@)", arrayOfLevels[i]];
+            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@", arrayOfLevels[i]];
         } else {
-            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR (levelNum = %@)", arrayOfLevels[i]];
+            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR levelNum = %@", arrayOfLevels[i]];
         }
     }
+    constraintForCards = [constraintForCards stringByAppendingString: @")"];
     return constraintForCards;
 }
 
