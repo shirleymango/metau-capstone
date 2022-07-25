@@ -109,7 +109,7 @@
 }
 
 - (BOOL) isFirstTimeUser {
-    return self.prevFinishedDate == nil;
+    return [self.prevFinishedDate isEqual:[NSNull null]];
 }
 
 - (NSString *) stringWithLevels: (NSArray *) arrayOfLevels{
