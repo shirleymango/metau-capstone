@@ -61,6 +61,7 @@
     newUser.password = self.passwordField.text;
     newUser[@"userDay"] = @(1);
     newUser[@"didStartReview"] = @NO;
+    newUser[@"prevFinishedDate"] = [NSNull null];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {

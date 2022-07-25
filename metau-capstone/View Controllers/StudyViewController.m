@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
 @property (nonatomic) NSString *prevFinishedDate;
+@property (nonatomic) PFUser *testUser;
 
 @end
 
@@ -35,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    PFUser *const user = [PFUser currentUser];
+    PFUser *const user = [PFUser currentUser];    
 
     [self createCardBothSides];
     [self createFlipAnimation];
