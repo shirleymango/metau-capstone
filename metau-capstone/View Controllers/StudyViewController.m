@@ -12,6 +12,7 @@
 #import "Flashcard.h"
 #import "Schedule.h"
 #import "Utilities.h"
+#import "CircleProgressBar.h"
 
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
@@ -28,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
 @property (nonatomic) NSString *prevFinishedDate;
+@property (weak, nonatomic) IBOutlet CircleProgressBar *circleProgressBar;
+@property (nonatomic) CGFloat percentFinished;
 
 @end
 
@@ -35,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     PFUser *const user = [PFUser currentUser];
     
     [self createCardBothSides];
@@ -71,6 +75,7 @@
                     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                         if (cards != nil) {
                             self.arrayOfCards = cards;
+                            self.percentFinished = 0.0;
                             self.counter = 0;
                             if ([cards count] == 0) {
                                 [self startScreen];
@@ -239,6 +244,7 @@
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
+    [self incrementCircleProgress];
     Flashcard *card = self.arrayOfCards[self.counter];
     // Update level
     [card incrementKey:@"levelNum"];
@@ -250,6 +256,7 @@
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
+    [self incrementCircleProgress];
     Flashcard *card = self.arrayOfCards[self.counter];
     // Reset level
     [self resetCard:card];
@@ -289,6 +296,14 @@
     [self loadFlashcard];
 }
 
+- (CGFloat) progressPercentIncrement {
+    return 1.0/[self.arrayOfCards count];
+}
+
+- (void) incrementCircleProgress {
+    self.percentFinished += [self progressPercentIncrement];
+    [self.circleProgressBar setProgress:self.percentFinished animated:YES];
+}
 /*
  #pragma mark - Navigation
  

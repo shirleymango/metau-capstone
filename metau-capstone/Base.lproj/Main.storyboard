@@ -151,6 +151,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKI-2t-R8V" customClass="CircleProgressBar">
+                                <rect key="frame" x="127" y="593" width="160" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
                         <color key="backgroundColor" red="0.64815621903391663" green="0.76871567964553833" blue="0.72997653922629535" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -175,6 +180,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="circleProgressBar" destination="pKI-2t-R8V" id="LjC-6p-MoD"/>
                         <outlet property="congratsLabel" destination="jem-Pd-avX" id="Vz9-KT-dwk"/>
                         <outlet property="leftButton" destination="ss0-QC-Ui1" id="aSk-LD-sRz"/>
                         <outlet property="rightButton" destination="nQn-4x-lhI" id="0G0-ua-qda"/>

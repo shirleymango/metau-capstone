@@ -10,6 +10,7 @@ pod 'Parse'
 pod 'GoogleAPIClientForREST/Sheets', '~> 1.2.1'
 pod 'GoogleSignIn'
 pod 'AFNetworking'
+pod 'CircleProgressBar', '~> 0.32’
 
   target 'metau-capstoneTests' do
     inherit! :search_paths
