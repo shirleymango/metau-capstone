@@ -297,7 +297,7 @@
 }
 
 - (CGFloat) progressPercentIncrement {
-    return 1.0/5;
+    return 1.0/[self.arrayOfCards count];
 }
 
 - (void) incrementCircleProgress {
