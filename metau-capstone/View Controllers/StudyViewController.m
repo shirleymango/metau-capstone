@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
 @property (nonatomic) NSString *prevFinishedDate;
-@property (nonatomic) PFUser *testUser;
 
 @end
 
@@ -70,23 +69,23 @@
                         
             // Fetch data for cards asynchronously
             [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
-            if (cards != nil) {
-                self.arrayOfCards = cards;
-                self.counter = 0;
-                if ([cards count] == 0) {
-                    [self startScreen];
-                } else {
-                    if ([user[@"didStartReview"] isEqual:@NO]) {
-                        // Set toBeReviewed to be true for all card
-                        for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
-                            cardToBeReviewed.toBeReviewed = YES;
-                            [cardToBeReviewed saveInBackground];
+                if (cards != nil) {
+                    self.arrayOfCards = cards;
+                    self.counter = 0;
+                    if ([cards count] == 0) {
+                        [self startScreen];
+                    } else {
+                        if ([user[@"didStartReview"] isEqual:@NO]) {
+                            // Set toBeReviewed to be true for all card
+                            for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                                cardToBeReviewed.toBeReviewed = YES;
+                                [cardToBeReviewed saveInBackground];
+                            }
+                            user[@"didStartReview"] = @YES;
+                            [user saveInBackground];
                         }
-                        user[@"didStartReview"] = @YES;
-                        [user saveInBackground];
-                    }
-                    // Display flashcards
-                    [self loadFlashcard];
+                        // Display flashcards
+                        [self loadFlashcard];
                     }
                 } else {
                     NSLog(@"%@", error.localizedDescription);
@@ -196,21 +195,12 @@
         
         NSString *dateString = [self todayDate];
         PFUser *const user = [PFUser currentUser];
-        PFQuery *query = [PFUser query];
-        // Retrieve the object by id
-        [query getObjectInBackgroundWithId:user.objectId
-                                     block:^(PFObject *userObject, NSError *error) {
-            if (userObject) {
-                // Update lastFinished date
-                userObject[@"prevFinishedDate"] = dateString;
-                [userObject saveInBackground];
+        // Update lastFinished date
+        user[@"prevFinishedDate"] = dateString;
+        [user saveInBackground];
                 
-                userObject[@"didStartReview"] = @NO;
-                [userObject saveInBackground];
-            } else {
-                NSLog(@"no user");
-            }
-        }];
+        user[@"didStartReview"] = @NO;
+        [user saveInBackground];
     }
 }
 
