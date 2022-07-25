@@ -21,6 +21,7 @@ PODS:
   - AppAuth/ExternalUserAgent (1.5.0):
     - AppAuth/Core
   - Bolts/Tasks (1.9.1)
+  - CircleProgressBar (0.32)
   - GoogleAPIClientForREST/Core (1.2.1):
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Sheets (1.2.1):
@@ -45,6 +46,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - CircleProgressBar (~> 0.32)
   - GoogleAPIClientForREST/Sheets (~> 1.2.1)
   - GoogleSignIn
   - Parse
@@ -54,6 +56,7 @@ SPEC REPOS:
     - AFNetworking
     - AppAuth
     - Bolts
+    - CircleProgressBar
     - GoogleAPIClientForREST
     - GoogleSignIn
     - GTMAppAuth
@@ -64,12 +67,13 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
   GoogleSignIn: 3c68388ac221f379676e8f1cb115df3aaf73b93f
   GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
 
-PODFILE CHECKSUM: 703208f93323c508d5465121cca57f4c8a45c67b
+PODFILE CHECKSUM: 7b4e3f6512ba52e131ef74bdd0c3219a8211e51f
 
 COCOAPODS: 1.11.3

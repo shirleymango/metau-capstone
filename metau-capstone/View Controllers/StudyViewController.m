@@ -12,6 +12,7 @@
 #import "Flashcard.h"
 #import "Schedule.h"
 #import "Utilities.h"
+#import "CircleProgressBar.h"
 
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *congratsLabel;
 @property (nonatomic) NSNumber *dayNum;
 @property (nonatomic) NSString *prevFinishedDate;
+@property (weak, nonatomic) IBOutlet CircleProgressBar *circleProgressBar;
 
 @end
 
@@ -35,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.circleProgressBar setProgress:0.5 animated:YES];
+    
     PFUser *const user = [PFUser currentUser];
     
     [self createCardBothSides];
