@@ -323,7 +323,6 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    NSLog(@"howdy");
     PFUser *const user = [PFUser currentUser];
     PFQuery *query = [PFUser query];
     [query getObjectInBackgroundWithId:user.objectId
@@ -334,9 +333,11 @@
           [queryForCards findObjectsInBackgroundWithBlock:^(NSArray * _Nullable cards, NSError * _Nullable error) {
               self.arrayOfCards = cards;
               self.counter = 0;
+              self.prevFinishedDate = userObject[@"prevFinishedDate"];
               if ([cards count] == 0) {
                   [self startScreen];
-              } else {
+              } else if ([self isFirstTimeUser]) {
+                  NSLog(@"howdy first time user");
                   if ([userObject[@"didStartReview"] isEqual:@NO]) {
                       // Set toBeReviewed to be true for all card
                       for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
