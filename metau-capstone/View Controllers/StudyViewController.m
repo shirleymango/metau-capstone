@@ -104,8 +104,6 @@
                 
             } else {
                 // Waiting for new cards
-                userObject[@"didStartReview"] = @NO;
-                [userObject saveInBackground];
                 [self endScreen];
             }
         } else {
@@ -115,12 +113,25 @@
     
 }
 
+- (BOOL) isNewDay {
+    return ![[self todayDate] isEqualToString:self.prevFinishedDate];
+}
+
 - (BOOL) isFirstTimeUser {
     return self.prevFinishedDate == nil;
 }
 
-- (BOOL) isNewDay {
-    return ![[self todayDate] isEqualToString:self.prevFinishedDate];
+- (NSString *) stringWithLevels: (NSArray *) arrayOfLevels{
+    NSString *constraintForCards = @"(userID = %@) AND ";
+    for (int i = 0; i < arrayOfLevels.count; i++) {
+        if (i == 0) {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@", arrayOfLevels[i]];
+        } else {
+            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR levelNum = %@", arrayOfLevels[i]];
+        }
+    }
+    constraintForCards = [constraintForCards stringByAppendingString: @")"];
+    return constraintForCards;
 }
 
 - (void) createCardBothSides {
@@ -164,19 +175,6 @@
     return [dateFormatter stringFromDate:currentDate];
 }
 
-- (NSString *) stringWithLevels: (NSArray *) arrayOfLevels{
-    NSString *constraintForCards = @"(userID = %@) AND ";
-    for (int i = 0; i < arrayOfLevels.count; i++) {
-        if (i == 0) {
-            constraintForCards = [constraintForCards stringByAppendingFormat:@"(levelNum = %@", arrayOfLevels[i]];
-        } else {
-            constraintForCards = [constraintForCards stringByAppendingFormat:@" OR levelNum = %@", arrayOfLevels[i]];
-        }
-    }
-    constraintForCards = [constraintForCards stringByAppendingString: @")"];
-    return constraintForCards;
-}
-
 - (void) loadFlashcard {
     if (self.isFlipped) {
         [self flipAction:self.back to:self.front];
@@ -213,6 +211,9 @@
             if (userObject) {
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
+                [userObject saveInBackground];
+                
+                userObject[@"didStartReview"] = @NO;
                 [userObject saveInBackground];
             } else {
                 NSLog(@"no user");
@@ -321,4 +322,40 @@
     [utility logout: sceneDelegate];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    PFUser *const user = [PFUser currentUser];
+    PFQuery *query = [PFUser query];
+    [query getObjectInBackgroundWithId:user.objectId
+                                  block:^(PFObject *userObject, NSError *error) {
+      if (!error) {
+          PFQuery *queryForCards = [PFQuery queryWithClassName:@"Flashcard"];
+          [queryForCards whereKey:@"userID" equalTo:userObject.objectId];
+          [queryForCards findObjectsInBackgroundWithBlock:^(NSArray * _Nullable cards, NSError * _Nullable error) {
+              self.arrayOfCards = cards;
+              self.counter = 0;
+              self.prevFinishedDate = userObject[@"prevFinishedDate"];
+              if ([cards count] == 0) {
+                  [self startScreen];
+              } else if ([self isFirstTimeUser]) {
+                  NSLog(@"howdy first time user");
+                  if ([userObject[@"didStartReview"] isEqual:@NO]) {
+                      // Set toBeReviewed to be true for all card
+                      for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                          cardToBeReviewed.toBeReviewed = YES;
+                          [cardToBeReviewed saveInBackground];
+                      }
+                      userObject[@"didStartReview"] = @YES;
+                      [userObject saveInBackground];
+                  }
+                  // Display flashcards
+                  [self loadFlashcard];
+              }
+          }];
+      } else {
+        // Log details of the failure
+        NSLog(@"Error: %@ %@", error, [error userInfo]);
+      }
+    }];
+}
+            
 @end
