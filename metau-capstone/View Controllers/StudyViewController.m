@@ -104,8 +104,6 @@
                 
             } else {
                 // Waiting for new cards
-                userObject[@"didStartReview"] = @NO;
-                [userObject saveInBackground];
                 [self endScreen];
             }
         } else {
@@ -213,6 +211,9 @@
             if (userObject) {
                 // Update lastFinished date
                 userObject[@"prevFinishedDate"] = dateString;
+                [userObject saveInBackground];
+                
+                userObject[@"didStartReview"] = @NO;
                 [userObject saveInBackground];
             } else {
                 NSLog(@"no user");
