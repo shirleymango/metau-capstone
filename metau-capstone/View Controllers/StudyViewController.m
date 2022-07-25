@@ -30,6 +30,7 @@
 @property (nonatomic) NSNumber *dayNum;
 @property (nonatomic) NSString *prevFinishedDate;
 @property (weak, nonatomic) IBOutlet CircleProgressBar *circleProgressBar;
+@property (nonatomic) CGFloat percentFinished;
 
 @end
 
@@ -37,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.circleProgressBar setProgress:0.5 animated:YES];
     
     PFUser *const user = [PFUser currentUser];
     
@@ -75,6 +75,7 @@
                     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                         if (cards != nil) {
                             self.arrayOfCards = cards;
+                            self.percentFinished = 0.0;
                             self.counter = 0;
                             if ([cards count] == 0) {
                                 [self startScreen];
@@ -243,6 +244,7 @@
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
+    [self incrementCircleProgress];
     Flashcard *card = self.arrayOfCards[self.counter];
     // Update level
     [card incrementKey:@"levelNum"];
@@ -254,6 +256,7 @@
 }
 
 - (IBAction)didTapLeft:(UIButton *)sender {
+    [self incrementCircleProgress];
     Flashcard *card = self.arrayOfCards[self.counter];
     // Reset level
     [self resetCard:card];
@@ -293,6 +296,14 @@
     [self loadFlashcard];
 }
 
+- (CGFloat) progressPercentIncrement {
+    return 1.0/5;
+}
+
+- (void) incrementCircleProgress {
+    self.percentFinished += [self progressPercentIncrement];
+    [self.circleProgressBar setProgress:self.percentFinished animated:YES];
+}
 /*
  #pragma mark - Navigation
  
