@@ -36,12 +36,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     PFUser *const user = [PFUser currentUser];
-
+    
     [self createCardBothSides];
     [self createFlipAnimation];
     
     self.prevFinishedDate = user[@"prevFinishedDate"];
-
+    
     if ([self isFirstTimeUser] || [self isNewDay]) {
         // Check user has started reviewing for the day
         if (![self isFirstTimeUser] && [user[@"didStartReview"] isEqual:@NO]) {
@@ -49,59 +49,59 @@
             [user incrementKey:@"userDay"];
             [user saveInBackground];
         }
-
-    // Fetch today's number for the current user
-    self.dayNum = user[@"userDay"];
-                
-    // Query for today's level numbers
-    PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
-    [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
-                
-    [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-    if (!error) {
-        for (Schedule *object in objects) {
-            NSArray *arrayOfLevels = object.arrayOfLevels;
-            NSString *constraintForCards = [self stringWithLevels:arrayOfLevels];
-
-            // Construct Query for Flashcards
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
-            PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
-                        
-            // Fetch data for cards asynchronously
-            [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
-                if (cards != nil) {
-                    self.arrayOfCards = cards;
-                    self.counter = 0;
-                    if ([cards count] == 0) {
-                        [self startScreen];
-                    } else {
-                        if ([user[@"didStartReview"] isEqual:@NO]) {
-                            // Set toBeReviewed to be true for all card
-                            for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
-                                cardToBeReviewed.toBeReviewed = YES;
-                                [cardToBeReviewed saveInBackground];
+        
+        // Fetch today's number for the current user
+        self.dayNum = user[@"userDay"];
+        
+        // Query for today's level numbers
+        PFQuery *queryForLevels = [PFQuery queryWithClassName:@"Schedule"];
+        [queryForLevels whereKey:@"dayNum" equalTo:self.dayNum];
+        
+        [queryForLevels findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                for (Schedule *object in objects) {
+                    NSArray *arrayOfLevels = object.arrayOfLevels;
+                    NSString *constraintForCards = [self stringWithLevels:arrayOfLevels];
+                    
+                    // Construct Query for Flashcards
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:constraintForCards, user.objectId];
+                    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard" predicate:predicate];
+                    
+                    // Fetch data for cards asynchronously
+                    [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
+                        if (cards != nil) {
+                            self.arrayOfCards = cards;
+                            self.counter = 0;
+                            if ([cards count] == 0) {
+                                [self startScreen];
+                            } else {
+                                if ([user[@"didStartReview"] isEqual:@NO]) {
+                                    // Set toBeReviewed to be true for all card
+                                    for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                                        cardToBeReviewed.toBeReviewed = YES;
+                                        [cardToBeReviewed saveInBackground];
+                                    }
+                                    user[@"didStartReview"] = @YES;
+                                    [user saveInBackground];
+                                }
+                                // Display flashcards
+                                [self loadFlashcard];
                             }
-                            user[@"didStartReview"] = @YES;
-                            [user saveInBackground];
+                        } else {
+                            NSLog(@"%@", error.localizedDescription);
                         }
-                        // Display flashcards
-                        [self loadFlashcard];
-                    }
-                } else {
-                    NSLog(@"%@", error.localizedDescription);
+                    }];
                 }
-            }];
-        }
-    } else {
-        // Log details of the failure
-        NSLog(@"Error: %@ %@", error, [error userInfo]);
-    }
-}];
-                
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+        
     } else {
         // Waiting for new cards
         [self endScreen];
-}
+    }
 }
 
 - (BOOL) isNewDay {
@@ -198,7 +198,7 @@
         // Update lastFinished date
         user[@"prevFinishedDate"] = dateString;
         [user saveInBackground];
-                
+        
         user[@"didStartReview"] = @NO;
         [user saveInBackground];
     }
@@ -290,14 +290,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 - (IBAction)didTapLogout:(id)sender {
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
     Utilities* utility = [[Utilities alloc] init];
@@ -306,38 +306,29 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     PFUser *const user = [PFUser currentUser];
-    PFQuery *query = [PFUser query];
-    [query getObjectInBackgroundWithId:user.objectId
-                                  block:^(PFObject *userObject, NSError *error) {
-      if (!error) {
-          PFQuery *queryForCards = [PFQuery queryWithClassName:@"Flashcard"];
-          [queryForCards whereKey:@"userID" equalTo:userObject.objectId];
-          [queryForCards findObjectsInBackgroundWithBlock:^(NSArray * _Nullable cards, NSError * _Nullable error) {
-              self.arrayOfCards = cards;
-              self.counter = 0;
-              self.prevFinishedDate = userObject[@"prevFinishedDate"];
-              if ([cards count] == 0) {
-                  [self startScreen];
-              } else if ([self isFirstTimeUser]) {
-                  NSLog(@"howdy first time user");
-                  if ([userObject[@"didStartReview"] isEqual:@NO]) {
-                      // Set toBeReviewed to be true for all card
-                      for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
-                          cardToBeReviewed.toBeReviewed = YES;
-                          [cardToBeReviewed saveInBackground];
-                      }
-                      userObject[@"didStartReview"] = @YES;
-                      [userObject saveInBackground];
-                  }
-                  // Display flashcards
-                  [self loadFlashcard];
-              }
-          }];
-      } else {
-        // Log details of the failure
-        NSLog(@"Error: %@ %@", error, [error userInfo]);
-      }
+    PFQuery *queryForCards = [PFQuery queryWithClassName:@"Flashcard"];
+    [queryForCards whereKey:@"userID" equalTo:user.objectId];
+    [queryForCards findObjectsInBackgroundWithBlock:^(NSArray * _Nullable cards, NSError * _Nullable error) {
+        self.arrayOfCards = cards;
+        self.counter = 0;
+        self.prevFinishedDate = user[@"prevFinishedDate"];
+        if ([cards count] == 0) {
+            [self startScreen];
+        } else if ([self isFirstTimeUser]) {
+            NSLog(@"howdy first time user");
+            if ([user[@"didStartReview"] isEqual:@NO]) {
+                // Set toBeReviewed to be true for all card
+                for (Flashcard * cardToBeReviewed in self.arrayOfCards) {
+                    cardToBeReviewed.toBeReviewed = YES;
+                    [cardToBeReviewed saveInBackground];
+                }
+                user[@"didStartReview"] = @YES;
+                [user saveInBackground];
+            }
+            // Display flashcards
+            [self loadFlashcard];
+        }
     }];
 }
-            
+
 @end
