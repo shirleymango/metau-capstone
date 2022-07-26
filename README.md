@@ -241,5 +241,5 @@ Additional wireframe: Calendar Screen [likely to use Google Sheets API]
 
 ## Visuals & Interactions
 - [x] Gesture: Tap gesture for flipping card
-- [ ] External library for visual polish: Progress bar while studying flashcards
+- [x] External library for visual polish: Progress bar while studying flashcards
 - [x] Animation: Flashcard flipping back and forth
