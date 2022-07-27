@@ -9,7 +9,7 @@
 #import "SceneDelegate.h"
 #import "PreviewCell.h"
 
-@interface PreviewViewController () <UICollectionViewDataSource>
+@interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (nonatomic, strong) CALayer *front;
 @property (nonatomic, strong) CALayer *back;
@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.previewCarousel.dataSource = self;
+    self.previewCarousel.delegate = self;
 }
 
 - (IBAction)didPressDone:(UIBarButtonItem *)sender {
@@ -103,5 +104,11 @@
     return 10;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If you need to use the touched cell, you can retrieve it like so
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 
+    NSLog(@"touched cell %@ at indexPath %@", cell, indexPath);
+}
 @end
