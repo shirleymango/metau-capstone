@@ -7,7 +7,7 @@
 
 #import "PreviewViewController.h"
 #import "SceneDelegate.h"
-#import "PreviewCell.h";
+#import "PreviewCell.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -39,8 +39,37 @@
 }
 */
 
+- (void) createCardBothSides: (CGRect) frame {
+    // BACK SIDE
+    CALayer *back = [[CALayer alloc] init];
+    CATextLayer *backText = [[CATextLayer alloc] init];
+    [self createCardOneSide:back atFrame:frame withText:backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
+    // FRONT SIDE
+    CALayer *front = [[CALayer alloc] init];
+    CATextLayer *frontText = [[CATextLayer alloc] init];
+    [self createCardOneSide:front atFrame:frame withText:frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+}
+
+- (void) createCardOneSide: (CALayer *)side atFrame: (CGRect) frame withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
+    side.frame = frame;
+    side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    side.backgroundColor = [bgColor CGColor];
+    [text setFont:@"Helvetica-Bold"];
+    [text setFontSize:20];
+    [text setAlignmentMode:kCAAlignmentCenter];
+    text.wrapped = YES;
+    [text setFrame:frame];
+    [text setForegroundColor:[textColor CGColor]];
+    [side addSublayer:text];
+}
+
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
+//    [self createCardBothSides:frame];
+    CALayer *layer = [[CALayer alloc] init];
+    layer.frame = cell.bounds;
+    layer.backgroundColor = [[UIColor blackColor] CGColor];
+    [cell.layer addSublayer:layer];
     return cell;
 }
 
