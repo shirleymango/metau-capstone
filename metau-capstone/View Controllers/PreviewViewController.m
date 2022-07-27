@@ -71,7 +71,8 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
     [self createCardBothSides:cell.bounds];
-    [self.frontText setString:@":)"];
+    [self.frontText setString:@"front :)"];
+    [self.backText setString:@"back"];
     [cell.layer addSublayer:self.back];
     [cell.layer addSublayer:self.front];
     return cell;
