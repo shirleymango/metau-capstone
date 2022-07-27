@@ -151,10 +151,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKI-2t-R8V" customClass="CircleProgressBar">
-                                <rect key="frame" x="127" y="593" width="160" height="160"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKI-2t-R8V" customClass="CircleProgressBar">
+                                <rect key="frame" x="112" y="579" width="190" height="190"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="CGj-yr-ykJ"/>
+                                    <constraint firstAttribute="width" constant="190" id="y7q-Tn-Ecz"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xIU-OP-FRg"/>
@@ -165,6 +168,8 @@
                             <constraint firstItem="nQn-4x-lhI" firstAttribute="width" secondItem="ss0-QC-Ui1" secondAttribute="width" id="2QY-wl-k3r"/>
                             <constraint firstItem="nQn-4x-lhI" firstAttribute="height" secondItem="ss0-QC-Ui1" secondAttribute="height" id="Mla-5W-Ug2"/>
                             <constraint firstItem="xIU-OP-FRg" firstAttribute="trailing" secondItem="nQn-4x-lhI" secondAttribute="trailing" constant="78" id="QXm-S8-dzu"/>
+                            <constraint firstItem="xIU-OP-FRg" firstAttribute="bottom" secondItem="pKI-2t-R8V" secondAttribute="bottom" constant="44" id="VG1-UZ-hUt"/>
+                            <constraint firstItem="pKI-2t-R8V" firstAttribute="centerX" secondItem="xIU-OP-FRg" secondAttribute="centerX" id="n1p-WG-ejV"/>
                             <constraint firstItem="ss0-QC-Ui1" firstAttribute="leading" secondItem="xIU-OP-FRg" secondAttribute="leading" constant="79" id="qJM-as-m4o"/>
                             <constraint firstItem="xIU-OP-FRg" firstAttribute="bottom" secondItem="ss0-QC-Ui1" secondAttribute="bottom" constant="250" id="y8z-Hg-hDG"/>
                         </constraints>
