@@ -11,6 +11,10 @@
 
 @interface PreviewViewController () <UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
+@property (nonatomic, strong) CALayer *front;
+@property (nonatomic, strong) CALayer *back;
+@property (nonatomic, strong) CATextLayer *frontText;
+@property (nonatomic, strong) CATextLayer *backText;
 
 @end
 
@@ -41,19 +45,20 @@
 
 - (void) createCardBothSides: (CGRect) frame {
     // BACK SIDE
-    CALayer *back = [[CALayer alloc] init];
-    CATextLayer *backText = [[CATextLayer alloc] init];
-    [self createCardOneSide:back atFrame:frame withText:backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
+    self.back = [[CALayer alloc] init];
+    self.backText = [[CATextLayer alloc] init];
+    [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
     // FRONT SIDE
-    CALayer *front = [[CALayer alloc] init];
-    CATextLayer *frontText = [[CATextLayer alloc] init];
-    [self createCardOneSide:front atFrame:frame withText:frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+    self.front = [[CALayer alloc] init];
+    self.frontText = [[CATextLayer alloc] init];
+    [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
 }
 
 - (void) createCardOneSide: (CALayer *)side atFrame: (CGRect) frame withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
     side.frame = frame;
-    side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     side.backgroundColor = [bgColor CGColor];
+    side.borderColor = [[UIColor blackColor] CGColor];
+    side.borderWidth = 2;
     [text setFont:@"Helvetica-Bold"];
     [text setFontSize:20];
     [text setAlignmentMode:kCAAlignmentCenter];
@@ -65,11 +70,10 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-//    [self createCardBothSides:frame];
-    CALayer *layer = [[CALayer alloc] init];
-    layer.frame = cell.bounds;
-    layer.backgroundColor = [[UIColor blackColor] CGColor];
-    [cell.layer addSublayer:layer];
+    [self createCardBothSides:cell.bounds];
+    [self.frontText setString:@":)"];
+    [cell.layer addSublayer:self.back];
+    [cell.layer addSublayer:self.front];
     return cell;
 }
 
