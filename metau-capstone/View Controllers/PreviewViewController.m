@@ -15,7 +15,9 @@
 @property (nonatomic, strong) CALayer *back;
 @property (nonatomic, strong) CATextLayer *frontText;
 @property (nonatomic, strong) CATextLayer *backText;
-
+@property (nonatomic, strong) CABasicAnimation *rotateAnim;
+@property (nonatomic) CATransform3D horizontalFlip;
+@property (nonatomic) BOOL isFlipped;
 @end
 
 @implementation PreviewViewController
@@ -31,6 +33,22 @@
     UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
     [tabBarController setSelectedIndex:1];
     sceneDelegate.window.rootViewController = tabBarController;
+}
+
+- (void) createFlipAnimation {
+    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
+    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
+    self.rotateAnim.duration = 0.8;
+    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+}
+
+- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
+    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
+    secondSide.zPosition = 10;
+    firstSide.zPosition = 0;
+    self.isFlipped = !self.isFlipped;
 }
 
 /*
@@ -71,9 +89,12 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
     [self createCardBothSides:cell.bounds];
-    [self.frontText setString:@"front :)"];
+    // BACK SIDE
     [self.backText setString:@"back"];
+    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
     [cell.layer addSublayer:self.back];
+    // FRONT SIDE
+    [self.frontText setString:@"front :)"];
     [cell.layer addSublayer:self.front];
     return cell;
 }
