@@ -7,8 +7,10 @@
 
 #import "PreviewViewController.h"
 #import "SceneDelegate.h"
+#import "PreviewCell.h";
 
-@interface PreviewViewController ()
+@interface PreviewViewController () <UICollectionViewDataSource>
+@property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 
 @end
 
@@ -16,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.previewCarousel.dataSource = self;
 }
 
 - (IBAction)didPressDone:(UIBarButtonItem *)sender {
@@ -36,5 +38,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 10;
+}
+
 
 @end
