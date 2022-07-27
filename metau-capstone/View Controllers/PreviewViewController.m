@@ -11,13 +11,6 @@
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
-@property (nonatomic, strong) CALayer *front;
-@property (nonatomic, strong) CALayer *back;
-@property (nonatomic, strong) CATextLayer *frontText;
-@property (nonatomic, strong) CATextLayer *backText;
-@property (nonatomic, strong) CABasicAnimation *rotateAnim;
-@property (nonatomic) CATransform3D horizontalFlip;
-@property (nonatomic) BOOL isFlipped;
 @end
 
 @implementation PreviewViewController
@@ -36,22 +29,6 @@
     sceneDelegate.window.rootViewController = tabBarController;
 }
 
-- (void) createFlipAnimation {
-    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
-    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
-    self.rotateAnim.duration = 0.8;
-    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-}
-
-- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
-    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-    secondSide.zPosition = 10;
-    firstSide.zPosition = 0;
-    self.isFlipped = !self.isFlipped;
-}
-
 /*
 #pragma mark - Navigation
 
@@ -62,41 +39,10 @@
 }
 */
 
-- (void) createCardBothSides: (CGRect) frame {
-    // BACK SIDE
-    self.back = [[CALayer alloc] init];
-    self.backText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
-    // FRONT SIDE
-    self.front = [[CALayer alloc] init];
-    self.frontText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
-}
-
-- (void) createCardOneSide: (CALayer *)side atFrame: (CGRect) frame withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
-    side.frame = frame;
-    side.backgroundColor = [bgColor CGColor];
-    side.borderColor = [[UIColor blackColor] CGColor];
-    side.borderWidth = 2;
-    [text setFont:@"Helvetica-Bold"];
-    [text setFontSize:20];
-    [text setAlignmentMode:kCAAlignmentCenter];
-    text.wrapped = YES;
-    [text setFrame:frame];
-    [text setForegroundColor:[textColor CGColor]];
-    [side addSublayer:text];
-}
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-    [self createCardBothSides:cell.bounds];
-    // BACK SIDE
-    [self.backText setString:@"back"];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [cell.layer addSublayer:self.back];
-    // FRONT SIDE
-    [self.frontText setString:@"front :)"];
-    [cell.layer addSublayer:self.front];
+    [cell createCardBothSides:cell.bounds];
     return cell;
 }
 
@@ -108,7 +54,7 @@
 {
     // If you need to use the touched cell, you can retrieve it like so
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-
+    
     NSLog(@"touched cell %@ at indexPath %@", cell, indexPath);
 }
 @end
