@@ -53,8 +53,18 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // If you need to use the touched cell, you can retrieve it like so
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
     
-    NSLog(@"touched cell %@ at indexPath %@", cell, indexPath);
+    if (!cell.isFlipped) {
+//        cell.back.transform = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+//        cell.isFlipped = !cell.isFlipped;
+        [cell flipAction:cell.front to:cell.back];
+        NSLog(@"front to back");
+    } else {
+//        cell.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+//        cell.isFlipped = !cell.isFlipped;
+        [cell flipAction:cell.back to:cell.front];
+        NSLog(@"back to front");
+    }
 }
 @end

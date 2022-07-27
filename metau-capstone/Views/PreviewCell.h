@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isFlipped;
 
 - (void) createCardBothSides: (CGRect) frame;
+- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
+
 @end
 
 NS_ASSUME_NONNULL_END
