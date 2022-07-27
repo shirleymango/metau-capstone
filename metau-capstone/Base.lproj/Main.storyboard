@@ -237,7 +237,7 @@
         <!--Create-->
         <scene sceneID="tpy-Xl-LYo">
             <objects>
-                <viewController id="CyV-c1-3Q2" customClass="CreateViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateViewController" id="CyV-c1-3Q2" customClass="CreateViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="azv-8G-oxV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -439,7 +439,13 @@
                         <viewLayoutGuide key="safeArea" id="SFl-nV-mkZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Preview" id="zar-WF-07A"/>
+                    <navigationItem key="navigationItem" title="Preview" id="zar-WF-07A">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="6Dw-om-ofz">
+                            <connections>
+                                <action selector="didPressDone:" destination="X83-Ga-k6c" id="8E6-6P-Gx8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s3u-OV-W4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -450,7 +456,7 @@
             <objects>
                 <navigationController title="Import" id="I7N-Ld-0tS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Create" image="square.and.pencil" catalog="system" id="f7e-ad-xOF"/>
-                    <navigationItem key="navigationItem" title="Import" id="FPN-UY-e9T"/>
+                    <navigationItem key="navigationItem" id="WaP-uQ-A4E"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7eq-ez-Vc6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

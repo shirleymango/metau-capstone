@@ -6,6 +6,7 @@
 //
 
 #import "PreviewViewController.h"
+#import "SceneDelegate.h"
 
 @interface PreviewViewController ()
 
@@ -16,6 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)didPressDone:(UIBarButtonItem *)sender {
+    SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *tabViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
+    [tabViewController setSelectedIndex:1];
+//    tabViewController.presentedViewController=[tabViewController.viewControllers objectAtIndex:3];
+    sceneDelegate.window.rootViewController = tabViewController;
 }
 
 /*
