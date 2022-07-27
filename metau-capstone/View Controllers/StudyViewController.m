@@ -46,6 +46,9 @@
     
     self.prevFinishedDate = user[@"prevFinishedDate"];
     
+    self.percentFinished = [user[@"percentFinished"] doubleValue];
+    [self.circleProgressBar setProgress:self.percentFinished animated:YES];
+    
     if ([self isFirstTimeUser] || [self isNewDay]) {
         // Check user has started reviewing for the day
         if (![self isFirstTimeUser] && [user[@"didStartReview"] isEqual:@NO]) {
@@ -75,7 +78,6 @@
                     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError *error) {
                         if (cards != nil) {
                             self.arrayOfCards = cards;
-                            self.percentFinished = 0.0;
                             self.counter = 0;
                             if ([cards count] == 0) {
                                 [self startScreen];
@@ -303,7 +305,11 @@
 - (void) incrementCircleProgress {
     self.percentFinished += [self progressPercentIncrement];
     [self.circleProgressBar setProgress:self.percentFinished animated:YES];
+    PFUser *const user = [PFUser currentUser];
+    user[@"percentFinished"] = @(self.percentFinished);
+    [user saveInBackground];
 }
+
 /*
  #pragma mark - Navigation
  
