@@ -414,10 +414,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sSa-Ln-DUD">
-                                <rect key="frame" x="45" y="250" width="325" height="196"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sSa-Ln-DUD">
+                                <rect key="frame" x="22" y="148" width="372" height="292"/>
+                                <color key="backgroundColor" red="0.83362744619999996" green="0.84451001339999998" blue="0.86078917980000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gaa-Tr-oE4">
                                     <size key="itemSize" width="312" height="128"/>
                                     <size key="estimatedItemSize" width="300" height="180"/>
@@ -427,7 +426,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PreviewCell" id="Wmu-9U-r8M" customClass="PreviewCell">
-                                        <rect key="frame" x="0.0" y="8" width="300" height="180"/>
+                                        <rect key="frame" x="0.0" y="56" width="300" height="180"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="voj-tv-yRb">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="180"/>
@@ -440,6 +439,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SFl-nV-mkZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sSa-Ln-DUD" firstAttribute="top" secondItem="SFl-nV-mkZ" secondAttribute="top" constant="60" id="AiT-Jt-NtG"/>
+                            <constraint firstItem="SFl-nV-mkZ" firstAttribute="trailing" secondItem="sSa-Ln-DUD" secondAttribute="trailing" constant="20" id="RZ1-9c-eHc"/>
+                            <constraint firstItem="SFl-nV-mkZ" firstAttribute="bottom" secondItem="sSa-Ln-DUD" secondAttribute="bottom" constant="373" id="X4t-FG-1Fh"/>
+                            <constraint firstItem="sSa-Ln-DUD" firstAttribute="leading" secondItem="SFl-nV-mkZ" secondAttribute="leading" constant="22" id="vhd-rc-yUf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Preview" id="zar-WF-07A">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="6Dw-om-ofz">
