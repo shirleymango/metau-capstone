@@ -10,7 +10,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 
 @end
 
