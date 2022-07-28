@@ -415,25 +415,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sSa-Ln-DUD">
-                                <rect key="frame" x="22" y="148" width="372" height="292"/>
+                                <rect key="frame" x="22" y="146" width="372" height="330"/>
                                 <color key="backgroundColor" red="0.83362744619999996" green="0.84451001339999998" blue="0.86078917980000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="330" id="f8t-91-7fQ"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gaa-Tr-oE4">
-                                    <size key="itemSize" width="312" height="128"/>
-                                    <size key="estimatedItemSize" width="300" height="180"/>
+                                    <size key="itemSize" width="300" height="337"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PreviewCell" id="Wmu-9U-r8M" customClass="PreviewCell">
-                                        <rect key="frame" x="0.0" y="56" width="300" height="180"/>
+                                        <rect key="frame" x="0.0" y="40" width="300" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="voj-tv-yRb">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUx-fl-jkl">
+                                                    <rect key="frame" x="238" y="8" width="45" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system" title=""/>
+                                                </button>
+                                            </subviews>
                                         </collectionViewCellContentView>
                                         <gestureRecognizers/>
-                                        <size key="customSize" width="300" height="180"/>
+                                        <size key="customSize" width="300" height="250"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -441,9 +451,8 @@
                         <viewLayoutGuide key="safeArea" id="SFl-nV-mkZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="sSa-Ln-DUD" firstAttribute="top" secondItem="SFl-nV-mkZ" secondAttribute="top" constant="60" id="AiT-Jt-NtG"/>
                             <constraint firstItem="SFl-nV-mkZ" firstAttribute="trailing" secondItem="sSa-Ln-DUD" secondAttribute="trailing" constant="20" id="RZ1-9c-eHc"/>
-                            <constraint firstItem="SFl-nV-mkZ" firstAttribute="bottom" secondItem="sSa-Ln-DUD" secondAttribute="bottom" constant="373" id="X4t-FG-1Fh"/>
+                            <constraint firstItem="sSa-Ln-DUD" firstAttribute="top" secondItem="SFl-nV-mkZ" secondAttribute="top" constant="58" id="Whz-9X-iEQ"/>
                             <constraint firstItem="sSa-Ln-DUD" firstAttribute="leading" secondItem="SFl-nV-mkZ" secondAttribute="leading" constant="22" id="vhd-rc-yUf"/>
                         </constraints>
                     </view>
@@ -558,6 +567,7 @@
     <resources>
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="calendar.circle" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="return.left" catalog="system" width="128" height="101"/>
         <image name="return.right" catalog="system" width="128" height="101"/>

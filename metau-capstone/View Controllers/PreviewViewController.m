@@ -42,7 +42,7 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-    [cell createCardBothSides:cell.bounds];
+    [cell createCardBothSides:CGRectMake(10, 50, 270, 162)];
     return cell;
 }
 
