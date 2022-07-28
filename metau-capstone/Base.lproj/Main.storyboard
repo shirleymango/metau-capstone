@@ -435,15 +435,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUx-fl-jkl">
-                                                    <rect key="frame" x="238" y="8" width="45" height="31"/>
+                                                    <rect key="frame" x="247" y="22" width="45" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system" title=""/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYg-Ka-I9z">
+                                                    <rect key="frame" x="213" y="22" width="45" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="pencil.circle" catalog="system" title=""/>
                                                 </button>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <gestureRecognizers/>
                                         <size key="customSize" width="300" height="250"/>
+                                        <connections>
+                                            <outlet property="editButton" destination="KYg-Ka-I9z" id="V4g-Zi-LJu"/>
+                                            <outlet property="selectButton" destination="MUx-fl-jkl" id="bcS-ze-nYq"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -568,6 +578,7 @@
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="calendar.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="return.left" catalog="system" width="128" height="101"/>
         <image name="return.right" catalog="system" width="128" height="101"/>

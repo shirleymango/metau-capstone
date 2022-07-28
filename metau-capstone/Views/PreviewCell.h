@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 - (void) createCardBothSides: (CGRect) frame;
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
