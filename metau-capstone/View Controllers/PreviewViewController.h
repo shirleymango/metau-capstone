@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewViewController : UIViewController
-
+@property (nonatomic) NSMutableArray *previewCards;
 @end
 
 NS_ASSUME_NONNULL_END

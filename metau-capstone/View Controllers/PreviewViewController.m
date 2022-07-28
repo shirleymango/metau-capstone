@@ -8,6 +8,7 @@
 #import "PreviewViewController.h"
 #import "SceneDelegate.h"
 #import "PreviewCell.h"
+#import "APIManager.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -53,17 +54,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // If you need to use the touched cell, you can retrieve it like so
     PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
-    
     if (!cell.isFlipped) {
-//        cell.back.transform = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-//        cell.isFlipped = !cell.isFlipped;
         [cell flipAction:cell.front to:cell.back];
         NSLog(@"front to back");
     } else {
-//        cell.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-//        cell.isFlipped = !cell.isFlipped;
         [cell flipAction:cell.back to:cell.front];
         NSLog(@"back to front");
     }

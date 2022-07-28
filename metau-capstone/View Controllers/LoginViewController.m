@@ -63,6 +63,7 @@
     newUser[@"didStartReview"] = @NO;
     newUser[@"prevFinishedDate"] = [NSNull null];
     newUser[@"percentFinished"] = @(0);
+    newUser[@"previewCards"] = @[];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
