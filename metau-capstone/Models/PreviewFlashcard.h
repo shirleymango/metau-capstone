@@ -13,9 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *frontText;
 @property (nonatomic, strong) NSString *backText;
 @property (nonatomic) BOOL isSelected;
+@property (nonatomic) NSMutableArray *previewCards;
 
-+ (void) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
-+ (void) createCardsFromDictionary: (NSDictionary *)dictionary;
++ (PreviewFlashcard *) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
+- (void) createCardsFromDictionary: (NSDictionary *)dictionary;
+
 @end
 
 NS_ASSUME_NONNULL_END
