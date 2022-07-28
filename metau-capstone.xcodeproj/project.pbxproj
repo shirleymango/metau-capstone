@@ -25,6 +25,7 @@
 		8593CA612889EAE00034E40A /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA602889EAE00034E40A /* ImportViewController.m */; };
 		8593CA69289102B40034E40A /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA68289102B40034E40A /* PreviewViewController.m */; };
 		8593CA6F2891A7850034E40A /* PreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA6E2891A7850034E40A /* PreviewCell.m */; };
+		8593CA7228930FAE0034E40A /* PreviewFlashcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8593CA7128930FAE0034E40A /* PreviewFlashcard.m */; };
 		85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8928765C8100155F8A /* CreateViewController.m */; };
 		85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8C28765C9000155F8A /* ScheduleViewController.m */; };
 		85CC1A90287CA3C700155F8A /* Flashcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8F287CA3C700155F8A /* Flashcard.m */; };
@@ -88,6 +89,8 @@
 		8593CA68289102B40034E40A /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		8593CA6D2891A7850034E40A /* PreviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewCell.h; sourceTree = "<group>"; };
 		8593CA6E2891A7850034E40A /* PreviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewCell.m; sourceTree = "<group>"; };
+		8593CA7028930FAE0034E40A /* PreviewFlashcard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewFlashcard.h; sourceTree = "<group>"; };
+		8593CA7128930FAE0034E40A /* PreviewFlashcard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewFlashcard.m; sourceTree = "<group>"; };
 		85CC1A8828765C8100155F8A /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		85CC1A8928765C8100155F8A /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
 		85CC1A8B28765C9000155F8A /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 			children = (
 				85CC1A8E287CA3C700155F8A /* Flashcard.h */,
 				85CC1A8F287CA3C700155F8A /* Flashcard.m */,
+				8593CA7028930FAE0034E40A /* PreviewFlashcard.h */,
+				8593CA7128930FAE0034E40A /* PreviewFlashcard.m */,
 				85CC1A94287E14F300155F8A /* Schedule.h */,
 				85CC1A95287E14F300155F8A /* Schedule.m */,
 			);
@@ -524,6 +529,7 @@
 				85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */,
 				858CB546286FA73D005805D1 /* main.m in Sources */,
 				8593CA612889EAE00034E40A /* ImportViewController.m in Sources */,
+				8593CA7228930FAE0034E40A /* PreviewFlashcard.m in Sources */,
 				850905AF288088D300AD9B8F /* Utilities.m in Sources */,
 				858CB538286FA73C005805D1 /* SceneDelegate.m in Sources */,
 				8593CA5E2886126D0034E40A /* APIManager.m in Sources */,
