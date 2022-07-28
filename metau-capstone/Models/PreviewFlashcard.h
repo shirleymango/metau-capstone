@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSMutableArray *previewCards;
 
 + (PreviewFlashcard *) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
-- (void) createCardsFromDictionary: (NSDictionary *)dictionary;
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary;
 
 @end
 

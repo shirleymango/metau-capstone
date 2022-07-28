@@ -17,7 +17,7 @@
     return newCard;
 }
 
-- (void) createCardsFromDictionary: (NSDictionary *)dictionary {
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary {
     NSArray * flashcardValues = [dictionary objectForKey:@"values"];
     [self.previewCards removeAllObjects];
     for (NSArray * flashcardText in flashcardValues) {
