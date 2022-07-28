@@ -15,4 +15,14 @@
     newCard.backText = backText;
     newCard.isSelected = YES;
 }
+
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary {
+    NSArray * flashcardValues = [dictionary objectForKey:@"values"];
+    for (NSArray * flashcardText in flashcardValues) {
+        NSString * frontText = flashcardText[0];
+        NSString * backText = flashcardText[1];
+        [PreviewFlashcard createPreviewCard:frontText withBack:backText];
+    }
+}
+
 @end

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isSelected;
 
 + (void) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
++ (void) createCardsFromDictionary: (NSDictionary *)dictionary;
 @end
 
 NS_ASSUME_NONNULL_END
