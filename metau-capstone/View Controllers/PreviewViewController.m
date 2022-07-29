@@ -11,12 +11,15 @@
 #import "APIManager.h"
 #import "Parse/Parse.h"
 #import "PreviewCard.h"
+#import "Flashcard.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
 @property (weak, nonatomic) IBOutlet UITextField *backTextField;
 @property (nonatomic) NSIndexPath *currentCellPath;
+@property (weak, nonatomic) IBOutlet UILabel *frontTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *backTextLabel;
 
 @end
 
@@ -28,6 +31,8 @@
     self.previewCarousel.delegate = self;
     self.frontTextField.hidden = YES;
     self.backTextField.hidden = YES;
+    self.frontTextLabel.hidden = YES;
+    self.backTextLabel.hidden = YES;
     self.previewCards = [NSMutableArray new];
     
     // Fetch the preview cards by the current user
@@ -56,6 +61,20 @@
     UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
     [tabBarController setSelectedIndex:1];
     sceneDelegate.window.rootViewController = tabBarController;
+    
+    // Create flashcards
+    for (PreviewCard *card in self.previewCards) {
+        if (card.isSelected) {
+            [Flashcard createCard:card.frontText withBack:card.backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (!error) {
+                    NSLog(@"card created!");
+                }
+                else {
+                    NSLog(@"nooo cry %@", error.localizedDescription);
+                }
+            }];
+        }
+    }
     
     // Clear preview flashcards for current user
     PFUser *const user = [PFUser currentUser];
@@ -105,6 +124,7 @@
     [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
+    [self toggleSelect:card.isSelected onButton:cell.selectButton];
     return cell;
 }
 
@@ -115,6 +135,8 @@
 
 - (void)didTapEdit:(UIButton*)sender {
     PreviewCard *card = self.previewCards[sender.tag];
+    self.frontTextLabel.hidden = NO;
+    self.backTextLabel.hidden = NO;
     [self showTextField:self.frontTextField withText:card.frontText];
     [self showTextField:self.backTextField withText:card.backText];
     self.currentCellPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
@@ -126,7 +148,9 @@
 }
 
 - (void)didTapSelect:(UIButton*)sender {
-    NSLog(@"%ld", sender.tag);
+    PreviewCard *card = self.previewCards[sender.tag];
+    card.isSelected = !card.isSelected;
+    [self toggleSelect:![sender isSelected] onButton:sender];
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -145,4 +169,16 @@
         NSLog(@"back to front");
     }
 }
+
+- (void)toggleSelect:(BOOL) setSelected onButton:(UIButton *)sender {
+    if (setSelected) {
+        [sender setImage:[UIImage systemImageNamed:@"checkmark.circle.fill"] forState:UIControlStateSelected];
+        [sender setSelected:YES];
+    }
+    else {
+        [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+    }
+}
+
 @end

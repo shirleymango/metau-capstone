@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL editCardIsFlipped;
 
 - (void)showTextField: (UITextField *) textField withText: (NSString *) text;
-- (void) setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector;
+- (void)setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector;
 - (void)frontTextFieldDidChange: (UIButton*)sender;
 - (void)backTextFieldDidChange: (UIButton*)sender;
 @end
