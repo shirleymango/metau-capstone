@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
 @property (weak, nonatomic) IBOutlet UITextField *backTextField;
+@property (nonatomic) NSIndexPath *currentCellPath;
 
 @end
 
@@ -86,6 +87,9 @@
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
     NSLog(@"front: %@", self.frontTextField.text);
+    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    card.frontText = self.frontTextField.text;
+    [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (void)backTextFieldDidChange: (UIButton*)sender {
@@ -107,10 +111,10 @@
 }
 
 - (void)didTapEdit:(UIButton*)sender {
-    NSLog(@"%ld", sender.tag);
     PreviewCard *card = self.previewCards[sender.tag];
     [self showTextField:self.frontTextField withText:card.frontText];
     [self showTextField:self.backTextField withText:card.backText];
+    self.currentCellPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
 }
 
 - (void)showTextField: (UITextField *) textField withText: (NSString *) text {

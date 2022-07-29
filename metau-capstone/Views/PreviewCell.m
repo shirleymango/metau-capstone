@@ -36,7 +36,7 @@
     [self.layer addSublayer:self.front];
 }
 
-- (void) createCardOneSide: (CALayer *)side atFrame: (CGRect) frame withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
+- (void)createCardOneSide:(CALayer *)side atFrame: (CGRect)frame withText: (CATextLayer *)text withBackgroundColor: (UIColor *)bgColor withTextColor: (UIColor *)textColor {
     side.frame = frame;
     side.backgroundColor = [bgColor CGColor];
     side.borderColor = [[UIColor blackColor] CGColor];
