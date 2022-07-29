@@ -86,14 +86,15 @@
 }
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
-    NSLog(@"front: %@", self.frontTextField.text);
     PreviewCard *card = self.previewCards[self.currentCellPath.row];
     card.frontText = self.frontTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (void)backTextFieldDidChange: (UIButton*)sender {
-    NSLog(@"back: %@", self.backTextField.text);
+    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    card.backText = self.backTextField.text;
+    [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
