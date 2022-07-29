@@ -11,6 +11,7 @@
 #import "APIManager.h"
 #import "Parse/Parse.h"
 #import "PreviewCard.h"
+#import "Flashcard.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -56,6 +57,20 @@
     UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
     [tabBarController setSelectedIndex:1];
     sceneDelegate.window.rootViewController = tabBarController;
+    
+    // Create flashcards
+    for (PreviewCard *card in self.previewCards) {
+        if (card.isSelected) {
+            [Flashcard createCard:card.frontText withBack:card.backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (!error) {
+                    NSLog(@"card created!");
+                }
+                else {
+                    NSLog(@"nooo cry %@", error.localizedDescription);
+                }
+            }];
+        }
+    }
     
     // Clear preview flashcards for current user
     PFUser *const user = [PFUser currentUser];
