@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PreviewViewController : UIViewController
 @property (nonatomic) NSMutableArray *previewCards;
 -(void)showTextField: (UITextField *) textField withText: (NSString *) text;
+-(void) setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector;
 @end
 
 NS_ASSUME_NONNULL_END

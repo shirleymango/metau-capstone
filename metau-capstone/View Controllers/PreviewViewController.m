@@ -87,15 +87,14 @@
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
     PreviewCard *card = self.previewCards[indexPath.row];
     [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText];
-    // Setting tag for edit button
-    cell.editButton.tag = indexPath.row;
-    // Add target and action for edit button
-    [cell.editButton addTarget:self action:@selector(didTapEdit:) forControlEvents:UIControlEventTouchUpInside];
-    // Setting tag for edit button
-    cell.selectButton.tag = indexPath.row;
-    // Add target and action for edit button
-    [cell.selectButton addTarget:self action:@selector(didTapSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
+    [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
     return cell;
+}
+
+-(void) setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector{
+    button.tag = tag;
+    [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)didTapEdit:(UIButton*)sender
