@@ -48,6 +48,24 @@
     UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
     [tabBarController setSelectedIndex:1];
     sceneDelegate.window.rootViewController = tabBarController;
+    
+    // Clear preview flashcards for current user
+    PFUser *const user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"PreviewCard"];
+    [query whereKey:@"userID" equalTo:user.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    // The array of objects was successfully deleted.
+                } else {
+                    // There was an error. Check the errors localizedDescription.
+                }
+            }];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 /*
