@@ -14,10 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shared;
 
 @property (nonatomic, strong) NSString *APIkey;
-
 @property (nonatomic, strong) NSURL *baseURL;
 
-- (void) getSheetsData: (NSString *) pathParameters withCompletetion:(void(^)(NSError *error))completion;
+- (void) getSheetsData: (NSString *) pathParameters withCompletion:(void(^)(NSError *error))completion;
 
 @end
 
