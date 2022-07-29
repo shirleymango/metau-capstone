@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
 @property (weak, nonatomic) IBOutlet UITextField *backTextField;
 @property (nonatomic) NSIndexPath *currentCellPath;
+@property (weak, nonatomic) IBOutlet UILabel *frontTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *backTextLabel;
 
 @end
 
@@ -29,6 +31,8 @@
     self.previewCarousel.delegate = self;
     self.frontTextField.hidden = YES;
     self.backTextField.hidden = YES;
+    self.frontTextLabel.hidden = YES;
+    self.backTextLabel.hidden = YES;
     self.previewCards = [NSMutableArray new];
     
     // Fetch the preview cards by the current user
@@ -131,6 +135,8 @@
 
 - (void)didTapEdit:(UIButton*)sender {
     PreviewCard *card = self.previewCards[sender.tag];
+    self.frontTextLabel.hidden = NO;
+    self.backTextLabel.hidden = NO;
     [self showTextField:self.frontTextField withText:card.frontText];
     [self showTextField:self.backTextField withText:card.backText];
     self.currentCellPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
