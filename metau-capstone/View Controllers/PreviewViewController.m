@@ -120,14 +120,7 @@
     [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
-    if (card.isSelected) {
-        [cell.selectButton setImage:[UIImage systemImageNamed:@"checkmark.circle.fill"] forState:UIControlStateSelected];
-        [cell.selectButton setSelected:YES];
-    }
-    else {
-        [cell.selectButton setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
-        [cell.selectButton setSelected:NO];
-    }
+    [self toggleSelect:card.isSelected onButton:cell.selectButton];
     return cell;
 }
 
@@ -176,4 +169,16 @@
         NSLog(@"back to front");
     }
 }
+
+- (void)toggleSelect:(BOOL) setSelected onButton:(UIButton *)sender {
+    if (setSelected) {
+        [sender setImage:[UIImage systemImageNamed:@"checkmark.circle.fill"] forState:UIControlStateSelected];
+        [sender setSelected:YES];
+    }
+    else {
+        [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+    }
+}
+
 @end
