@@ -120,7 +120,14 @@
     [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
-    [cell.selectButton setSelected:YES];
+    if (card.isSelected) {
+        [cell.selectButton setImage:[UIImage systemImageNamed:@"checkmark.circle.fill"] forState:UIControlStateSelected];
+        [cell.selectButton setSelected:YES];
+    }
+    else {
+        [cell.selectButton setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
+        [cell.selectButton setSelected:NO];
+    }
     return cell;
 }
 
@@ -142,6 +149,8 @@
 }
 
 - (void)didTapSelect:(UIButton*)sender {
+    PreviewCard *card = self.previewCards[sender.tag];
+    card.isSelected = !card.isSelected;
     if ([sender isSelected]) {
         [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
         [sender setSelected:NO];
