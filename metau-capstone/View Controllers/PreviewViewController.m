@@ -87,11 +87,13 @@
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
     PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    self.editCardIsFlipped = NO;
     card.frontText = self.frontTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (void)backTextFieldDidChange: (UIButton*)sender {
+    self.editCardIsFlipped = YES;
     PreviewCard *card = self.previewCards[self.currentCellPath.row];
     card.backText = self.backTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
@@ -100,7 +102,7 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
     PreviewCard *card = self.previewCards[indexPath.row];
-    [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText];
+    [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
     return cell;
@@ -135,9 +137,11 @@
     PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
     if (!cell.isFlipped) {
         [cell flipAction:cell.front to:cell.back];
+        cell.isFlipped = !cell.isFlipped;
         NSLog(@"front to back");
     } else {
         [cell flipAction:cell.back to:cell.front];
+        cell.isFlipped = !cell.isFlipped;
         NSLog(@"back to front");
     }
 }
