@@ -14,6 +14,7 @@
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
+@property (weak, nonatomic) IBOutlet UITextField *frontTextField;
 
 @end
 
@@ -23,6 +24,7 @@
     [super viewDidLoad];
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
+    self.frontTextField.hidden = YES;
     self.previewCards = [NSMutableArray new];
     
     // Fetch the preview cards by the current user

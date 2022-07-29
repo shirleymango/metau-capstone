@@ -456,6 +456,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="HIIII" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="odQ-Ok-qtk">
+                                <rect key="frame" x="28" y="538" width="322" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SFl-nV-mkZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -473,6 +479,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="frontTextField" destination="odQ-Ok-qtk" id="rhM-fU-d4n"/>
                         <outlet property="previewCarousel" destination="sSa-Ln-DUD" id="747-ng-V7A"/>
                     </connections>
                 </viewController>
