@@ -17,7 +17,7 @@
     firstSide.zPosition = 0;
 }
 
-- (void) createCardBothSides: (CGRect) frame withFront: (NSString *) frontString withBack: (NSString *) backString isFlipped:(BOOL)isFlipped {
+- (void) createCardBothSides:(CGRect) frame withFront:(NSString *) frontString withBack:(NSString *) backString isFlipped:(BOOL)isFlipped {
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
@@ -40,7 +40,7 @@
     }
 }
 
-- (void)createCardOneSide:(CALayer *)side atFrame: (CGRect)frame withText: (CATextLayer *)text withBackgroundColor: (UIColor *)bgColor withTextColor: (UIColor *)textColor {
+- (void)createCardOneSide:(CALayer *)side atFrame:(CGRect)frame withText:(CATextLayer *)text withBackgroundColor:(UIColor *)bgColor withTextColor:(UIColor *)textColor {
     side.frame = frame;
     side.backgroundColor = [bgColor CGColor];
     side.borderColor = [[UIColor blackColor] CGColor];

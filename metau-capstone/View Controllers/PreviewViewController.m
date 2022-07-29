@@ -86,8 +86,8 @@
 }
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
-    PreviewCard *card = self.previewCards[self.currentCellPath.row];
     self.editCardIsFlipped = NO;
+    PreviewCard *card = self.previewCards[self.currentCellPath.row];
     card.frontText = self.frontTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
