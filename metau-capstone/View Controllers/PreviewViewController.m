@@ -15,6 +15,7 @@
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
+@property (weak, nonatomic) IBOutlet UITextField *backTextField;
 
 @end
 
@@ -25,6 +26,7 @@
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
     self.frontTextField.hidden = YES;
+    self.backTextField.hidden = YES;
     self.previewCards = [NSMutableArray new];
     
     // Fetch the preview cards by the current user
@@ -100,8 +102,13 @@
 {
     NSLog(@"%ld", sender.tag);
     PreviewCard *card = self.previewCards[sender.tag];
-    self.frontTextField.text = card.frontText;
-    self.frontTextField.hidden = NO;
+    [self showTextField:self.frontTextField withText:card.frontText];
+    [self showTextField:self.backTextField withText:card.backText];
+}
+
+-(void)showTextField: (UITextField *) textField withText: (NSString *) text {
+    textField.text = text;
+    textField.hidden = NO;
 }
 
 -(void)didTapSelect:(UIButton*)sender
