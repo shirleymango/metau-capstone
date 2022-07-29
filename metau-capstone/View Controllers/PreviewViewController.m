@@ -99,6 +99,9 @@
 -(void)didTapEdit:(UIButton*)sender
 {
     NSLog(@"%ld", sender.tag);
+    PreviewCard *card = self.previewCards[sender.tag];
+    self.frontTextField.text = card.frontText;
+    self.frontTextField.hidden = NO;
 }
 
 -(void)didTapSelect:(UIButton*)sender
