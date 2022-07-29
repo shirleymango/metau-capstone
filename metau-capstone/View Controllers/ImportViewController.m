@@ -28,8 +28,8 @@
             if (!error) {
                 SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                PreviewViewController *previewViewController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
-                sceneDelegate.window.rootViewController = previewViewController;
+                UINavigationController *previewNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewNavigationController"];
+                sceneDelegate.window.rootViewController = previewNavigationController;
                 NSLog(@"scene delegate to import page");
             } else {
                 NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
