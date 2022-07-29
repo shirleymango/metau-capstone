@@ -44,6 +44,9 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    
+    [self.frontTextField addTarget:self action:@selector(frontTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.backTextField addTarget:self action:@selector(backTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (IBAction)didPressDone:(UIBarButtonItem *)sender {
@@ -81,7 +84,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)frontTextFieldDidChange: (UIButton*)sender {
+    NSLog(@"front: %@", self.frontTextField.text);
+}
 
+- (void)backTextFieldDidChange: (UIButton*)sender {
+    NSLog(@"back: %@", self.backTextField.text);
+}
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
@@ -92,26 +101,24 @@
     return cell;
 }
 
--(void) setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector{
+- (void)setActionForButton: (UIButton *)button withTag: (NSInteger)tag withAction:(SEL) selector {
     button.tag = tag;
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void)didTapEdit:(UIButton*)sender
-{
+- (void)didTapEdit:(UIButton*)sender {
     NSLog(@"%ld", sender.tag);
     PreviewCard *card = self.previewCards[sender.tag];
     [self showTextField:self.frontTextField withText:card.frontText];
     [self showTextField:self.backTextField withText:card.backText];
 }
 
--(void)showTextField: (UITextField *) textField withText: (NSString *) text {
+- (void)showTextField: (UITextField *) textField withText: (NSString *) text {
     textField.text = text;
     textField.hidden = NO;
 }
 
--(void)didTapSelect:(UIButton*)sender
-{
+- (void)didTapSelect:(UIButton*)sender {
     NSLog(@"%ld", sender.tag);
 }
 
@@ -119,8 +126,7 @@
     return [self.previewCards count];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
     if (!cell.isFlipped) {
         [cell flipAction:cell.front to:cell.back];
