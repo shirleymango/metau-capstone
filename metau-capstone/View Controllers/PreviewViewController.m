@@ -9,6 +9,8 @@
 #import "SceneDelegate.h"
 #import "PreviewCell.h"
 #import "APIManager.h"
+#import "Parse/Parse.h"
+#import "PreviewCard.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -21,6 +23,23 @@
     [super viewDidLoad];
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
+    self.previewCards = [NSMutableArray new];
+    
+    // Fetch the preview cards by the current user
+    PFUser *const user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"PreviewCard"];
+    [query whereKey:@"userID" equalTo:user.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"fetched preview cards");
+            for (PreviewCard *card in objects) {
+                [self.previewCards addObject:card];
+            }
+            [self.previewCarousel reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (IBAction)didPressDone:(UIBarButtonItem *)sender {
@@ -43,13 +62,14 @@
 
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    PreviewCell * cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-    [cell createCardBothSides:CGRectMake(10, 70, 270, 162)];
+    PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
+    PreviewCard *card = self.previewCards[indexPath.row];
+    [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText];
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return [self.previewCards count];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

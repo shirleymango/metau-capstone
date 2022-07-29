@@ -18,12 +18,12 @@
     self.isFlipped = !self.isFlipped;
 }
 
-- (void) createCardBothSides: (CGRect) frame {
+- (void) createCardBothSides: (CGRect) frame withFront: (NSString *) frontString withBack: (NSString *) backString{
     // BACK SIDE
     self.back = [[CALayer alloc] init];
     self.backText = [[CATextLayer alloc] init];
     [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
-    [self.backText setString:@"back"];
+    [self.backText setString:backString];
     self.back.zPosition = 0;
     [self.layer addSublayer:self.back];
     
@@ -31,7 +31,7 @@
     self.front = [[CALayer alloc] init];
     self.frontText = [[CATextLayer alloc] init];
     [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
-    [self.frontText setString:@"front :)"];
+    [self.frontText setString:frontString];
     self.front.zPosition = 10;
     [self.layer addSublayer:self.front];
 }

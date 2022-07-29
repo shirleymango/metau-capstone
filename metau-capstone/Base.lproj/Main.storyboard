@@ -372,7 +372,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Submit"/>
                                 <connections>
                                     <action selector="didTapSubmitImport:" destination="Yvt-j1-OiV" eventType="touchUpInside" id="fw2-tm-pq3"/>
-                                    <segue destination="8Kj-6d-u7w" kind="showDetail" id="Snx-vr-xSI"/>
                                 </connections>
                             </button>
                         </subviews>

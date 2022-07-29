@@ -7,6 +7,8 @@
 
 #import "ImportViewController.h"
 #import "APIManager.h"
+#import "SceneDelegate.h"
+#import "PreviewViewController.h"
 
 @interface ImportViewController ()
 
@@ -22,9 +24,13 @@
 - (IBAction)didTapSubmitImport:(UIButton *)sender {
     NSString *pathParameters = [self pathParameters];
     if (![pathParameters isEqualToString:@"invalid"]) {
-        [[APIManager shared] getSheetsData:pathParameters withCompletetion:^(NSError *error) {
+        [[APIManager shared] getSheetsData:pathParameters withCompletion:^(NSError *error) {
             if (!error) {
-                NSLog(@"get request");
+                SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                PreviewViewController *previewViewController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+                sceneDelegate.window.rootViewController = previewViewController;
+                NSLog(@"scene delegate to import page");
             } else {
                 NSLog(@"😫😫😫 Error getting sheets data: %@", error.localizedDescription);
             }

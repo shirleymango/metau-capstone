@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 
-- (void) createCardBothSides: (CGRect) frame;
+- (void) createCardBothSides: (CGRect) frame withFront: (NSString *) frontString withBack: (NSString *) backString;
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
 
 @end
