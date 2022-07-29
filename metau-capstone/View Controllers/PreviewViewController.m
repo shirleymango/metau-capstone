@@ -64,6 +64,10 @@
             [Flashcard createCard:card.frontText withBack:card.backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (!error) {
                     NSLog(@"card created!");
+//                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Success ^-^ !!" message:@"Your flashcards were created." preferredStyle:(UIAlertControllerStyleAlert)];
+//                    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+//                    [alert addAction:okAction];
+//                    [self presentViewController:alert animated:YES completion:^{}];
                 }
                 else {
                     NSLog(@"nooo cry %@", error.localizedDescription);
