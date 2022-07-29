@@ -144,13 +144,7 @@
 - (void)didTapSelect:(UIButton*)sender {
     PreviewCard *card = self.previewCards[sender.tag];
     card.isSelected = !card.isSelected;
-    if ([sender isSelected]) {
-        [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
-        [sender setSelected:NO];
-    } else {
-       [sender setImage:[UIImage systemImageNamed:@"checkmark.circle.fill"] forState:UIControlStateSelected];
-       [sender setSelected:YES];
-    }
+    [self toggleSelect:![sender isSelected] onButton:sender];
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
