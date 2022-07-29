@@ -141,7 +141,8 @@
 }
 
 - (void)didTapSelect:(UIButton*)sender {
-    NSLog(@"%ld", sender.tag);
+    PreviewCard *card = self.previewCards[sender.tag];
+    card.isSelected = !card.isSelected;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
