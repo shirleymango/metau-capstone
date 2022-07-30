@@ -39,21 +39,8 @@
     self.backTextLabel.hidden = YES;
     self.previewCards = [NSMutableArray new];
     
-    // Fetch the preview cards by the current user
-    PFUser *const user = [PFUser currentUser];
-    PFQuery *query = [PFQuery queryWithClassName:@"PreviewCard"];
-    [query whereKey:@"userID" equalTo:user.objectId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (!error) {
-            NSLog(@"fetched preview cards");
-            for (PreviewCard *card in objects) {
-                [self.previewCards addObject:card];
-            }
-            [self.previewCarousel reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    self.previewCards = [APIManager shared].previewFlashcards;
+    [self.previewCarousel reloadData];
     
     [self.frontTextField addTarget:self action:@selector(frontTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.backTextField addTarget:self action:@selector(backTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
