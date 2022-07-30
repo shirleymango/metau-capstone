@@ -10,7 +10,6 @@
 #import "PreviewCell.h"
 #import "APIManager.h"
 #import "Parse/Parse.h"
-#import "PreviewCard.h"
 #import "Flashcard.h"
 #import "ImportViewController.h"
 #import "PreviewFlashcard.h"
@@ -54,7 +53,7 @@
     sceneDelegate.window.rootViewController = tabBarController;
     
     // Create flashcards
-    for (PreviewCard *card in self.previewCards) {
+    for (PreviewFlashcard *card in self.previewCards) {
         if (card.isSelected) {
             [Flashcard createCard:card.frontText withBack:card.backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (!error) {
@@ -97,21 +96,21 @@
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
     self.editCardIsFlipped = NO;
-    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    PreviewFlashcard *card = self.previewCards[self.currentCellPath.row];
     card.frontText = self.frontTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (void)backTextFieldDidChange: (UIButton*)sender {
     self.editCardIsFlipped = YES;
-    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    PreviewFlashcard *card = self.previewCards[self.currentCellPath.row];
     card.backText = self.backTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-    PreviewCard *card = self.previewCards[indexPath.row];
+    PreviewFlashcard *card = self.previewCards[indexPath.row];
     [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
@@ -125,7 +124,7 @@
 }
 
 - (void)didTapEdit:(UIButton*)sender {
-    PreviewCard *card = self.previewCards[sender.tag];
+    PreviewFlashcard *card = self.previewCards[sender.tag];
     self.frontTextLabel.hidden = NO;
     self.backTextLabel.hidden = NO;
     [self showTextField:self.frontTextField withText:card.frontText];
@@ -139,7 +138,7 @@
 }
 
 - (void)didTapSelect:(UIButton*)sender {
-    PreviewCard *card = self.previewCards[sender.tag];
+    PreviewFlashcard *card = self.previewCards[sender.tag];
     card.isSelected = !card.isSelected;
     [self toggleSelect:![sender isSelected] onButton:sender];
 }
