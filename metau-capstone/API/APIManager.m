@@ -28,7 +28,7 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
 
 - (instancetype)init {
     self.baseURL = [NSURL URLWithString:baseURLString];
-    
+    self.previewFlashcards = [NSMutableArray new];
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     self.APIkey = [dict objectForKey: @"sheets_api_key"];
@@ -45,6 +45,9 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
         [PreviewCard createCardsFromDictionary:sheetDictionary];
+        for (int i = 0; i < 4; i++) {
+            [self.previewFlashcards addObject:@"hi"];
+        }
         NSLog(@"posted preview cards!");
         completion(nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
