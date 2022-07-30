@@ -13,6 +13,7 @@
 #import "PreviewCard.h"
 #import "Flashcard.h"
 #import "ImportViewController.h"
+#import "PreviewFlashcard.h"
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
@@ -27,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    for (NSString *test in [APIManager shared].previewFlashcards) {
+    for (PreviewFlashcard *test in [APIManager shared].previewFlashcards) {
         NSLog(@"%@", test);
     }
     self.previewCarousel.dataSource = self;

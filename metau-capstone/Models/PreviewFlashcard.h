@@ -10,7 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewFlashcard : NSObject
+@property (nonatomic, strong) NSString *frontText;
+@property (nonatomic, strong) NSString *backText;
+@property (nonatomic) BOOL isSelected;
 
++ (PreviewFlashcard *) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
++ (NSMutableArray *) createCardsFromDictionary: (NSDictionary *)dictionary;
 @end
 
 NS_ASSUME_NONNULL_END

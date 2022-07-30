@@ -8,7 +8,7 @@
 #import "APIManager.h"
 #import "Flashcard.h"
 #import "PreviewViewController.h"
-#import "PreviewCard.h"
+#import "PreviewFlashcard.h"
 
 static NSString * const baseURLString = @"https://sheets.googleapis.com";
 
@@ -44,11 +44,7 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     NSString *endURLString = [@"v4/spreadsheets/" stringByAppendingString:pathParameters];
     [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
-        [PreviewCard createCardsFromDictionary:sheetDictionary];
-        for (int i = 0; i < 4; i++) {
-            [self.previewFlashcards addObject:@"hi"];
-        }
-        NSLog(@"posted preview cards!");
+        [APIManager shared].previewFlashcards = [PreviewFlashcard createCardsFromDictionary:sheetDictionary];
         completion(nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(error);
