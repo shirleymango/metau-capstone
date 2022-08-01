@@ -13,17 +13,10 @@
     self = [super init];
     if (self) {
         self.front = [[CALayer alloc] init];
-        self.front.backgroundColor = [[UIColor blackColor] CGColor];
-        self.front.frame = CGRectMake(50, 50, 200, 200);
         self.frontText = [[CATextLayer alloc] init];
-        [self.frontText setFont:@"Helvetica-Bold"];
-        [self.frontText setFontSize:20];
-        [self.frontText setAlignmentMode:kCAAlignmentCenter];
         [self.frontText setString:text];
-        [self.frontText setForegroundColor:[[UIColor whiteColor] CGColor]];
-        self.frontText.frame = CGRectMake(50, 50, 200, 200);
         [self.layer addSublayer:self.front];
-        [self.front addSublayer:self.frontText];
+        [self createCardOneSide:self.front atFrame:CGRectMake(50, 50, 200, 200) withText:self.frontText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
     }
     return self;
 }
@@ -58,18 +51,18 @@
 //    }
 //}
 //
-//- (void)createCardOneSide:(CALayer *)side atFrame:(CGRect)frame withText:(CATextLayer *)text withBackgroundColor:(UIColor *)bgColor withTextColor:(UIColor *)textColor {
-//    side.frame = frame;
-//    side.backgroundColor = [bgColor CGColor];
-//    side.borderColor = [[UIColor blackColor] CGColor];
-//    side.borderWidth = 2;
-//    [text setFont:@"Helvetica-Bold"];
-//    [text setFontSize:20];
-//    [text setAlignmentMode:kCAAlignmentCenter];
-//    text.wrapped = YES;
-//    [text setFrame:frame];
-//    [text setForegroundColor:[textColor CGColor]];
-//    [side addSublayer:text];
-//}
+- (void)createCardOneSide:(CALayer *)side atFrame:(CGRect)frame withText:(CATextLayer *)text withBackgroundColor:(UIColor *)bgColor withTextColor:(UIColor *)textColor {
+    side.frame = frame;
+    side.backgroundColor = [bgColor CGColor];
+    side.borderColor = [[UIColor blackColor] CGColor];
+    side.borderWidth = 2;
+    [text setFont:@"Helvetica-Bold"];
+    [text setFontSize:20];
+    [text setAlignmentMode:kCAAlignmentCenter];
+    text.wrapped = YES;
+    [text setFrame:frame];
+    [text setForegroundColor:[textColor CGColor]];
+    [side addSublayer:text];
+}
 
 @end
