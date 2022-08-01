@@ -42,15 +42,14 @@
     PFUser *const user = [PFUser currentUser];
     self.prevFinishedDate = user[@"prevFinishedDate"];
     
-    self.percentFinished = [user[@"percentFinished"] doubleValue];
-    [self.circleProgressBar setProgress:self.percentFinished animated:YES];
-    
     if ([self isFirstTimeUser] || [self isNewDay]) {
         // Check user has started reviewing for the day
         if (![self isFirstTimeUser] && [user[@"didStartReview"] isEqual:@NO]) {
             // Increment day counter for the user
             [user incrementKey:@"userDay"];
             [user saveInBackground];
+            // Reset progress bar to zero percent
+            user[@"percentFinished"] = @(0);
         }
         
         // Fetch today's number for the current user
@@ -105,6 +104,8 @@
         // Waiting for new cards
         [self endScreen];
     }
+    self.percentFinished = [user[@"percentFinished"] doubleValue];
+    [self.circleProgressBar setProgress:self.percentFinished animated:YES];
 }
 
 - (BOOL) isNewDay {
