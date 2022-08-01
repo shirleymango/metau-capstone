@@ -16,10 +16,7 @@
 #import "FlashcardView.h"
 
 @interface StudyViewController ()
-@property (nonatomic, strong) CALayer *front;
-@property (nonatomic, strong) CALayer *back;
-@property (nonatomic, strong) CATextLayer *frontText;
-@property (nonatomic, strong) CATextLayer *backText;
+@property (nonatomic) FlashcardView *flashcard;
 @property (nonatomic, strong) CABasicAnimation *rotateAnim;
 @property (nonatomic) CATransform3D horizontalFlip;
 @property (nonatomic) BOOL isFlipped;
@@ -40,13 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // TEST
-    FlashcardView *testCard = [[FlashcardView alloc] initWithText:CGRectMake(0, 0, 200, 100) withFront:@"front" withBack:@"back"];
-    [self.view addSubview:testCard];
+    self.flashcard = [[FlashcardView alloc] initWithText:CGRectMake(0, 0, 300, 180) withFront:@"front" withBack:@"back"];
+    [self.view addSubview:self.flashcard];
     
     PFUser *const user = [PFUser currentUser];
     
-    [self createCardBothSides];
     [self createFlipAnimation];
     
     self.prevFinishedDate = user[@"prevFinishedDate"];
@@ -137,30 +132,6 @@
     return constraintForCards;
 }
 
-- (void) createCardBothSides {
-    // BACK SIDE
-    self.back = [[CALayer alloc] init];
-    self.backText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.back withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
-    // FRONT SIDE
-    self.front = [[CALayer alloc] init];
-    self.frontText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.front withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
-}
-
-- (void) createCardOneSide: (CALayer *)side withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
-    side.frame = CGRectMake(0, 0, 300, 180);
-    side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    side.backgroundColor = [bgColor CGColor];
-    [text setFont:@"Helvetica-Bold"];
-    [text setFontSize:20];
-    [text setAlignmentMode:kCAAlignmentCenter];
-    text.wrapped = YES;
-    [text setFrame:CGRectMake(0, 0, 300, 180)];
-    [text setForegroundColor:[textColor CGColor]];
-    [side addSublayer:text];
-}
-
 - (void) createFlipAnimation {
     self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
@@ -180,7 +151,7 @@
 
 - (void) loadFlashcard {
     if (self.isFlipped) {
-        [self flipAction:self.back to:self.front];
+//        [self flipAction:self.back to:self.front];
     }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
@@ -192,13 +163,14 @@
         if (!card.toBeReviewed) {
             [self loadNextCard];
         } else {
+            
             // BACK SIDE
-            [self.backText setString:card.backText];
-            self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-            [self.view.layer addSublayer:self.back];
+            [self.flashcard.backText setString:card.backText];
+            self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+            [self.flashcard.layer addSublayer:self.flashcard.back];
             // FRONT SIDE
-            [self.frontText setString:card.frontText];
-            [self.view.layer addSublayer:self.front];
+            [self.flashcard.frontText setString:card.frontText];
+            [self.flashcard.layer addSublayer:self.flashcard.front];
         }
     } else {
         // End of stack
@@ -223,14 +195,14 @@
     
     // BACK SIDE
     // add text label to the flashcard
-    [self.backText setString:@"Come back afterwards to study your cards :)"];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.view.layer addSublayer:self.back];
+    [self.flashcard.backText setString:@"Come back afterwards to study your cards :)"];
+    self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    [self.flashcard.layer addSublayer:self.flashcard.back];
     
     // FRONT SIDE
     // add text label to the flashcard
-    [self.frontText setString:@"You have no cards yet! \r Add cards by going to the Create tab."];
-    [self.view.layer addSublayer:self.front];
+    [self.flashcard.frontText setString:@"You have no cards yet! \r Add cards by going to the Create tab."];
+    [self.flashcard.layer addSublayer:self.flashcard.front];
 }
 
 - (void) endScreen {
@@ -240,14 +212,14 @@
     
     // BACK SIDE
     // add text label to the flashcard
-    [self.backText setString:@"Come back tomorrow for your new stack :-)"];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.view.layer addSublayer:self.back];
+    [self.flashcard.backText setString:@"Come back tomorrow for your new stack :-)"];
+    self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    [self.flashcard.layer addSublayer:self.flashcard.back];
     
     // FRONT SIDE
     // add text label to the flashcard
-    [self.frontText setString:@"You finished studying today's cards!"];
-    [self.view.layer addSublayer:self.front];
+    [self.flashcard.frontText setString:@"You finished studying today's cards!"];
+    [self.flashcard.layer addSublayer:self.flashcard.front];
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
@@ -274,11 +246,11 @@
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
-    if (!self.isFlipped) {
-        [self flipAction:self.front to:self.back];
-    } else {
-        [self flipAction:self.back to:self.front];
-    }
+//    if (!self.isFlipped) {
+//        [self flipAction:self.front to:self.back];
+//    } else {
+//        [self flipAction:self.back to:self.front];
+//    }
 }
 
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
