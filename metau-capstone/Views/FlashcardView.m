@@ -9,7 +9,7 @@
 
 @implementation FlashcardView
 
-- (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString isFlipped:(BOOL)isFlipped {
+- (id) initWithText:(CGRect)frame withFront:(NSString *)frontString withBack:(NSString *)backString isFlipped:(BOOL)isFlipped {
     self = [super init];
     if (self) {
         // BACK
@@ -37,16 +37,12 @@
 
 - (void) updateTextOnCard:(NSString *)frontString withBack:(NSString *)backString {
     // BACK SIDE
-    // add text label to the flashcard
     [self.backText setString:backString];
     self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
     [self.layer addSublayer:self.back];
-    
     // FRONT SIDE
-    // add text label to the flashcard
     [self.frontText setString:frontString];
     [self.layer addSublayer:self.front];
-    
     self.isFlipped = NO;
 }
 
