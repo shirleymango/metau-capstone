@@ -29,9 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    for (PreviewFlashcard *test in [APIManager shared].previewFlashcards) {
-        NSLog(@"%@", test);
-    }
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
     self.frontTextField.hidden = YES;
@@ -113,7 +110,8 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
     PreviewFlashcard *card = self.previewCards[indexPath.row];
-    [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
+    cell.cardDisplay = [[FlashcardView alloc] initWithText:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
+    [cell addSubview:cell.cardDisplay];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
     [self toggleSelect:card.isSelected onButton:cell.selectButton];
@@ -151,13 +149,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
-    if (!cell.isFlipped) {
-        [cell flipAction:cell.front to:cell.back];
-        cell.isFlipped = !cell.isFlipped;
+    if (!cell.cardDisplay.isFlipped) {
+        [cell.cardDisplay flipAction:cell.cardDisplay.front to:cell.cardDisplay.back];
+        cell.cardDisplay.isFlipped = !cell.cardDisplay.isFlipped;
         NSLog(@"front to back");
     } else {
-        [cell flipAction:cell.back to:cell.front];
-        cell.isFlipped = !cell.isFlipped;
+        [cell.cardDisplay flipAction:cell.cardDisplay.back to:cell.cardDisplay.front];
+        cell.cardDisplay.isFlipped = !cell.cardDisplay.isFlipped;
         NSLog(@"back to front");
     }
 }
