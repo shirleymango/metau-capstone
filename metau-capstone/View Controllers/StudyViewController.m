@@ -51,6 +51,10 @@
             // Increment day counter for the user
             [user incrementKey:@"userDay"];
             [user saveInBackground];
+            // Reset progress bar to zero percent
+            user[@"percentFinished"] = @(0);
+            self.percentFinished = [user[@"percentFinished"] doubleValue];
+            [self.circleProgressBar setProgress:self.percentFinished animated:YES];
         }
         
         // Fetch today's number for the current user
