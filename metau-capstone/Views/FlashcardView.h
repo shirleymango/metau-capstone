@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString isFlipped:(BOOL)isFlipped;
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
 @property (nonatomic) BOOL isFlipped;
-//@property (nonatomic, strong) CABasicAnimation *rotateAnim;
-//@property (nonatomic) CATransform3D horizontalFlip;
-//- (void) createCardBothSides: (CALayer *)layer withFrame: (CGRect) frame withFront: (NSString *) frontString withBack: (NSString *) backString isFlipped:(BOOL)isFlipped;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -42,29 +42,6 @@
     firstSide.zPosition = 0;
 }
 
-//- (void) createCardBothSides: (CALayer *)layer withFrame: (CGRect) frame withFront:(NSString *) frontString withBack:(NSString *) backString isFlipped:(BOOL)isFlipped {
-//    // BACK SIDE
-//    self.back = [[CALayer alloc] init];
-//    self.backText = [[CATextLayer alloc] init];
-//    [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
-//    [self.backText setString:backString];
-//    self.back.zPosition = 0;
-//    [self.layer addSublayer:self.back];
-//
-//    // FRONT SIDE
-//    self.front = [[CALayer alloc] init];
-//    self.frontText = [[CATextLayer alloc] init];
-//    [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
-//    [self.frontText setString:frontString];
-//    self.front.zPosition = 10;
-//    [self.layer addSublayer:self.front];
-//
-//    self.isFlipped = isFlipped;
-//    if (self.isFlipped) {
-//        [self flipAction:self.front to:self.back];
-//    }
-//}
-
 - (void)createCardOneSide:(CALayer *)side atFrame:(CGRect)frame withText:(CATextLayer *)text withBackgroundColor:(UIColor *)bgColor withTextColor:(UIColor *)textColor {
     side.frame = frame;
     side.backgroundColor = [bgColor CGColor];
