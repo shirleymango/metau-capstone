@@ -9,33 +9,39 @@
 
 @implementation FlashcardView
 
-- (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString {
+- (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString isFlipped:(BOOL)isFlipped {
     self = [super init];
     if (self) {
         // BACK
         self.back = [[CALayer alloc] init];
         self.backText = [[CATextLayer alloc] init];
         [self.backText setString:backString];
+        self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
         [self.layer addSublayer:self.back];
-        [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+        [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
         
         //FRONT
         self.front = [[CALayer alloc] init];
         self.frontText = [[CATextLayer alloc] init];
         [self.frontText setString:frontString];
         [self.layer addSublayer:self.front];
-        [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
+        [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+        
+        self.isFlipped = isFlipped;
+        if (self.isFlipped) {
+            [self flipAction:self.front to:self.back];
+        }
     }
     return self;
 }
 
-//- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
-//    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-//    secondSide.transform = CATransform3DRotate(CATransform3DMakeRotation(M_PI, 0, 1, 0), M_PI, 0, 1, 0);
-//    secondSide.zPosition = 10;
-//    firstSide.zPosition = 0;
-//}
-//
+- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
+    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    secondSide.transform = CATransform3DRotate(CATransform3DMakeRotation(M_PI, 0, 1, 0), M_PI, 0, 1, 0);
+    secondSide.zPosition = 10;
+    firstSide.zPosition = 0;
+}
+
 //- (void) createCardBothSides: (CALayer *)layer withFrame: (CGRect) frame withFront:(NSString *) frontString withBack:(NSString *) backString isFlipped:(BOOL)isFlipped {
 //    // BACK SIDE
 //    self.back = [[CALayer alloc] init];
