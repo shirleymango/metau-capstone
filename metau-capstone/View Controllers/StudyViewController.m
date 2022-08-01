@@ -13,6 +13,7 @@
 #import "Schedule.h"
 #import "Utilities.h"
 #import "CircleProgressBar.h"
+#import "FlashcardView.h"
 
 @interface StudyViewController ()
 @property (nonatomic, strong) CALayer *front;
@@ -38,6 +39,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // TEST
+    FlashcardView *testCard = [[FlashcardView alloc] initWithText:@"aloha"];
+    [self.view addSubview:testCard];
     
     PFUser *const user = [PFUser currentUser];
     

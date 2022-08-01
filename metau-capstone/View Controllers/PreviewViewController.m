@@ -13,6 +13,8 @@
 #import "Flashcard.h"
 #import "ImportViewController.h"
 #import "PreviewFlashcard.h"
+#import "FlashcardView.h"
+
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;

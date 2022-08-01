@@ -7,6 +7,7 @@
 
 #import "PreviewCell.h"
 #import "QuartzCore/QuartzCore.h"
+#import "FlashcardView.h"
 
 @implementation PreviewCell
 
