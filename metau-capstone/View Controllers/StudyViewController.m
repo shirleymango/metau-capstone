@@ -41,7 +41,7 @@
     [super viewDidLoad];
     
     // TEST
-    FlashcardView *testCard = [[FlashcardView alloc] initWithText:@"aloha"];
+    FlashcardView *testCard = [[FlashcardView alloc] initWithText:CGRectMake(0, 0, 200, 100) withFront:@"front" withBack:@"back"];
     [self.view addSubview:testCard];
     
     PFUser *const user = [PFUser currentUser];

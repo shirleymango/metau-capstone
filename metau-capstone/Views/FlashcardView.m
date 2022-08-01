@@ -9,14 +9,22 @@
 
 @implementation FlashcardView
 
-- (id) initWithText:(NSString *)text {
+- (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString {
     self = [super init];
     if (self) {
+        // BACK
+        self.back = [[CALayer alloc] init];
+        self.backText = [[CATextLayer alloc] init];
+        [self.backText setString:backString];
+        [self.layer addSublayer:self.back];
+        [self createCardOneSide:self.back atFrame:frame withText:self.backText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
+        
+        //FRONT
         self.front = [[CALayer alloc] init];
         self.frontText = [[CATextLayer alloc] init];
-        [self.frontText setString:text];
+        [self.frontText setString:frontString];
         [self.layer addSublayer:self.front];
-        [self createCardOneSide:self.front atFrame:CGRectMake(50, 50, 200, 200) withText:self.frontText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
+        [self createCardOneSide:self.front atFrame:frame withText:self.frontText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
     }
     return self;
 }
@@ -50,7 +58,7 @@
 //        [self flipAction:self.front to:self.back];
 //    }
 //}
-//
+
 - (void)createCardOneSide:(CALayer *)side atFrame:(CGRect)frame withText:(CATextLayer *)text withBackgroundColor:(UIColor *)bgColor withTextColor:(UIColor *)textColor {
     side.frame = frame;
     side.backgroundColor = [bgColor CGColor];

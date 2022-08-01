@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FlashcardView : UIView
 @property (nonatomic, strong) CALayer *front;
-//@property (nonatomic, strong) CALayer *back;
+@property (nonatomic, strong) CALayer *back;
 @property (nonatomic, strong) CATextLayer *frontText;
-- (id) initWithText:(NSString *)text;
-//@property (nonatomic, strong) CATextLayer *backText;
+@property (nonatomic, strong) CATextLayer *backText;
+- (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString;
 //@property (nonatomic, strong) CABasicAnimation *rotateAnim;
 //@property (nonatomic) CATransform3D horizontalFlip;
 //@property (nonatomic) BOOL isFlipped;

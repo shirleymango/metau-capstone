@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    FlashcardView *testCard = [[FlashcardView alloc] initWithText:@"aloha"];
-    [self.view addSubview:testCard];
     
     UIView *paintView=[[UIView alloc]initWithFrame:CGRectMake(0, 50, 320, 430)];
     [paintView setBackgroundColor:[UIColor yellowColor]];
