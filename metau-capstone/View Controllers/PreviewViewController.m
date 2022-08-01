@@ -31,10 +31,7 @@
     [super viewDidLoad];
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
-    self.frontTextField.hidden = YES;
-    self.backTextField.hidden = YES;
-    self.frontTextLabel.hidden = YES;
-    self.backTextLabel.hidden = YES;
+    [self hideEditLabels];
     self.previewCards = [NSMutableArray new];
     
     self.previewCards = [APIManager shared].previewFlashcards;
@@ -169,6 +166,13 @@
         [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
         [sender setSelected:NO];
     }
+}
+
+- (void) hideEditLabels {
+    self.frontTextField.hidden = YES;
+    self.backTextField.hidden = YES;
+    self.frontTextLabel.hidden = YES;
+    self.backTextLabel.hidden = YES;
 }
 
 @end
