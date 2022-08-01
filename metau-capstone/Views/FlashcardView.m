@@ -46,6 +46,8 @@
     // add text label to the flashcard
     [self.frontText setString:frontString];
     [self.layer addSublayer:self.front];
+    
+    self.isFlipped = NO;
 }
 
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
