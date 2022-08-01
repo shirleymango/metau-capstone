@@ -13,6 +13,7 @@
 #import "Utilities.h"
 #import "APIManager.h"
 #import "ImportViewController.h"
+#import "FlashcardView.h"
 
 @interface CreateViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *frontTextField;
@@ -25,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
 }
 
 - (IBAction)didTapSubmit:(UIButton *)sender {

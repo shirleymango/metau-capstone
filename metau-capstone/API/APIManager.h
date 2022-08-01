@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *APIkey;
 @property (nonatomic, strong) NSURL *baseURL;
-
+@property NSMutableArray *previewFlashcards;
 - (void) getSheetsData: (NSString *) pathParameters withCompletion:(void(^)(NSError *error))completion;
 
 @end

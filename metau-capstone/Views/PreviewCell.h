@@ -6,23 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlashcardView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewCell : UICollectionViewCell
 
-@property (nonatomic, strong) CALayer *front;
-@property (nonatomic, strong) CALayer *back;
-@property (nonatomic, strong) CATextLayer *frontText;
-@property (nonatomic, strong) CATextLayer *backText;
-@property (nonatomic, strong) CABasicAnimation *rotateAnim;
-@property (nonatomic) CATransform3D horizontalFlip;
-@property (nonatomic) BOOL isFlipped;
+@property (nonatomic) FlashcardView *cardDisplay;
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 
-- (void) createCardBothSides: (CGRect) frame withFront: (NSString *) frontString withBack: (NSString *) backString isFlipped:(BOOL)isFlipped;
-- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
 
 @end
 

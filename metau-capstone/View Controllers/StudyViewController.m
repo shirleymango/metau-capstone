@@ -13,15 +13,10 @@
 #import "Schedule.h"
 #import "Utilities.h"
 #import "CircleProgressBar.h"
+#import "FlashcardView.h"
 
 @interface StudyViewController ()
-@property (nonatomic, strong) CALayer *front;
-@property (nonatomic, strong) CALayer *back;
-@property (nonatomic, strong) CATextLayer *frontText;
-@property (nonatomic, strong) CATextLayer *backText;
-@property (nonatomic, strong) CABasicAnimation *rotateAnim;
-@property (nonatomic) CATransform3D horizontalFlip;
-@property (nonatomic) BOOL isFlipped;
+@property (nonatomic) FlashcardView *flashcard;
 @property (nonatomic, strong) NSArray<Flashcard *> *arrayOfCards;
 @property (nonatomic, assign) NSInteger counter;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
@@ -39,11 +34,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.flashcard = [[FlashcardView alloc] initWithText:CGRectMake(0, 0, 300, 180) withFront:@"front" withBack:@"back" isFlipped:NO];
+    self.flashcard.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    self.flashcard.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    [self.view addSubview:self.flashcard];
+    
     PFUser *const user = [PFUser currentUser];
-    
-    [self createCardBothSides];
-    [self createFlipAnimation];
-    
     self.prevFinishedDate = user[@"prevFinishedDate"];
     
     self.percentFinished = [user[@"percentFinished"] doubleValue];
@@ -132,37 +128,6 @@
     return constraintForCards;
 }
 
-- (void) createCardBothSides {
-    // BACK SIDE
-    self.back = [[CALayer alloc] init];
-    self.backText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.back withText:self.backText withBackgroundColor:[UIColor blackColor] withTextColor:[UIColor whiteColor]];
-    // FRONT SIDE
-    self.front = [[CALayer alloc] init];
-    self.frontText = [[CATextLayer alloc] init];
-    [self createCardOneSide:self.front withText:self.frontText withBackgroundColor:[UIColor whiteColor] withTextColor:[UIColor blackColor]];
-}
-
-- (void) createCardOneSide: (CALayer *)side withText: (CATextLayer *) text withBackgroundColor: (UIColor *) bgColor withTextColor: (UIColor *) textColor {
-    side.frame = CGRectMake(0, 0, 300, 180);
-    side.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    side.backgroundColor = [bgColor CGColor];
-    [text setFont:@"Helvetica-Bold"];
-    [text setFontSize:20];
-    [text setAlignmentMode:kCAAlignmentCenter];
-    text.wrapped = YES;
-    [text setFrame:CGRectMake(0, 0, 300, 180)];
-    [text setForegroundColor:[textColor CGColor]];
-    [side addSublayer:text];
-}
-
-- (void) createFlipAnimation {
-    self.rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    self.rotateAnim.fromValue = [NSNumber numberWithFloat:0];
-    self.rotateAnim.toValue = [NSNumber numberWithFloat:(M_PI)];
-    self.rotateAnim.duration = 0.8;
-    self.horizontalFlip = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-}
 
 - (NSString *) todayDate {
     NSLocale* currentLocale = [NSLocale currentLocale];
@@ -174,8 +139,8 @@
 }
 
 - (void) loadFlashcard {
-    if (self.isFlipped) {
-        [self flipAction:self.back to:self.front];
+    if (self.flashcard.isFlipped) {
+        [self.flashcard flipAction:self.flashcard.back to:self.flashcard.front];
     }
     if (self.counter < self.arrayOfCards.count) {
         self.leftButton.hidden = NO;
@@ -187,13 +152,7 @@
         if (!card.toBeReviewed) {
             [self loadNextCard];
         } else {
-            // BACK SIDE
-            [self.backText setString:card.backText];
-            self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-            [self.view.layer addSublayer:self.back];
-            // FRONT SIDE
-            [self.frontText setString:card.frontText];
-            [self.view.layer addSublayer:self.front];
+            [self.flashcard updateTextOnCard:card.frontText withBack:card.backText];
         }
     } else {
         // End of stack
@@ -215,34 +174,14 @@
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
     self.congratsLabel.hidden = YES;
-    
-    // BACK SIDE
-    // add text label to the flashcard
-    [self.backText setString:@"Come back afterwards to study your cards :)"];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.view.layer addSublayer:self.back];
-    
-    // FRONT SIDE
-    // add text label to the flashcard
-    [self.frontText setString:@"You have no cards yet! \r Add cards by going to the Create tab."];
-    [self.view.layer addSublayer:self.front];
+    [self.flashcard updateTextOnCard:@"You have no cards yet! \r Add cards by going to the Create tab." withBack:@"Come back afterwards to study your cards :)"];
 }
 
 - (void) endScreen {
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
     self.congratsLabel.hidden = NO;
-    
-    // BACK SIDE
-    // add text label to the flashcard
-    [self.backText setString:@"Come back tomorrow for your new stack :-)"];
-    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.view.layer addSublayer:self.back];
-    
-    // FRONT SIDE
-    // add text label to the flashcard
-    [self.frontText setString:@"You finished studying today's cards!"];
-    [self.view.layer addSublayer:self.front];
+    [self.flashcard updateTextOnCard:@"You finished studying today's cards!" withBack:@"Come back tomorrow for your new stack :-)"];
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {
@@ -269,19 +208,12 @@
 }
 
 - (IBAction)didTapScreen:(UITapGestureRecognizer *)sender {
-    if (!self.isFlipped) {
-        [self flipAction:self.front to:self.back];
+    if (!self.flashcard.isFlipped) {
+        [self.flashcard flipAction:self.flashcard.front to:self.flashcard.back];
     } else {
-        [self flipAction:self.back to:self.front];
+        [self.flashcard flipAction:self.flashcard.back to:self.flashcard.front];
     }
-}
-
-- (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
-    firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    secondSide.transform = CATransform3DRotate(self.horizontalFlip, M_PI, 0, 1, 0);
-    secondSide.zPosition = 10;
-    firstSide.zPosition = 0;
-    self.isFlipped = !self.isFlipped;
+    self.flashcard.isFlipped = !self.flashcard.isFlipped;
 }
 
 - (void) resetCard: (Flashcard *) card {

@@ -10,8 +10,10 @@
 #import "PreviewCell.h"
 #import "APIManager.h"
 #import "Parse/Parse.h"
-#import "PreviewCard.h"
 #import "Flashcard.h"
+#import "ImportViewController.h"
+#import "PreviewFlashcard.h"
+#import "FlashcardView.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -29,27 +31,11 @@
     [super viewDidLoad];
     self.previewCarousel.dataSource = self;
     self.previewCarousel.delegate = self;
-    self.frontTextField.hidden = YES;
-    self.backTextField.hidden = YES;
-    self.frontTextLabel.hidden = YES;
-    self.backTextLabel.hidden = YES;
+    [self hideEditLabels];
     self.previewCards = [NSMutableArray new];
     
-    // Fetch the preview cards by the current user
-    PFUser *const user = [PFUser currentUser];
-    PFQuery *query = [PFQuery queryWithClassName:@"PreviewCard"];
-    [query whereKey:@"userID" equalTo:user.objectId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (!error) {
-            NSLog(@"fetched preview cards");
-            for (PreviewCard *card in objects) {
-                [self.previewCards addObject:card];
-            }
-            [self.previewCarousel reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    self.previewCards = [APIManager shared].previewFlashcards;
+    [self.previewCarousel reloadData];
     
     [self.frontTextField addTarget:self action:@selector(frontTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.backTextField addTarget:self action:@selector(backTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -63,7 +49,7 @@
     sceneDelegate.window.rootViewController = tabBarController;
     
     // Create flashcards
-    for (PreviewCard *card in self.previewCards) {
+    for (PreviewFlashcard *card in self.previewCards) {
         if (card.isSelected) {
             [Flashcard createCard:card.frontText withBack:card.backText withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (!error) {
@@ -106,22 +92,23 @@
 */
 - (void)frontTextFieldDidChange: (UIButton*)sender {
     self.editCardIsFlipped = NO;
-    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    PreviewFlashcard *card = self.previewCards[self.currentCellPath.row];
     card.frontText = self.frontTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (void)backTextFieldDidChange: (UIButton*)sender {
     self.editCardIsFlipped = YES;
-    PreviewCard *card = self.previewCards[self.currentCellPath.row];
+    PreviewFlashcard *card = self.previewCards[self.currentCellPath.row];
     card.backText = self.backTextField.text;
     [self.previewCarousel reloadItemsAtIndexPaths:@[self.currentCellPath]];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PreviewCell *cell = [self.previewCarousel dequeueReusableCellWithReuseIdentifier:@"PreviewCell" forIndexPath:indexPath];
-    PreviewCard *card = self.previewCards[indexPath.row];
-    [cell createCardBothSides:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
+    PreviewFlashcard *card = self.previewCards[indexPath.row];
+    cell.cardDisplay = [[FlashcardView alloc] initWithText:CGRectMake(10, 70, 270, 162) withFront:card.frontText withBack:card.backText isFlipped:self.editCardIsFlipped];
+    [cell addSubview:cell.cardDisplay];
     [self setActionForButton:cell.editButton withTag:indexPath.row withAction:@selector(didTapEdit:)];
     [self setActionForButton:cell.selectButton withTag:indexPath.row withAction:@selector(didTapSelect:)];
     [self toggleSelect:card.isSelected onButton:cell.selectButton];
@@ -134,7 +121,7 @@
 }
 
 - (void)didTapEdit:(UIButton*)sender {
-    PreviewCard *card = self.previewCards[sender.tag];
+    PreviewFlashcard *card = self.previewCards[sender.tag];
     self.frontTextLabel.hidden = NO;
     self.backTextLabel.hidden = NO;
     [self showTextField:self.frontTextField withText:card.frontText];
@@ -148,7 +135,7 @@
 }
 
 - (void)didTapSelect:(UIButton*)sender {
-    PreviewCard *card = self.previewCards[sender.tag];
+    PreviewFlashcard *card = self.previewCards[sender.tag];
     card.isSelected = !card.isSelected;
     [self toggleSelect:![sender isSelected] onButton:sender];
 }
@@ -159,13 +146,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PreviewCell *cell = (PreviewCell *)[self.previewCarousel cellForItemAtIndexPath:indexPath];
-    if (!cell.isFlipped) {
-        [cell flipAction:cell.front to:cell.back];
-        cell.isFlipped = !cell.isFlipped;
+    if (!cell.cardDisplay.isFlipped) {
+        [cell.cardDisplay flipAction:cell.cardDisplay.front to:cell.cardDisplay.back];
+        cell.cardDisplay.isFlipped = !cell.cardDisplay.isFlipped;
         NSLog(@"front to back");
     } else {
-        [cell flipAction:cell.back to:cell.front];
-        cell.isFlipped = !cell.isFlipped;
+        [cell.cardDisplay flipAction:cell.cardDisplay.back to:cell.cardDisplay.front];
+        cell.cardDisplay.isFlipped = !cell.cardDisplay.isFlipped;
         NSLog(@"back to front");
     }
 }
@@ -179,6 +166,13 @@
         [sender setImage: [UIImage systemImageNamed:@"circle"] forState:UIControlStateNormal];
         [sender setSelected:NO];
     }
+}
+
+- (void) hideEditLabels {
+    self.frontTextField.hidden = YES;
+    self.backTextField.hidden = YES;
+    self.frontTextLabel.hidden = YES;
+    self.backTextLabel.hidden = YES;
 }
 
 @end
