@@ -152,14 +152,7 @@
         if (!card.toBeReviewed) {
             [self loadNextCard];
         } else {
-            
-            // BACK SIDE
-            [self.flashcard.backText setString:card.backText];
-            self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-            [self.flashcard.layer addSublayer:self.flashcard.back];
-            // FRONT SIDE
-            [self.flashcard.frontText setString:card.frontText];
-            [self.flashcard.layer addSublayer:self.flashcard.front];
+            [self.flashcard updateTextOnCard:card.frontText withBack:card.backText];
         }
     } else {
         // End of stack
@@ -181,34 +174,14 @@
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
     self.congratsLabel.hidden = YES;
-    
-    // BACK SIDE
-    // add text label to the flashcard
-    [self.flashcard.backText setString:@"Come back afterwards to study your cards :)"];
-    self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.flashcard.layer addSublayer:self.flashcard.back];
-    
-    // FRONT SIDE
-    // add text label to the flashcard
-    [self.flashcard.frontText setString:@"You have no cards yet! \r Add cards by going to the Create tab."];
-    [self.flashcard.layer addSublayer:self.flashcard.front];
+    [self.flashcard updateTextOnCard:@"You have no cards yet! \r Add cards by going to the Create tab." withBack:@"Come back afterwards to study your cards :)"];
 }
 
 - (void) endScreen {
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
     self.congratsLabel.hidden = NO;
-    
-    // BACK SIDE
-    // add text label to the flashcard
-    [self.flashcard.backText setString:@"Come back tomorrow for your new stack :-)"];
-    self.flashcard.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
-    [self.flashcard.layer addSublayer:self.flashcard.back];
-    
-    // FRONT SIDE
-    // add text label to the flashcard
-    [self.flashcard.frontText setString:@"You finished studying today's cards!"];
-    [self.flashcard.layer addSublayer:self.flashcard.front];
+    [self.flashcard updateTextOnCard:@"You finished studying today's cards!" withBack:@"Come back tomorrow for your new stack :-)"];
 }
 
 - (IBAction)didTapRight:(UIButton *)sender {

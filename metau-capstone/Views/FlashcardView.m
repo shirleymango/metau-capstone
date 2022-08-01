@@ -35,6 +35,19 @@
     return self;
 }
 
+- (void) updateTextOnCard:(NSString *)frontString withBack:(NSString *)backString {
+    // BACK SIDE
+    // add text label to the flashcard
+    [self.backText setString:backString];
+    self.back.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
+    [self.layer addSublayer:self.back];
+    
+    // FRONT SIDE
+    // add text label to the flashcard
+    [self.frontText setString:frontString];
+    [self.layer addSublayer:self.front];
+}
+
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide{
     firstSide.transform = CATransform3DMakeRotation(M_PI, 0, -1, 0);
     secondSide.transform = CATransform3DRotate(CATransform3DMakeRotation(M_PI, 0, 1, 0), M_PI, 0, 1, 0);

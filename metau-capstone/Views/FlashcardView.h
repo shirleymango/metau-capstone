@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CATextLayer *backText;
 - (id) initWithText:(CGRect)frame withFront:(NSString *) frontString withBack:(NSString *)backString isFlipped:(BOOL)isFlipped;
 - (void) flipAction: (CALayer *) firstSide to: (CALayer *) secondSide;
+- (void) updateTextOnCard:(NSString *)frontString withBack:(NSString *)backString;
 @property (nonatomic) BOOL isFlipped;
 @end
 
