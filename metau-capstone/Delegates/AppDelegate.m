@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+@import FirebaseCore;
 
 @interface AppDelegate ()
 
@@ -30,6 +31,7 @@
     }];
 
     [Parse initializeWithConfiguration:config];
+    [FIRApp configure];
     return YES;
 }
 
