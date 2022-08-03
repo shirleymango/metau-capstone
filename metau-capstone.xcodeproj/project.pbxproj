@@ -30,6 +30,7 @@
 		8593CA91289B1C590034E40A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8593CA90289B1C590034E40A /* GoogleService-Info.plist */; };
 		8593CA92289B1C590034E40A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8593CA90289B1C590034E40A /* GoogleService-Info.plist */; };
 		8593CA93289B1C590034E40A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8593CA90289B1C590034E40A /* GoogleService-Info.plist */; };
+		8593CA96289B1F130034E40A /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 8593CA95289B1F130034E40A /* FirebaseDynamicLinks */; };
 		85CC1A8A28765C8100155F8A /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8928765C8100155F8A /* CreateViewController.m */; };
 		85CC1A8D28765C9000155F8A /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8C28765C9000155F8A /* ScheduleViewController.m */; };
 		85CC1A90287CA3C700155F8A /* Flashcard.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CC1A8F287CA3C700155F8A /* Flashcard.m */; };
@@ -117,6 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB9A846F40F31B2312705BAE /* Pods_metau_capstone.framework in Frameworks */,
+				8593CA96289B1F130034E40A /* FirebaseDynamicLinks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +314,9 @@
 			dependencies = (
 			);
 			name = "metau-capstone";
+			packageProductDependencies = (
+				8593CA95289B1F130034E40A /* FirebaseDynamicLinks */,
+			);
 			productName = "metau-capstone";
 			productReference = 858CB530286FA73C005805D1 /* metau-capstone.app */;
 			productType = "com.apple.product-type.application";
@@ -386,6 +391,9 @@
 				Base,
 			);
 			mainGroup = 858CB527286FA73C005805D1;
+			packageReferences = (
+				8593CA94289B1F130034E40A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 858CB531286FA73C005805D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -881,6 +889,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8593CA94289B1F130034E40A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8593CA95289B1F130034E40A /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8593CA94289B1F130034E40A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 858CB528286FA73C005805D1 /* Project object */;
 }
