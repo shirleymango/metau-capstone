@@ -34,14 +34,6 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-    if ([userActivity webpageURL] != nil) {
-        NSString *incomingURL = [userActivity webpageURL].absoluteString;
-        NSLog(@"Incoming URL is %@", incomingURL);
-    }
-    return YES;
-}
-
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSLog(@"open url through custom url scheme");
     FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
