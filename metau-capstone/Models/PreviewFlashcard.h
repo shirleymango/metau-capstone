@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Flashcard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (PreviewFlashcard *) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText;
 + (NSMutableArray *) createCardsFromDictionary: (NSDictionary *)dictionary;
++ (NSMutableArray *) createCardsFromArray: (NSArray<Flashcard *> *)array;
 @end
 
 NS_ASSUME_NONNULL_END

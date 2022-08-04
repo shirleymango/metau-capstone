@@ -6,7 +6,7 @@
 //
 
 #import "PreviewFlashcard.h"
-
+#import "Flashcard.h"
 @implementation PreviewFlashcard
 + (PreviewFlashcard *) createPreviewCard: ( NSString * _Nullable )frontText withBack: ( NSString * _Nullable )backText {
     PreviewFlashcard *newCard = [PreviewFlashcard new];
@@ -27,4 +27,13 @@
     return output;
 }
 
++ (NSMutableArray *) createCardsFromArray: (NSArray<Flashcard *> *)array {
+    NSMutableArray *output = [NSMutableArray new];
+    for (Flashcard * card in array) {
+        NSString * frontText = card.frontText;
+        NSString * backText = card.backText;
+        [output addObject:[PreviewFlashcard createPreviewCard:frontText withBack:backText]];
+    }
+    return output;
+}
 @end

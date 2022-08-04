@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-      
+    NSLog(@"in study page");
     self.flashcard = [[FlashcardView alloc] initWithText:CGRectMake(0, 0, 300, 180) withFront:@"front" withBack:@"back" isFlipped:NO];
     self.flashcard.back.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
     self.flashcard.front.position = CGPointMake(self.view.center.x, self.view.center.y - 50);
