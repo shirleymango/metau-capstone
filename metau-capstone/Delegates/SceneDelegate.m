@@ -9,6 +9,7 @@
 #import "Parse/Parse.h"
 #import "FirebaseDynamicLinks.h"
 #import "Flashcard.h"
+#import "PreviewFlashcard.h"
 
 @interface SceneDelegate ()
 
@@ -46,6 +47,7 @@
         if (!error) {
             for (Flashcard *card in cards) {
                 NSLog(@"%@", card.frontText);
+                
             }
         }
     }];
