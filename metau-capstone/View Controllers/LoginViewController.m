@@ -14,6 +14,7 @@
 @implementation LoginViewController
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"in login page");
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = YES;

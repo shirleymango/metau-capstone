@@ -7,6 +7,7 @@
 
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
+#import "FirebaseDynamicLinks.h"
 
 @interface SceneDelegate ()
 
@@ -30,6 +31,12 @@
     }
 }
 
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    NSLog(@"scene delegate");
+    NSURL *url = [URLContexts allObjects][0].URL;
+    NSArray *queryPair = [url.query componentsSeparatedByString:@"="];
+    NSLog(@"%@", queryPair[1]);
+}
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.
