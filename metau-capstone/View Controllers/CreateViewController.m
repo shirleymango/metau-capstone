@@ -61,7 +61,7 @@
 - (IBAction)didTapShare:(id)sender {
     NSString *url=@"http://itunes.apple.com/us/app/APPNAME/idXXXXXXXXX";
     NSString * title =[NSString stringWithFormat:@"Share my flashcards to a friend"];
-    NSArray* dataToShare = @[title];
+    NSArray* dataToShare = @[title, url];
     UIActivityViewController* activityViewController =[[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
     if (activityViewController == nil){
         return;
