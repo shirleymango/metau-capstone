@@ -7,7 +7,6 @@
 
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
-#import "FirebaseDynamicLinks.h"
 #import "Flashcard.h"
 #import "PreviewFlashcard.h"
 #import "APIManager.h"
@@ -36,7 +35,6 @@
     NSURL *url = [URLContexts allObjects][0].URL;
     NSArray *queryPair = [url.query componentsSeparatedByString:@"="];
     NSString *userID = queryPair[1];
-    
     // Construct Query for Flashcards
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     [query whereKey:@"userID" equalTo:userID];

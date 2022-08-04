@@ -7,7 +7,6 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
-#import "FirebaseDynamicLinks.h"
 
 @interface AppDelegate ()
 
