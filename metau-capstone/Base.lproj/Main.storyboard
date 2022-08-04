@@ -269,12 +269,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aef-hr-hdG">
-                                <rect key="frame" x="139" y="678" width="122" height="31"/>
+                                <rect key="frame" x="139" y="561" width="122" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Submit"/>
                                 <connections>
                                     <action selector="didTapSubmit:" destination="CyV-c1-3Q2" eventType="touchUpInside" id="B9o-Yc-Qz0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozu-fe-fbZ">
+                                <rect key="frame" x="108" y="640" width="184" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Share My Cards!"/>
+                                <connections>
+                                    <action selector="didTapShare:" destination="CyV-c1-3Q2" eventType="touchUpInside" id="3Mw-qu-Srh"/>
                                 </connections>
                             </button>
                         </subviews>
