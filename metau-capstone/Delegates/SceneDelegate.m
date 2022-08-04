@@ -26,8 +26,6 @@
     PFUser *user = [PFUser currentUser];
     if (user != nil) {
         NSLog(@"Welcome back %@ 😀", user.username);
-
-        // Load Chat view controller and set as root view controller
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *tabBarNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
         self.window.rootViewController = tabBarNavigationController;
@@ -35,10 +33,8 @@
 }
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
-    NSLog(@"scene delegate");
     NSURL *url = [URLContexts allObjects][0].URL;
     NSArray *queryPair = [url.query componentsSeparatedByString:@"="];
-    NSLog(@"%@", queryPair[1]);
     NSString *userID = queryPair[1];
     
     // Construct Query for Flashcards
@@ -46,7 +42,12 @@
     [query whereKey:@"userID" equalTo:userID];
     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError * _Nullable error) {
         if (!error) {
+            // Create array of Preview Cards
             [APIManager shared].previewFlashcards = [PreviewFlashcard createCardsFromArray:cards];
+            // Set view controller to preview view controller
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UINavigationController *previewNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewNavigationController"];
+            self.window.rootViewController = previewNavigationController;
         }
     }];
 }
