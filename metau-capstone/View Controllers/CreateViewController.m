@@ -59,7 +59,15 @@
 
 
 - (IBAction)didTapShare:(id)sender {
-    NSString *url=@"http://itunes.apple.com/us/app/APPNAME/idXXXXXXXXX";
+    NSURL *url= [[NSURL alloc] init];
+    PFUser *const user = [PFUser currentUser];
+    // Construct URL
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"com.shirleyzhu.metau-capstone";
+    components.host = @"floofcards";
+    components.query = [@"userID=" stringByAppendingFormat:@"%@", user.objectId];
+    url = components.URL;
+    // Add share feature
     NSString * title =[NSString stringWithFormat:@"Share my flashcards to a friend"];
     NSArray* dataToShare = @[title, url];
     UIActivityViewController* activityViewController =[[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
