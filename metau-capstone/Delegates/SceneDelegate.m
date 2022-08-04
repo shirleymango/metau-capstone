@@ -10,6 +10,7 @@
 #import "FirebaseDynamicLinks.h"
 #import "Flashcard.h"
 #import "PreviewFlashcard.h"
+#import "APIManager.h"
 
 @interface SceneDelegate ()
 
@@ -45,10 +46,7 @@
     [query whereKey:@"userID" equalTo:userID];
     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError * _Nullable error) {
         if (!error) {
-            for (Flashcard *card in cards) {
-                NSLog(@"%@", card.frontText);
-                
-            }
+            [APIManager shared].previewFlashcards = [PreviewFlashcard createCardsFromArray:cards];
         }
     }];
 }
