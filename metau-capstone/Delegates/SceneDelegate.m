@@ -8,6 +8,7 @@
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
 #import "FirebaseDynamicLinks.h"
+#import "Flashcard.h"
 
 @interface SceneDelegate ()
 
@@ -36,6 +37,18 @@
     NSURL *url = [URLContexts allObjects][0].URL;
     NSArray *queryPair = [url.query componentsSeparatedByString:@"="];
     NSLog(@"%@", queryPair[1]);
+    NSString *userID = queryPair[1];
+    
+    // Construct Query for Flashcards
+    PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
+    [query whereKey:@"userID" equalTo:userID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError * _Nullable error) {
+        if (!error) {
+            for (Flashcard *card in cards) {
+                NSLog(@"%@", card.frontText);
+            }
+        }
+    }];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
