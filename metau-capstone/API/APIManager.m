@@ -29,7 +29,6 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
 
 - (instancetype)init {
     self.baseURL = [NSURL URLWithString:baseURLString];
-    self.previewFlashcards = [NSMutableArray new];
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     self.APIkey = [dict objectForKey: @"google_sheets_api_key"];
@@ -38,17 +37,16 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     return self;
 }
 
-- (void) getSheetsData: (NSString *) pathParameters withCompletion: (void(^)(NSError *error))completion {
+- (void) getSheetsData: (NSString *) pathParameters withCompletion: (void(^)(NSDictionary * dictionary, NSError *error))completion {
     NSDictionary *parameters = @{@"key": self.APIkey};
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSString *endURLString = [@"v4/spreadsheets/" stringByAppendingString:pathParameters];
     [manager GET:endURLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable sheetDictionary) {
         // Success
-        [PreviewManager shared].previewFlashcards = [PreviewFlashcard createCardsFromDictionary:sheetDictionary];
-        completion(nil);
+        completion(sheetDictionary, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        completion(error);
+        completion(nil, error);
         NSLog(@":''(");
     }];
     

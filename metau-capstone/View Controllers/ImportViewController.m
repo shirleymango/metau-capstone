@@ -9,7 +9,8 @@
 #import "APIManager.h"
 #import "SceneDelegate.h"
 #import "PreviewViewController.h"
-
+#import "PreviewManager.h"
+#import "PreviewFlashcard.h"
 @interface ImportViewController ()
 
 @end
@@ -25,8 +26,9 @@
     NSString *pathParameters = [self pathParameters];
     NSString *const invalid = @"invalid";
     if (![pathParameters isEqualToString:invalid]) {
-        [[APIManager shared] getSheetsData:pathParameters withCompletion:^(NSError *error) {
+        [[APIManager shared] getSheetsData:pathParameters withCompletion:^(NSDictionary *sheetDictionary, NSError *error) {
             if (!error) {
+                [PreviewManager shared].previewFlashcards = [PreviewFlashcard createCardsFromDictionary:sheetDictionary];
                 SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UINavigationController *previewNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewNavigationController"];
