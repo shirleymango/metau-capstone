@@ -31,7 +31,7 @@ static NSString * const baseURLString = @"https://sheets.googleapis.com";
     self.previewFlashcards = [NSMutableArray new];
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    self.APIkey = [dict objectForKey: @"sheets_api_key"];
+    self.APIkey = [dict objectForKey: @"google_sheets_api_key"];
     NSLog(@"API: %@", self.APIkey);
     
     return self;

@@ -40,7 +40,7 @@
 	<string>ZuKS1LMhQrXcAWcQZxcHVPLYmACt7Ch5MrWCjH9v</string>
 	<key>parse_client_key</key>
 	<string>YwIx7wAKLuoj26jaqVky2xqMIoJAeklIY4ITXvTU</string>
-	<key>sheets_api_key</key>
+	<key>google_sheets_api_key</key>
 	<string>AIzaSyCNwn1AAi3X_hOFAqUN-0i2DMbthkAZ-8c</string>
 </dict>
 </plist>
