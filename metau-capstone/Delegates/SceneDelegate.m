@@ -32,8 +32,18 @@
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
     NSURL *url = [URLContexts allObjects][0].URL;
-    NSArray *queryPair = [url.query componentsSeparatedByString:@"="];
-    NSString *userID = queryPair[1];
+    NSArray *urlComponents = [url.query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *queryStringDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString *keyValuePair in urlComponents)
+    {
+        NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
+        NSString *key = [[pairComponents firstObject] stringByRemovingPercentEncoding];
+        NSString *value = [[pairComponents lastObject] stringByRemovingPercentEncoding];
+        [queryStringDictionary setObject:value forKey:key];
+    }
+    NSString *const userIDKey = @"userID";
+    NSString *userID = queryStringDictionary[userIDKey];
+    
     // Construct Query for Flashcards
     PFQuery *query = [PFQuery queryWithClassName:@"Flashcard"];
     [query whereKey:@"userID" equalTo:userID];
