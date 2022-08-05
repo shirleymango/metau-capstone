@@ -164,8 +164,6 @@
         PFUser *const user = [PFUser currentUser];
         // Update lastFinished date
         user[@"prevFinishedDate"] = dateString;
-        [user saveInBackground];
-        
         user[@"didStartReview"] = @NO;
         [user saveInBackground];
     }
@@ -190,7 +188,6 @@
     Flashcard *card = self.arrayOfCards[self.counter];
     // Update level
     [card incrementKey:@"levelNum"];
-    [card saveInBackground];
     // Update card as no longer needing to be reviewed
     card[@"toBeReviewed"] = @NO;
     [card saveInBackground];
