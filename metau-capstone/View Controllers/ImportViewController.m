@@ -23,7 +23,8 @@
 
 - (IBAction)didTapSubmitImport:(UIButton *)sender {
     NSString *pathParameters = [self pathParameters];
-    if (![pathParameters isEqualToString:@"invalid"]) {
+    NSString *const invalid = @"invalid";
+    if (![pathParameters isEqualToString:invalid]) {
         [[APIManager shared] getSheetsData:pathParameters withCompletion:^(NSError *error) {
             if (!error) {
                 SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
