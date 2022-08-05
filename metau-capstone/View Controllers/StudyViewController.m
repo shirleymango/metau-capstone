@@ -47,7 +47,6 @@
         if (![self isFirstTimeUser] && [user[@"didStartReview"] isEqual:@NO]) {
             // Increment day counter for the user
             [user incrementKey:@"userDay"];
-            [user saveInBackground];
             // Reset progress bar to zero percent
             user[@"percentFinished"] = @(0);
         }
@@ -84,7 +83,6 @@
                                         [cardToBeReviewed saveInBackground];
                                     }
                                     user[@"didStartReview"] = @YES;
-                                    [user saveInBackground];
                                 }
                                 // Display flashcards
                                 [self loadFlashcard];
@@ -104,6 +102,7 @@
         // Waiting for new cards
         [self endScreen];
     }
+    [user saveInBackground];
     self.percentFinished = [user[@"percentFinished"] doubleValue];
     [self.circleProgressBar setProgress:self.percentFinished animated:YES];
 }
@@ -164,8 +163,6 @@
         PFUser *const user = [PFUser currentUser];
         // Update lastFinished date
         user[@"prevFinishedDate"] = dateString;
-        [user saveInBackground];
-        
         user[@"didStartReview"] = @NO;
         [user saveInBackground];
     }
@@ -190,7 +187,6 @@
     Flashcard *card = self.arrayOfCards[self.counter];
     // Update level
     [card incrementKey:@"levelNum"];
-    [card saveInBackground];
     // Update card as no longer needing to be reviewed
     card[@"toBeReviewed"] = @NO;
     [card saveInBackground];
