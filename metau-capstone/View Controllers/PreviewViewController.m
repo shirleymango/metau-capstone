@@ -14,6 +14,7 @@
 #import "ImportViewController.h"
 #import "PreviewFlashcard.h"
 #import "FlashcardView.h"
+#import "PreviewManager.h"
 
 @interface PreviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCarousel;
@@ -34,7 +35,7 @@
     [self hideEditLabels];
     self.previewCards = [NSMutableArray new];
     
-    self.previewCards = [APIManager shared].previewFlashcards;
+    self.previewCards = [PreviewManager shared].previewFlashcards;
     [self.previewCarousel reloadData];
     
     [self.frontTextField addTarget:self action:@selector(frontTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

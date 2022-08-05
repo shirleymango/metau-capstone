@@ -9,8 +9,7 @@
 #import "Parse/Parse.h"
 #import "Flashcard.h"
 #import "PreviewFlashcard.h"
-#import "APIManager.h"
-
+#import "PreviewManager.h"
 @interface SceneDelegate ()
 
 @end
@@ -41,7 +40,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray<Flashcard *> *cards, NSError * _Nullable error) {
         if (!error) {
             // Create array of Preview Cards
-            [APIManager shared].previewFlashcards = [PreviewFlashcard createCardsFromArray:cards];
+            [PreviewManager shared].previewFlashcards = [PreviewFlashcard createCardsFromArray:cards];
             // Set view controller to preview view controller
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UINavigationController *previewNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewNavigationController"];
