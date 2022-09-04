@@ -15,6 +15,10 @@ Shirley's Original App Design Project
 7. [Visuals & Interactions](#Visuals--Interactions)
 
 ## Overview
+### Video Demo
+https://user-images.githubusercontent.com/44847817/188294351-86191045-caf3-453d-8735-ca36e79932d8.mp4
+
+
 ### Description
 
 The brain is like any other muscle that needs to be trained. Forget Quizlet and welcome a new study tool that you can use to memorize nearly anything! This flashcards app uses *spaced repetition*. Spaced repetition is a technique where the user recalls a fact repeatedly over time. Actively recalling a memory decreases the rate of decay and we want to boost our curve of memory again and again until the fact is ingrained in our memory.
